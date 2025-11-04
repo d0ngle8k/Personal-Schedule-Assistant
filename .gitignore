@@ -1,0 +1,34 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+.venv/
+venv/
+
+# PyInstaller
+/dist/
+/build/
+*.spec
+
+# Database file
+/database/*.db
+
+# Editor/IDE
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Caches & logs
+.pytest_cache/
+.mypy_cache/
+.coverage
+*.log
+
+# Local exports
+/schedule_export.json
+/schedule_export.ics

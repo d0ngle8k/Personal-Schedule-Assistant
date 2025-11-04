@@ -1,0 +1,6 @@
+underthesea
+dateparser
+tkcalendar
+ics
+pyinstaller
+babel
