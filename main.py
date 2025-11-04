@@ -51,12 +51,14 @@ class Application(tk.Tk):
         self.control_frame = control_frame
 
         # Input
-        ttk.Label(input_frame, text="Nhập lệnh:").pack(side='left', padx=(0, 8))
+        ttk.Label(input_frame, text="Lập lịch:").pack(side='left', padx=(0, 8))
         self.nlp_entry = ttk.Entry(input_frame)
         self.nlp_entry.pack(side='left', fill='x', expand=True)
         # Limit NLP input to 100 characters
         self.nlp_entry.config(validate='key', validatecommand=(self.register(lambda s: len(s) <= 100), '%P'))
         ttk.Button(input_frame, text="Thêm sự kiện", command=self.handle_add_event).pack(side='left', padx=(8, 0))
+        ttk.Button(input_frame, text="Sửa", command=self.handle_edit_start).pack(side='left', padx=(8, 0))
+        ttk.Button(input_frame, text="Xóa", command=self.handle_delete_event).pack(side='left', padx=(8, 0))
 
         # Search controls
         ttk.Label(search_frame, text="Tìm:").pack(side='left', padx=(0, 8))
@@ -99,8 +101,6 @@ class Application(tk.Tk):
         self.tree.pack(fill='both', expand=True)
 
         # Controls
-        ttk.Button(control_frame, text="Sửa", command=self.handle_edit_start).pack(side='left', padx=4)
-        ttk.Button(control_frame, text="Xóa", command=self.handle_delete_event).pack(side='left', padx=4)
         ttk.Button(control_frame, text="Nhập JSON", command=self.handle_import_json).pack(side='right', padx=4)
         ttk.Button(control_frame, text="Nhập ICS", command=self.handle_import_ics).pack(side='right', padx=4)
         ttk.Button(control_frame, text="Xuất JSON", command=self.handle_export_json).pack(side='right', padx=4)
