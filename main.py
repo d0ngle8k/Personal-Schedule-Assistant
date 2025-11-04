@@ -86,17 +86,19 @@ class Application(tk.Tk):
         # Treeview
         tree_wrap = ttk.Frame(main_frame)
         tree_wrap.grid(row=0, column=1, sticky='nsew')
-        cols = ('id', 'event_name', 'time', 'location')
+        cols = ('id', 'event_name', 'time', 'remind', 'location')
         self.tree = ttk.Treeview(tree_wrap, columns=cols, show='headings')
         # Center headings
         self.tree.heading('id', text='ID', anchor='center')
         self.tree.heading('event_name', text='Sự kiện', anchor='center')
         self.tree.heading('time', text='Thời gian', anchor='center')
+        self.tree.heading('remind', text='Nhắc tôi', anchor='center')
         self.tree.heading('location', text='Địa điểm', anchor='center')
         # Center column contents
         self.tree.column('id', width=50, stretch=False, anchor='center')
-        self.tree.column('event_name', width=360, anchor='center')
-        self.tree.column('time', width=120, anchor='center')
+        self.tree.column('event_name', width=330, anchor='center')
+        self.tree.column('time', width=110, anchor='center')
+        self.tree.column('remind', width=80, anchor='center')
         self.tree.column('location', width=180, anchor='center')
         self.tree.pack(fill='both', expand=True)
 
@@ -275,14 +277,16 @@ class Application(tk.Tk):
             self.tree.delete(item)
         for ev in events:
             time_str = (ev['start_time'] or '')[11:16] if ev.get('start_time') else ''
-            self.tree.insert('', 'end', values=(ev['id'], ev['event_name'], time_str, ev.get('location') or ''))
+            remind_str = 'Có' if (ev.get('reminder_minutes') or 0) > 0 else 'Không'
+            self.tree.insert('', 'end', values=(ev['id'], ev['event_name'], time_str, remind_str, ev.get('location') or ''))
 
     def _render_events(self, events):
         for item in self.tree.get_children():
             self.tree.delete(item)
         for ev in events:
             time_str = (ev.get('start_time') or '')[11:16] if ev.get('start_time') else ''
-            self.tree.insert('', 'end', values=(ev.get('id'), ev.get('event_name'), time_str, ev.get('location') or ''))
+            remind_str = 'Có' if (ev.get('reminder_minutes') or 0) > 0 else 'Không'
+            self.tree.insert('', 'end', values=(ev.get('id'), ev.get('event_name'), time_str, remind_str, ev.get('location') or ''))
 
     def handle_search(self):
         mode = self.search_mode_var.get()
