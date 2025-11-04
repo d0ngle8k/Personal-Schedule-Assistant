@@ -54,6 +54,8 @@ class Application(tk.Tk):
         ttk.Label(input_frame, text="Nhập lệnh:").pack(side='left', padx=(0, 8))
         self.nlp_entry = ttk.Entry(input_frame)
         self.nlp_entry.pack(side='left', fill='x', expand=True)
+        # Limit NLP input to 100 characters
+        self.nlp_entry.config(validate='key', validatecommand=(self.register(lambda s: len(s) <= 100), '%P'))
         ttk.Button(input_frame, text="Thêm sự kiện", command=self.handle_add_event).pack(side='left', padx=(8, 0))
 
         # Search controls
@@ -69,6 +71,8 @@ class Application(tk.Tk):
         self.search_field.pack(side='left')
         self.search_entry = ttk.Entry(search_frame)
         self.search_entry.pack(side='left', padx=6, fill='x', expand=True)
+        # Limit search input to 100 characters
+        self.search_entry.config(validate='key', validatecommand=(self.register(lambda s: len(s) <= 100), '%P'))
         ttk.Button(search_frame, text="Tìm", command=self.handle_search).pack(side='left', padx=4)
         ttk.Button(search_frame, text="Xóa lọc", command=self.handle_clear_search).pack(side='left', padx=4)
 
@@ -146,20 +150,90 @@ class Application(tk.Tk):
 
     def handle_add_event(self):
         text = self.nlp_entry.get().strip()
+        
+        # Validate input length and format
         if not text:
             messagebox.showwarning("Đầu vào trống", "Vui lòng nhập một lệnh.")
             return
+        
+        if len(text) < 5:
+            messagebox.showwarning(
+                "Đầu vào không hợp lệ",
+                "Lệnh quá ngắn. Vui lòng nhập đầy đủ thông tin sự kiện."
+            )
+            return
+        
+        if len(text) > 100:
+            messagebox.showwarning(
+                "Đầu vào quá dài",
+                "Lệnh không được vượt quá 100 ký tự. Vui lòng rút gọn lại."
+            )
+            return
+        
         try:
             event_dict = self.nlp_pipeline.process(text)
-            if not event_dict.get('event') or not event_dict.get('start_time'):
-                messagebox.showerror("Phân tích thất bại", "Không thể trích xuất tên sự kiện hoặc thời gian.")
+            
+            # Strict validation: event name and start_time are mandatory
+            if not event_dict.get('event'):
+                messagebox.showerror(
+                    "Thiếu tên sự kiện",
+                    "Không thể xác định tên sự kiện.\n\n"
+                    "Ví dụ hợp lệ:\n"
+                    "• Họp nhóm lúc 10h sáng mai ở phòng 302\n"
+                    "• Đi khám bệnh 8:30 ngày mai tại bệnh viện\n"
+                    "• Gặp khách 14h thứ 2\n\n"
+                    "Vui lòng nhập lại với cấu trúc: [Sự kiện] + [Thời gian] + [Địa điểm (tùy chọn)]"
+                )
+                self.nlp_entry.focus()
                 return
+            
+            if not event_dict.get('start_time'):
+                messagebox.showerror(
+                    "Thiếu thông tin thời gian",
+                    "Không thể xác định thời gian.\n\n"
+                    "Ví dụ hợp lệ:\n"
+                    "• 10h sáng mai\n"
+                    "• 8:30 ngày mai\n"
+                    "• 14h thứ 2\n"
+                    "• 9:00 CN tuần sau\n\n"
+                    "Vui lòng nhập lại với thời gian rõ ràng."
+                )
+                self.nlp_entry.focus()
+                return
+            
+            # Warning for missing location (not blocking)
+            if not event_dict.get('location'):
+                response = messagebox.askyesno(
+                    "Thiếu địa điểm",
+                    f"Sự kiện: {event_dict['event']}\n"
+                    f"Thời gian: {event_dict['start_time'][:16]}\n\n"
+                    "Bạn chưa chỉ định địa điểm.\n"
+                    "Bạn có muốn tiếp tục không?",
+                    icon='warning'
+                )
+                if not response:
+                    self.nlp_entry.focus()
+                    return
+            
+            # Add event to database
             self.db_manager.add_event(event_dict)
             self.nlp_entry.delete(0, 'end')
             self.refresh_for_date(self.calendar.selection_get())
-            messagebox.showinfo("Thành công", "Đã thêm sự kiện.")
+            
+            # Success message with details
+            loc_text = event_dict.get('location') or '(không có)'
+            rem_text = f"{event_dict.get('reminder_minutes', 0)} phút" if event_dict.get('reminder_minutes') else "không"
+            messagebox.showinfo(
+                "Thành công",
+                f"Đã thêm sự kiện:\n\n"
+                f"• Tên: {event_dict['event']}\n"
+                f"• Thời gian: {event_dict['start_time'][:16]}\n"
+                f"• Địa điểm: {loc_text}\n"
+                f"• Nhắc trước: {rem_text}"
+            )
+            
         except Exception as e:
-            messagebox.showerror("Lỗi", f"Đã xảy ra lỗi: {e}")
+            messagebox.showerror("Lỗi xử lý", f"Đã xảy ra lỗi khi xử lý lệnh:\n{e}\n\nVui lòng thử lại.")
 
     def handle_date_select(self, _evt=None):
         # Nếu đang ở chế độ tìm kiếm, bỏ qua refresh theo ngày để không mất kết quả
