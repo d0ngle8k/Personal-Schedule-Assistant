@@ -151,19 +151,19 @@ class DatabaseManager:
             row = cur.fetchone()
             return dict(row) if row else None
 
-    def get_pending_reminders(self, now_iso: str) -> List[Dict[str, Any]]:
+    def get_pending_reminders(self) -> List[Dict[str, Any]]:
         """
-        Lấy tất cả sự kiện chưa được thông báo hoàn toàn (status = 'pending' hoặc 'reminded').
-        - 'pending': chưa popup lần nào.
-        - 'reminded': đã popup "nhắc trước", chờ popup "đúng giờ".
-        - 'notified': đã popup đúng giờ, không lấy nữa.
+        Lấy tất cả sự kiện chưa được thông báo hoàn toàn (status IN ('pending','reminded')).
+        Không lọc theo thời gian để đảm bảo:
+          - Sự kiện sắp diễn ra sẽ được nhắc trước nếu đủ điều kiện.
+          - Sự kiện đã tới giờ (hoặc trễ nhẹ) nhưng app mới mở vẫn sẽ được thông báo "đúng giờ" ngay lần kiểm tra kế tiếp.
         """
         sql = (
-            "SELECT * FROM events WHERE start_time > ? AND status IN ('pending', 'reminded') "
+            "SELECT * FROM events WHERE status IN ('pending', 'reminded') "
             "ORDER BY start_time ASC"
         )
         with self._conn() as conn:
-            cur = conn.execute(sql, (now_iso,))
+            cur = conn.execute(sql)
             return [dict(r) for r in cur.fetchall()]
 
     def update_event_status(self, event_id: int, new_status: str) -> None:

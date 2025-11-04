@@ -29,9 +29,8 @@ def check_reminders_loop(root_window, db_manager):
     while True:
         try:
             now = datetime.now()
-            # Normalize to seconds precision to avoid microsecond string-compare issues in SQLite
-            now_iso = now.replace(microsecond=0).isoformat()
-            events = db_manager.get_pending_reminders(now_iso)
+            # Lấy tất cả sự kiện còn ở trạng thái cần xử lý (pending/reminded)
+            events = db_manager.get_pending_reminders()
             
             for ev in events:
                 try:
@@ -50,21 +49,18 @@ def check_reminders_loop(root_window, db_manager):
                 status = ev.get('status', 'pending')
                 rem_min = int(ev.get('reminder_minutes') or 0)
                 
-                # Điều kiện 1: Thông báo "nhắc trước" (nếu có reminder_minutes > 0 và status='pending')
+                # Ưu tiên điều kiện 1: "đúng giờ" (khi đã tới giờ hoặc trễ) cho cả 'pending' và 'reminded'
+                if status in ('pending', 'reminded') and local_now >= start_time:
+                    root_window.after(0, show_popup_on_time, ev['event_name'], ev['start_time'])
+                    db_manager.update_event_status(ev['id'], 'notified')
+                    continue
+
+                # Điều kiện 2: "nhắc trước" (chỉ khi còn pending và có cấu hình nhắc)
                 if status == 'pending' and rem_min > 0:
                     reminder_time = start_time - timedelta(minutes=rem_min)
-                    if local_now >= reminder_time:
-                        # Popup "sắp diễn ra" (trước X phút)
+                    if local_now >= reminder_time and local_now < start_time:
                         root_window.after(0, show_popup_pre_reminder, ev['event_name'], ev['start_time'], rem_min)
                         db_manager.update_event_status(ev['id'], 'reminded')
-                        continue  # Chờ đến lần check tiếp theo để popup "đúng giờ"
-                
-                # Điều kiện 2: Thông báo "đúng giờ" (cho cả 'pending' và 'reminded')
-                if status in ('pending', 'reminded'):
-                    if local_now >= start_time:
-                        # Popup "đã đến giờ"
-                        root_window.after(0, show_popup_on_time, ev['event_name'], ev['start_time'])
-                        db_manager.update_event_status(ev['id'], 'notified')
                         
         except Exception as e:
             print(f"Lỗi trong luồng nhắc nhở: {e}")
