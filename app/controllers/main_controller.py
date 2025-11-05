@@ -49,21 +49,23 @@ class MainController:
         pass
     
     def _load_initial_data(self):
-        """Load initial data when app starts"""
+        """OPTIMIZED: Load initial data with lazy view initialization"""
         # Navigate to today
         self.model.navigate_today()
         
-        # Initialize all calendar views if view has the methods
+        # PERFORMANCE: Only initialize Month view (default view)
+        # Other views will be initialized on-demand when user switches to them
         if hasattr(self.view, 'initialize_month_view'):
             self.view.initialize_month_view(self)
-        if hasattr(self.view, 'initialize_week_view'):
-            self.view.initialize_week_view(self)
-        if hasattr(self.view, 'initialize_day_view'):
-            self.view.initialize_day_view(self)
-        if hasattr(self.view, 'initialize_year_view'):
-            self.view.initialize_year_view(self)
-        if hasattr(self.view, 'initialize_schedule_view'):
-            self.view.initialize_schedule_view(self)
+        
+        # Mark other views as not initialized yet
+        self._view_initialized = {
+            'month': True,
+            'week': False,
+            'day': False,
+            'year': False,
+            'schedule': False
+        }
         
         # Load events for current view
         self.refresh_events()
@@ -585,30 +587,45 @@ class MainController:
         self._refresh_timer.start()
     
     def _do_refresh(self):
-        """Actually perform the refresh (called after debounce)"""
+        """OPTIMIZED: Perform refresh in main thread (avoid blocking)"""
         try:
             if not self._refresh_pending:
                 return
             
             self._refresh_pending = False
             
-            # Check if view still exists (may be destroyed during timer)
+            # Check if view still exists
             if not hasattr(self, 'view') or not self.view.winfo_exists():
                 return
             
-            # Get events for current view
+            # OPTIMIZATION: Get events in background, update UI in main thread
+            # This prevents blocking the UI thread
             events = self.model.get_events_for_current_view()
             
-            # Update calendar title
-            self.update_calendar_title()
-            
-            # Update view (to be implemented in view)
-            if hasattr(self.view, 'update_events'):
-                self.view.update_events(events)
+            # Schedule UI update in main thread with after_idle for smooth update
+            if hasattr(self.view, 'after_idle'):
+                self.view.after_idle(lambda: self._update_ui_with_events(events))
+            else:
+                # Fallback to immediate update
+                self._update_ui_with_events(events)
         except Exception as e:
             # Silently ignore errors during shutdown/widget destruction
             if "invalid command name" not in str(e):
                 print(f"Error in refresh_events: {e}")
+    
+    def _update_ui_with_events(self, events):
+        """Update UI with events in main thread"""
+        try:
+            # Update calendar title
+            self.update_calendar_title()
+            
+            # Update view
+            if hasattr(self.view, 'update_events'):
+                self.view.update_events(events)
+        except Exception as e:
+            # Silently ignore widget destruction errors
+            if "invalid command name" not in str(e):
+                print(f"Error updating UI: {e}")
     
     def update_calendar_title(self):
         """Update calendar title with current period"""

@@ -597,12 +597,26 @@ class MainWindow(ctk.CTk):
     
     def show_view(self, view_type: str):
         """
-        ULTRA OPTIMIZED: Instant view switching with zero delay
-        Senior Frontend Approach: Pre-rendered views, instant switches
+        ULTRA OPTIMIZED: Instant view switching with LAZY INITIALIZATION
+        Only create views when first accessed - massive startup improvement
         
         Args:
             view_type: 'month', 'week', 'day', 'year', or 'schedule'
         """
+        # LAZY INITIALIZATION: Initialize view on-demand if not yet created
+        if self.controller and hasattr(self.controller, '_view_initialized'):
+            if not self.controller._view_initialized.get(view_type, False):
+                init_methods = {
+                    'week': 'initialize_week_view',
+                    'day': 'initialize_day_view',
+                    'year': 'initialize_year_view',
+                    'schedule': 'initialize_schedule_view'
+                }
+                method_name = init_methods.get(view_type)
+                if method_name and hasattr(self, method_name):
+                    getattr(self, method_name)(self.controller)
+                    self.controller._view_initialized[view_type] = True
+        
         # Map view types to view objects
         views = {
             'month': self.month_view,
