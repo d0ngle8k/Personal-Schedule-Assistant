@@ -1,6 +1,6 @@
 # 📅 Trợ Lý Lịch Trình Cá Nhân - NLP Tiếng Việt
 
-![Version](https://img.shields.io/badge/version-0.7.0-blue.svg)
+![Version](https://img.shields.io/badge/version-0.8.0-blue.svg)
 ![Python](https://img.shields.io/badge/python-3.12.0-green.svg)
 ![License](https://img.shields.io/badge/license-MIT-yellow.svg)
 ![Platform](https://img.shields.io/badge/platform-Windows-lightgrey.svg)
