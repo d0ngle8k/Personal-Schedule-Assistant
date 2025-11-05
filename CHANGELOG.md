@@ -1,5 +1,49 @@
 # TroLyLichTrinh - Release Notes
 
+## Version 0.7.0 (2025-11-05) 🎨 UI/UX + PERFORMANCE
+
+### 🎨 UI/UX Enhancements
+- **Dark Mode**: Complete light/dark theme support
+  - Theme toggle button (🌙/☀️) in topbar
+  - 94 color definitions (47 light + 47 dark)
+  - ThemeManager class with observer pattern
+  - Accessible color contrast in both modes
+- **Smooth Animations**: Professional transitions
+  - Fade animations for navigation (200ms)
+  - AnimationHelper with 6 animation methods
+  - 60 FPS target, non-blocking threading
+  - Ease-in-out transitions
+- **Enhanced Polish**: Modern, fluid UX
+
+### ⚡ Performance Optimizations (90-98% faster)
+- **Batch SQL Queries**: 42 → 1 query (98% reduction)
+- **Database Indexes**: 3 strategic indexes
+- **Cache Invalidation**: Smart event caching
+- **Debounced Refresh**: 15+ → 1 call
+- **Results**: Month 500ms → 50ms, Year 5000ms → 80ms
+
+### ✨ Complete Feature Set
+- Search Dialog (keyword-based)
+- Statistics Dashboard (charts + analytics)
+- Settings Dialog (Import/Export JSON/ICS)
+- 5 Calendar Views (Month/Week/Day/Year/Schedule)
+- NLP Event Creation (Vietnamese)
+- Database with indexes
+
+### 📚 Documentation
+- `PERFORMANCE_OPTIMIZATION.md` (optimization details)
+- `UI_UX_ANIMATIONS_COMPLETE.md` (implementation guide)
+- `UI_UX_TESTING_GUIDE.md` (12 test cases)
+
+### 🧹 Cleanup
+- Removed 19 old documentation files
+- Deleted 7 old executables (v0.1-0.6.1)
+- Removed 7 old .spec files
+- Cleaned build directories
+- Single v0.7 codebase
+
+---
+
 ## Version 0.6.1 (2025-11-05) 🔥 HOTFIX - CRITICAL BUG FIX
 
 ### 🐛 Critical Bug Fixed

@@ -73,6 +73,7 @@ class DatabaseManager:
         """
         # Check for time conflict
         start_time = event_dict.get('start_time')
+        
         if start_time:
             duplicates = self.check_duplicate_time(start_time)
             if duplicates:
@@ -84,16 +85,26 @@ class DatabaseManager:
         
         sql = (
             "INSERT INTO events (event_name, start_time, end_time, location, reminder_minutes) "
-            "VALUES (:event, :start_time, :end_time, :location, :reminder_minutes)"
+            "VALUES (:event_name, :start_time, :end_time, :location, :reminder_minutes)"
         )
         try:
             with self._conn() as conn:
                 conn.execute(sql, event_dict)
             return {'success': True}
         except sqlite3.IntegrityError as e:
+            import traceback
+            traceback.print_exc()
             return {
                 'success': False,
                 'error': 'integrity_error',
+                'message': str(e)
+            }
+        except Exception as e:
+            import traceback
+            traceback.print_exc()
+            return {
+                'success': False,
+                'error': 'unexpected_error',
                 'message': str(e)
             }
 
@@ -116,7 +127,7 @@ class DatabaseManager:
                 }
         
         sql = (
-            "UPDATE events SET event_name=:event, start_time=:start_time, end_time=:end_time, "
+            "UPDATE events SET event_name=:event_name, start_time=:start_time, end_time=:end_time, "
             "location=:location, reminder_minutes=:reminder_minutes WHERE id=:id"
         )
         data = dict(event_dict)
@@ -126,6 +137,8 @@ class DatabaseManager:
                 conn.execute(sql, data)
             return {'success': True}
         except sqlite3.IntegrityError as e:
+            import traceback
+            traceback.print_exc()
             return {
                 'success': False,
                 'error': 'integrity_error',
@@ -167,6 +180,31 @@ class DatabaseManager:
         sql = "SELECT * FROM events WHERE DATE(start_time)=? ORDER BY start_time"
         with self._conn() as conn:
             cur = conn.execute(sql, (date_str,))
+            return [dict(r) for r in cur.fetchall()]
+    
+    def get_events_by_date_range(self, start_date: date, end_date: date) -> List[Dict[str, Any]]:
+        """
+        Get all events within a date range using optimized SQL query.
+        
+        Args:
+            start_date: Start date (inclusive)
+            end_date: End date (inclusive)
+            
+        Returns:
+            List of event dictionaries
+        """
+        start_str = start_date.strftime('%Y-%m-%d')
+        end_str = end_date.strftime('%Y-%m-%d')
+        
+        # Use BETWEEN for efficient range query
+        sql = """
+            SELECT * FROM events 
+            WHERE DATE(start_time) BETWEEN ? AND ?
+            ORDER BY start_time
+        """
+        
+        with self._conn() as conn:
+            cur = conn.execute(sql, (start_str, end_str))
             return [dict(r) for r in cur.fetchall()]
 
     def get_all_events(self) -> List[Dict[str, Any]]:

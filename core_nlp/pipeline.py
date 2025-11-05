@@ -256,3 +256,69 @@ class NLPPipeline:
         loc2 = self.reminder_presence_regex.sub(' ', loc)
         loc2 = re.sub(r"\s{2,}", " ", loc2).strip(" ,.-").strip()
         return loc2 or None
+    
+    def parse_event(self, text: str) -> Optional[Dict[str, Any]]:
+        """
+        Parse Vietnamese text into event data (for UI integration)
+        
+        Args:
+            text: Vietnamese natural language text
+            
+        Returns:
+            Dict with keys: event, start_time (datetime), end_time (datetime), 
+            location, reminder_minutes, category
+        """
+        try:
+            # Process the text
+            result = self.process(text)
+            
+            if not result.get('event'):
+                return None
+            
+            # Convert ISO strings to datetime objects
+            from datetime import datetime
+            
+            start_dt = None
+            end_dt = None
+            
+            if result.get('start_time'):
+                try:
+                    start_dt = datetime.fromisoformat(result['start_time'])
+                except:
+                    pass
+            
+            if result.get('end_time'):
+                try:
+                    end_dt = datetime.fromisoformat(result['end_time'])
+                except:
+                    pass
+            
+            # Auto-detect category from event name
+            event_name = result['event'].lower()
+            category = 'other'
+            
+            # Category detection
+            if any(word in event_name for word in ['họp', 'meeting', 'gặp', 'phỏng vấn', 'làm việc']):
+                category = 'họp'
+            elif any(word in event_name for word in ['khám', 'bệnh', 'nha sĩ', 'bác sĩ']):
+                category = 'khám'
+            elif any(word in event_name for word in ['ăn', 'trưa', 'sáng', 'tối', 'cafe', 'cà phê']):
+                category = 'ăn'
+            elif any(word in event_name for word in ['học', 'lớp', 'bài']):
+                category = 'học'
+            elif any(word in event_name for word in ['gym', 'chạy', 'bơi', 'đá bóng', 'thể thao']):
+                category = 'thể thao'
+            elif any(word in event_name for word in ['phim', 'xem', 'chơi']):
+                category = 'giải trí'
+            
+            return {
+                'event': result['event'],
+                'start_time': start_dt,
+                'end_time': end_dt,
+                'location': result.get('location'),
+                'reminder_minutes': result.get('reminder_minutes', 0),
+                'category': category
+            }
+        except Exception as e:
+            print(f"Error in parse_event: {e}")
+            return None

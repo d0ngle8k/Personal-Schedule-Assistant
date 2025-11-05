@@ -1,18 +1,11 @@
-# 📅 Trợ Lý Lịch Trình Cá Nhân - NLP Tiếng Việt# 📅 Trợ Lý Lịch Trình Cá Nhân - NLP Tiếng Việt
+# 📅 Trợ Lý Lịch Trình Cá Nhân - NLP Tiếng Việt
 
+![Version](https://img.shields.io/badge/version-0.7.0-blue.svg)
+![Python](https://img.shields.io/badge/python-3.12.0-green.svg)
+![License](https://img.shields.io/badge/license-MIT-yellow.svg)
+![Platform](https://img.shields.io/badge/platform-Windows-lightgrey.svg)
 
-
-![Version](https://img.shields.io/badge/version-0.6.1-blue.svg)![Version](https://img.shields.io/badge/version-0.6.1-blue.svg)
-
-![Python](https://img.shields.io/badge/python-3.12.0-green.svg)![Python](https://img.shields.io/badge/python-3.12.0-green.svg)
-
-![License](https://img.shields.io/badge/license-MIT-yellow.svg)![License](https://img.shields.io/badge/license-MIT-yellow.svg)
-
-![Platform](https://img.shields.io/badge/platform-Windows-lightgrey.svg)![Platform](https://img.shields.io/badge/platform-Windows-lightgrey.svg)
-
-
-
-> Ứng dụng desktop thông minh sử dụng **NLP (Natural Language Processing)** để quản lý lịch trình bằng tiếng Việt tự nhiên. Hỗ trợ đầy đủ CRUD, nhắc nhở thông minh, thống kê chi tiết, và xuất báo cáo chuyên nghiệp.> Ứng dụng desktop thông minh sử dụng **NLP (Natural Language Processing)** để quản lý lịch trình bằng tiếng Việt tự nhiên. Hỗ trợ đầy đủ CRUD, nhắc nhở thông minh, thống kê chi tiết, và xuất báo cáo chuyên nghiệp.
+> Ứng dụng desktop thông minh sử dụng **NLP (Natural Language Processing)** để quản lý lịch trình bằng tiếng Việt tự nhiên. Hỗ trợ **Dark Mode**, **Animations**, **Performance Optimization** (90-98% nhanh hơn), thống kê chi tiết, và xuất báo cáo chuyên nghiệp.
 
 
 
