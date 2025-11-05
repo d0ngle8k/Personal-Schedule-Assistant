@@ -1,35 +1,23 @@
 {
-  "timestamp": "2025-11-05T14:23:42.665942",
+  "timestamp": "2025-11-05T14:41:13.583696",
   "summary": {
-    "total": 1000,
-    "passed": 996,
-    "failed": 4,
-    "pass_rate": "99.60%"
+    "total": 100,
+    "passed": 98,
+    "failed": 2,
+    "pass_rate": "98.00%"
   },
   "error_categories": {
-    "event_extraction": 3,
-    "time_extraction": 2
+    "event_extraction": 2,
+    "time_extraction": 1
   },
   "edge_case_results": {
     "mixed_case": {
-      "passed": 848,
-      "failed": 2
+      "passed": 89,
+      "failed": 1
     },
     "normal": {
       "passed": 9,
       "failed": 1
-    },
-    "special_chars": {
-      "passed": 105,
-      "failed": 0
-    },
-    "short_input": {
-      "passed": 30,
-      "failed": 1
-    },
-    "empty_input": {
-      "passed": 4,
-      "failed": 0
     }
   },
   "failed_tests": [
@@ -75,48 +63,6 @@
         "Time missing: expected time but got None"
       ],
       "category": "mixed_case"
-    },
-    {
-      "test_number": 124,
-      "input": "Gặp mặt 20h toi",
-      "expected": {
-        "event": "gặp mặt",
-        "time_str": "20h toi",
-        "location": null,
-        "reminder_minutes": 0
-      },
-      "actual": {
-        "event": "gặp mặ toi",
-        "start_time": "2025-11-05T20:00:00",
-        "end_time": null,
-        "location": null,
-        "reminder_minutes": 0
-      },
-      "errors": [
-        "Event mismatch: expected 'gặp mặt', got 'gặp mặ toi'"
-      ],
-      "category": "mixed_case"
-    },
-    {
-      "test_number": 996,
-      "input": "mai",
-      "expected": {
-        "event": null,
-        "time_str": "mai",
-        "location": null,
-        "reminder_minutes": 0
-      },
-      "actual": {
-        "event": "",
-        "start_time": null,
-        "end_time": null,
-        "location": null,
-        "reminder_minutes": 0
-      },
-      "errors": [
-        "Time missing: expected time but got None"
-      ],
-      "category": "short_input"
     }
   ]
 }
