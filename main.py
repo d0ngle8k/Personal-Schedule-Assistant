@@ -22,7 +22,7 @@ from services.import_service import import_from_json, import_from_ics
 class Application(tk.Tk):
     def __init__(self, database: DatabaseManager, nlp_pipeline: NLPPipeline):
         super().__init__()
-        self.title("Trợ lý Lịch trình Cá nhân")
+        self.title("Trợ lý Lịch trình Cá nhân made by d0ngle8k")
         self.geometry("960x720")
 
         self.db_manager = database
@@ -54,8 +54,8 @@ class Application(tk.Tk):
         ttk.Label(input_frame, text="Lập lịch:").pack(side='left', padx=(0, 8))
         self.nlp_entry = ttk.Entry(input_frame)
         self.nlp_entry.pack(side='left', fill='x', expand=True)
-        # Limit NLP input to 100 characters
-        self.nlp_entry.config(validate='key', validatecommand=(self.register(lambda s: len(s) <= 100), '%P'))
+        # Limit NLP input to 300 characters
+        self.nlp_entry.config(validate='key', validatecommand=(self.register(lambda s: len(s) <= 300), '%P'))
         ttk.Button(input_frame, text="Thêm sự kiện", command=self.handle_add_event).pack(side='left', padx=(8, 0))
         ttk.Button(input_frame, text="Sửa", command=self.handle_edit_start).pack(side='left', padx=(8, 0))
         ttk.Button(input_frame, text="Xóa", command=self.handle_delete_event).pack(side='left', padx=(8, 0))
@@ -165,10 +165,10 @@ class Application(tk.Tk):
             )
             return
         
-        if len(text) > 100:
+        if len(text) > 300:
             messagebox.showwarning(
                 "Đầu vào quá dài",
-                "Lệnh không được vượt quá 100 ký tự. Vui lòng rút gọn lại."
+                "Lệnh không được vượt quá 300 ký tự. Vui lòng rút gọn lại."
             )
             return
         
