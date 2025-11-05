@@ -331,13 +331,17 @@ class MainWindow(ctk.CTk):
         return str(self.current_date.year)
     
     def _toggle_sidebar(self):
-        """Toggle sidebar visibility"""
+        """ULTRA OPTIMIZED: Instant toggle without blocking"""
         if self.sidebar_visible:
-            self.sidebar.grid_forget()
+            # Use grid_remove() for instant hide (faster than grid_forget())
+            self.sidebar.grid_remove()
             self.sidebar_visible = False
         else:
+            # Show instantly
             self.sidebar.grid(row=1, column=0, sticky="nsw")
             self.sidebar_visible = True
+        
+        # NO update_idletasks() - it blocks UI and causes lag!
     
     def _go_to_today(self):
         """Navigate to today"""
@@ -405,14 +409,21 @@ class MainWindow(ctk.CTk):
         print("▶ Go to next period")
     
     def _change_view(self, selected_view):
-        """Change calendar view"""
-        view_key = [k for k, v in VIEW_TYPES.items() if v == selected_view][0]
-        self.current_view = view_key
+        """ULTRA OPTIMIZED: Instant view change with zero delay"""
+        # Fast lookup without list comprehension
+        view_key = None
+        for k, v in VIEW_TYPES.items():
+            if v == selected_view:
+                view_key = k
+                break
         
-        # Show the appropriate view
+        if not view_key:
+            return
+        
+        # INSTANT view switch - show_view is already optimized
         self.show_view(view_key)
         
-        print(f"🔄 Changed to {selected_view} view")
+        print(f"⚡ INSTANT: Changed to {selected_view} view")
     
     def _create_event(self):
         """Open create event dialog"""
@@ -586,44 +597,58 @@ class MainWindow(ctk.CTk):
     
     def show_view(self, view_type: str):
         """
-        Show specific calendar view (month, week, day, year, schedule)
+        ULTRA OPTIMIZED: Instant view switching with zero delay
+        Senior Frontend Approach: Pre-rendered views, instant switches
         
         Args:
             view_type: 'month', 'week', 'day', 'year', or 'schedule'
         """
-        # Hide all views
-        if self.month_view:
-            self.month_view.pack_forget()
-        if self.week_view:
-            self.week_view.pack_forget()
-        if self.day_view:
-            self.day_view.pack_forget()
-        if self.year_view:
-            self.year_view.pack_forget()
-        if self.schedule_view:
-            self.schedule_view.pack_forget()
+        # Map view types to view objects
+        views = {
+            'month': self.month_view,
+            'week': self.week_view,
+            'day': self.day_view,
+            'year': self.year_view,
+            'schedule': self.schedule_view
+        }
         
-        # Show selected view
-        if view_type == 'month' and self.month_view:
-            self.month_view.pack(fill='both', expand=True)
-            self.month_view.refresh()
-            self.update_period_title(self.month_view.get_current_period_text())
-        elif view_type == 'week' and self.week_view:
-            self.week_view.pack(fill='both', expand=True)
-            self.week_view.refresh()
-            self.update_period_title(self.week_view.get_current_period_text())
-        elif view_type == 'day' and self.day_view:
-            self.day_view.pack(fill='both', expand=True)
-            self.day_view.refresh()
-            self.update_period_title(self.day_view.get_current_period_text())
-        elif view_type == 'year' and self.year_view:
-            self.year_view.pack(fill='both', expand=True)
-            self.year_view.refresh()
-            self.update_period_title(self.year_view.get_current_period_text())
-        elif view_type == 'schedule' and self.schedule_view:
-            self.schedule_view.pack(fill='both', expand=True)
-            self.schedule_view.refresh()
-            self.update_period_title(self.schedule_view.get_current_period_text())
+        # Get current and new view
+        current_view = views.get(self.current_view)
+        new_view = views.get(view_type)
+        
+        if not new_view:
+            return
+        
+        # OPTIMIZATION 1: Skip if already showing this view
+        if view_type == self.current_view and new_view.winfo_ismapped():
+            return
+        
+        # OPTIMIZATION 2: Hide current view instantly (no animation)
+        if current_view and current_view.winfo_exists():
+            current_view.pack_forget()
+        
+        # OPTIMIZATION 3: Show new view immediately (instant feedback)
+        new_view.pack(fill='both', expand=True)
+        
+        # OPTIMIZATION 4: Update title immediately
+        self.update_period_title(new_view.get_current_period_text())
+        
+        # OPTIMIZATION 5: NO DELAY - refresh immediately in background
+        # Using after(0) instead of after(1) for instant execution
+        self.after(0, lambda: self._instant_refresh(new_view))
+        
+        # Update current view state
+        self.current_view = view_type
+    
+    def _instant_refresh(self, view):
+        """
+        Instant refresh without delay - view is already visible
+        """
+        try:
+            if view and view.winfo_exists():
+                view.refresh()
+        except Exception as e:
+            print(f"Instant refresh error: {e}")
     
     def update_period_title(self, text: str):
         """Update period title in top bar"""
@@ -632,12 +657,21 @@ class MainWindow(ctk.CTk):
     
     def update_events(self, events: list):
         """
-        Update calendar view with new events
+        OPTIMIZED: Update calendar views with cache invalidation
         Called by controller when events change
         
         Args:
             events: List of Event objects
         """
+        # Clear cache in all views since events changed
+        if self.month_view and hasattr(self.month_view, 'clear_cache'):
+            self.month_view.clear_cache()
+        if self.week_view and hasattr(self.week_view, 'clear_cache'):
+            self.week_view.clear_cache()
+        if self.day_view and hasattr(self.day_view, 'clear_cache'):
+            self.day_view.clear_cache()
+        
+        # Refresh views
         if self.month_view:
             self.month_view.refresh()
         if self.week_view:
@@ -648,7 +682,7 @@ class MainWindow(ctk.CTk):
             self.year_view.refresh()
         if self.schedule_view:
             self.schedule_view.refresh()
-        print(f"✅ Calendar updated with {len(events)} events")
+        print(f"✅ Calendar updated with {len(events)} events (cache cleared)")
 
 
 def main():

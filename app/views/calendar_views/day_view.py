@@ -27,6 +27,14 @@ class DayView(ctk.CTkFrame):
         self.controller = controller
         self.current_date = date.today()
         
+        # PERFORMANCE: Cache for instant view switching
+        self._events_cache = []
+        self._last_cache_key = None
+        
+        # WIDGET POOLING: Store event blocks for reuse
+        self._event_blocks = []
+        self._event_blocks_in_use = []
+        
         self._setup_ui()
     
     def _setup_ui(self):
@@ -164,15 +172,15 @@ class DayView(ctk.CTkFrame):
         self.date_label.configure(text=date_text)
     
     def _clear_event_blocks(self):
-        """Clear all event blocks from timeline"""
-        for row_data in self.hour_rows:
-            container = row_data['container']
-            for widget in container.winfo_children():
-                widget.destroy()
+        """OPTIMIZED: Hide event blocks for reuse (no destroy!)"""
+        for event_block in self._event_blocks_in_use:
+            event_block['frame'].place_forget()  # Hide
+            self._event_blocks.append(event_block)  # Return to pool
+        self._event_blocks_in_use = []  # Clear in-use list
     
     def _get_events_for_day(self) -> List:
         """
-        Get events for current day
+        ULTRA OPTIMIZED: Get events with smart caching
         
         Returns:
             List of Event objects
@@ -181,12 +189,25 @@ class DayView(ctk.CTkFrame):
             return []
         
         try:
+            # Generate cache key
+            cache_key = self.current_date.isoformat()
+            
+            # OPTIMIZATION: Return cached data if same day (instant!)
+            if cache_key == self._last_cache_key and self._events_cache:
+                return self._events_cache
+            
             events = self.controller.model.get_events_for_date_range(
                 self.current_date,
                 self.current_date
             )
             # Sort by start time
-            return sorted(events, key=lambda e: e.start_time if e.start_time else time(0, 0))
+            sorted_events = sorted(events, key=lambda e: e.start_time if e.start_time else time(0, 0))
+            
+            # CACHE the result
+            self._events_cache = sorted_events
+            self._last_cache_key = cache_key
+            
+            return sorted_events
         except Exception as e:
             print(f"Error getting events for day: {e}")
             return []
@@ -218,7 +239,7 @@ class DayView(ctk.CTkFrame):
     def _create_event_block(self, start_hour: int, start_minute: int, 
                            duration_hours: float, event):
         """
-        Create a detailed event block in the timeline
+        OPTIMIZED: Reuse event block from pool or create new
         
         Args:
             start_hour: Starting hour (0-23)
@@ -233,57 +254,101 @@ class DayView(ctk.CTkFrame):
         container = self.hour_rows[start_hour]['container']
         
         # Calculate vertical position and height
-        # Each hour container is 80px, position based on minutes
         y_offset = int((start_minute / 60) * 80)
-        block_height = max(60, int(duration_hours * 80))  # Min 60px for readability
+        block_height = max(60, int(duration_hours * 80))
         
-        # Get container width for block width calculation
+        # Get container width
         container.update_idletasks()
-        block_width = max(300, container.winfo_width() - 8)  # Leave 8px padding
+        block_width = max(300, container.winfo_width() - 8)
         
-        # Create event block
-        event_block = ctk.CTkFrame(
-            container,
-            width=block_width,
-            height=block_height,
-            fg_color=event.category_color,
-            corner_radius=8
-        )
-        
-        event_block.place(x=4, y=y_offset)
-        
-        # Event content container
-        content_frame = ctk.CTkFrame(
-            event_block,
-            fg_color='transparent'
-        )
-        content_frame.pack(fill='both', expand=True, padx=SPACING['sm'], pady=SPACING['sm'])
-        
-        # Event title
-        event_label = ctk.CTkLabel(
-            content_frame,
-            text=event.event_name,
-            font=FONTS['body_bold'],
-            text_color='white',
-            anchor='nw',
-            justify='left'
-        )
-        event_label.pack(anchor='nw', pady=(0, SPACING['xs']))
-        
-        # Time display
-        if event.start_time and event.end_time:
-            time_text = f"{event.start_time.strftime('%H:%M')} - {event.end_time.strftime('%H:%M')}"
+        # WIDGET POOLING: Reuse from pool or create new
+        if self._event_blocks:
+            # Reuse existing block
+            block_data = self._event_blocks.pop()
+            event_block = block_data['frame']
+            content_frame = block_data['content']
+            event_label = block_data['title']
+            time_label = block_data['time']
+            category_label = block_data['category']
+            
+            # Update properties
+            event_block.configure(
+                width=block_width,
+                height=block_height,
+                fg_color=event.category_color
+            )
+            event_label.configure(text=event.event_name)
+            
+            # Update time
+            if event.start_time and event.end_time:
+                time_text = f"{event.start_time.strftime('%H:%M')} - {event.end_time.strftime('%H:%M')}"
+                time_label.configure(text=time_text)
+                time_label.pack(anchor='nw', pady=(0, SPACING['xs']))
+            else:
+                time_label.pack_forget()
+            
+            # Update category
+            if block_height > 80:
+                category_label.configure(text=f"📁 {event.category}")
+                category_label.pack(anchor='nw')
+            else:
+                category_label.pack_forget()
+            
+            # Update click handler
+            try:
+                event_block.unbind("<Button-1>")
+                event_label.unbind("<Button-1>")
+            except:
+                pass
+            event_block.bind("<Button-1>", lambda e: self._on_event_click(event))
+            event_label.bind("<Button-1>", lambda e: self._on_event_click(event))
+            
+            # CRITICAL: Place widget in new container
+            event_block.place(x=4, y=y_offset, in_=container)
+            event_block.lift()
+            
+        else:
+            # Create new block with THIS VIEW as parent (allows flexible placement)
+            event_block = ctk.CTkFrame(
+                self,  # Parent is view itself, not container
+                width=block_width,
+                height=block_height,
+                fg_color=event.category_color,
+                corner_radius=8
+            )
+            
+            # Content container
+            content_frame = ctk.CTkFrame(
+                event_block,
+                fg_color='transparent'
+            )
+            content_frame.pack(fill='both', expand=True, padx=SPACING['sm'], pady=SPACING['sm'])
+            
+            # Title label
+            event_label = ctk.CTkLabel(
+                content_frame,
+                text=event.event_name,
+                font=FONTS['body_bold'],
+                text_color='white',
+                anchor='nw',
+                justify='left'
+            )
+            event_label.pack(anchor='nw', pady=(0, SPACING['xs']))
+            
+            # Time label
             time_label = ctk.CTkLabel(
                 content_frame,
-                text=time_text,
+                text="",
                 font=FONTS['small'],
                 text_color='white',
                 anchor='nw'
             )
-            time_label.pack(anchor='nw', pady=(0, SPACING['xs']))
-        
-        # Category (if height allows)
-        if block_height > 80:
+            if event.start_time and event.end_time:
+                time_text = f"{event.start_time.strftime('%H:%M')} - {event.end_time.strftime('%H:%M')}"
+                time_label.configure(text=time_text)
+                time_label.pack(anchor='nw', pady=(0, SPACING['xs']))
+            
+            # Category label
             category_label = ctk.CTkLabel(
                 content_frame,
                 text=f"📁 {event.category}",
@@ -291,11 +356,27 @@ class DayView(ctk.CTkFrame):
                 text_color='white',
                 anchor='nw'
             )
-            category_label.pack(anchor='nw')
+            if block_height > 80:
+                category_label.pack(anchor='nw')
+            
+            # Click handler
+            event_block.bind("<Button-1>", lambda e: self._on_event_click(event))
+            event_label.bind("<Button-1>", lambda e: self._on_event_click(event))
+            
+            # Store widget references
+            block_data = {
+                'frame': event_block,
+                'content': content_frame,
+                'title': event_label,
+                'time': time_label,
+                'category': category_label
+            }
+            
+            # Position block
+            event_block.place(x=4, y=y_offset, in_=container)
         
-        # Click handler
-        event_block.bind("<Button-1>", lambda e: self._on_event_click(event))
-        event_label.bind("<Button-1>", lambda e: self._on_event_click(event))
+        # Track as in-use
+        self._event_blocks_in_use.append(block_data)
     
     def _on_event_click(self, event):
         """Handle event block click"""
@@ -317,8 +398,13 @@ class DayView(ctk.CTkFrame):
         self.current_date = date.today()
         self.update_day()
     
+    def clear_cache(self):
+        """Clear events cache when data changes"""
+        self._events_cache = []
+        self._last_cache_key = None
+    
     def refresh(self):
-        """Refresh day view"""
+        """Refresh day view (uses cached data if available)"""
         self.update_day()
     
     def get_current_period_text(self) -> str:

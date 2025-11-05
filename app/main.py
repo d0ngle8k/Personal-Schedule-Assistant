@@ -20,6 +20,7 @@ def main():
     print("Trợ lý Lịch trình v0.7.0 (Google Calendar UI)")
     print("="*50)
     
+    controller = None
     try:
         # Create main window
         print("Initializing UI...")
@@ -32,6 +33,14 @@ def main():
         # Bind controller to view
         app.controller = controller
         
+        # Register cleanup on window close
+        def on_close():
+            if controller:
+                controller.on_app_close()
+            app.destroy()
+        
+        app.protocol("WM_DELETE_WINDOW", on_close)
+        
         print("✅ Application ready!")
         print("="*50)
         
@@ -40,11 +49,15 @@ def main():
         
     except KeyboardInterrupt:
         print("\n\nApplication interrupted by user")
+        if controller:
+            controller.on_app_close()
         sys.exit(0)
     except Exception as e:
         print(f"\n❌ Error starting application: {e}")
         import traceback
         traceback.print_exc()
+        if controller:
+            controller.on_app_close()
         sys.exit(1)
 
 

@@ -4,6 +4,8 @@ import sys
 import sqlite3
 from datetime import date
 from typing import List, Dict, Any
+import threading
+from queue import Queue, Empty
 
 DB_FILE = "events.db"
 
@@ -39,15 +41,99 @@ SCHEMA_PATH = _schema_file_path()
 
 
 class DatabaseManager:
+    """
+    Database manager with connection pooling for better multithreading performance
+    """
+    # Connection pool settings
+    MAX_POOL_SIZE = 10
+    POOL_TIMEOUT = 5.0
+    
     def __init__(self, db_path: str = DB_PATH) -> None:
         self.db_path = db_path
         os.makedirs(os.path.dirname(self.db_path), exist_ok=True)
+        
+        # Connection pool for thread-safe access
+        self._connection_pool = Queue(maxsize=self.MAX_POOL_SIZE)
+        self._pool_lock = threading.Lock()
+        self._pool_size = 0
+        
+        # Initialize connection pool with 3 connections
+        for _ in range(3):
+            self._create_connection()
+        
         self._create_table()
 
+    def _create_connection(self) -> None:
+        """Create a new connection and add to pool"""
+        with self._pool_lock:
+            if self._pool_size < self.MAX_POOL_SIZE:
+                conn = sqlite3.connect(
+                    self.db_path,
+                    check_same_thread=False,  # Allow multithreading
+                    timeout=30.0  # Long timeout for busy database
+                )
+                conn.row_factory = sqlite3.Row
+                # Enable WAL mode for better concurrent access
+                conn.execute("PRAGMA journal_mode=WAL")
+                conn.execute("PRAGMA synchronous=NORMAL")
+                self._connection_pool.put(conn)
+                self._pool_size += 1
+
+    def _get_connection(self) -> sqlite3.Connection:
+        """Get connection from pool (or create new if pool empty)"""
+        try:
+            # Try to get from pool with timeout
+            conn = self._connection_pool.get(timeout=self.POOL_TIMEOUT)
+            return conn
+        except Empty:
+            # Pool exhausted, create new connection if under limit
+            with self._pool_lock:
+                if self._pool_size < self.MAX_POOL_SIZE:
+                    conn = sqlite3.connect(
+                        self.db_path,
+                        check_same_thread=False,
+                        timeout=30.0
+                    )
+                    conn.row_factory = sqlite3.Row
+                    conn.execute("PRAGMA journal_mode=WAL")
+                    conn.execute("PRAGMA synchronous=NORMAL")
+                    self._pool_size += 1
+                    return conn
+                else:
+                    # Wait longer for available connection
+                    return self._connection_pool.get(timeout=30.0)
+
+    def _return_connection(self, conn: sqlite3.Connection) -> None:
+        """Return connection to pool"""
+        try:
+            self._connection_pool.put_nowait(conn)
+        except:
+            # Pool full, close connection
+            conn.close()
+            with self._pool_lock:
+                self._pool_size -= 1
+
     def _conn(self) -> sqlite3.Connection:
-        conn = sqlite3.connect(self.db_path)
-        conn.row_factory = sqlite3.Row
-        return conn
+        """Legacy method for backward compatibility - returns pooled connection"""
+        return self._get_connection()
+    
+    class _PooledConnection:
+        """Context manager for pooled connections"""
+        def __init__(self, manager):
+            self.manager = manager
+            self.conn = None
+        
+        def __enter__(self):
+            self.conn = self.manager._get_connection()
+            return self.conn
+        
+        def __exit__(self, exc_type, exc_val, exc_tb):
+            if self.conn:
+                if exc_type is None:
+                    self.conn.commit()
+                else:
+                    self.conn.rollback()
+                self.manager._return_connection(self.conn)
 
     def _create_table(self) -> None:
         """Create database table from schema.sql if not exists."""
@@ -59,7 +145,7 @@ class DatabaseManager:
                 f"_MEIPASS={getattr(sys, '_MEIPASS', 'NOT SET')}"
             )
         
-        with self._conn() as conn:
+        with self._PooledConnection(self) as conn:
             with open(SCHEMA_PATH, 'r', encoding='utf-8') as f:
                 conn.executescript(f.read())
 
@@ -88,7 +174,7 @@ class DatabaseManager:
             "VALUES (:event_name, :start_time, :end_time, :location, :reminder_minutes)"
         )
         try:
-            with self._conn() as conn:
+            with self._PooledConnection(self) as conn:
                 conn.execute(sql, event_dict)
             return {'success': True}
         except sqlite3.IntegrityError as e:
@@ -133,7 +219,7 @@ class DatabaseManager:
         data = dict(event_dict)
         data['id'] = event_id
         try:
-            with self._conn() as conn:
+            with self._PooledConnection(self) as conn:
                 conn.execute(sql, data)
             return {'success': True}
         except sqlite3.IntegrityError as e:
@@ -146,7 +232,7 @@ class DatabaseManager:
             }
 
     def delete_event(self, event_id: int) -> None:
-        with self._conn() as conn:
+        with self._PooledConnection(self) as conn:
             conn.execute("DELETE FROM events WHERE id=?", (event_id,))
             # Check if all events are deleted, if so reset the AUTOINCREMENT counter
             cur = conn.execute("SELECT COUNT(*) FROM events")
@@ -162,7 +248,7 @@ class DatabaseManager:
         Returns:
             int: Number of events deleted
         """
-        with self._conn() as conn:
+        with self._PooledConnection(self) as conn:
             # Count events before deletion
             cur = conn.execute("SELECT COUNT(*) FROM events")
             count = cur.fetchone()[0]
@@ -178,9 +264,13 @@ class DatabaseManager:
     def get_events_by_date(self, date_obj: date) -> List[Dict[str, Any]]:
         date_str = date_obj.strftime('%Y-%m-%d')
         sql = "SELECT * FROM events WHERE DATE(start_time)=? ORDER BY start_time"
-        with self._conn() as conn:
+        conn = self._get_connection()
+        try:
             cur = conn.execute(sql, (date_str,))
-            return [dict(r) for r in cur.fetchall()]
+            results = [dict(r) for r in cur.fetchall()]
+            return results
+        finally:
+            self._return_connection(conn)
     
     def get_events_by_date_range(self, start_date: date, end_date: date) -> List[Dict[str, Any]]:
         """
@@ -203,20 +293,31 @@ class DatabaseManager:
             ORDER BY start_time
         """
         
-        with self._conn() as conn:
+        conn = self._get_connection()
+        try:
             cur = conn.execute(sql, (start_str, end_str))
-            return [dict(r) for r in cur.fetchall()]
+            results = [dict(r) for r in cur.fetchall()]
+            return results
+        finally:
+            self._return_connection(conn)
 
     def get_all_events(self) -> List[Dict[str, Any]]:
-        with self._conn() as conn:
+        conn = self._get_connection()
+        try:
             cur = conn.execute("SELECT * FROM events ORDER BY start_time")
-            return [dict(r) for r in cur.fetchall()]
+            results = [dict(r) for r in cur.fetchall()]
+            return results
+        finally:
+            self._return_connection(conn)
 
     def get_event_by_id(self, event_id: int) -> Dict[str, Any] | None:
-        with self._conn() as conn:
+        conn = self._get_connection()
+        try:
             cur = conn.execute("SELECT * FROM events WHERE id=?", (event_id,))
             row = cur.fetchone()
             return dict(row) if row else None
+        finally:
+            self._return_connection(conn)
 
     def get_pending_reminders(self) -> List[Dict[str, Any]]:
         """
@@ -229,12 +330,16 @@ class DatabaseManager:
             "SELECT * FROM events WHERE status IN ('pending', 'reminded') "
             "ORDER BY start_time ASC"
         )
-        with self._conn() as conn:
+        conn = self._get_connection()
+        try:
             cur = conn.execute(sql)
-            return [dict(r) for r in cur.fetchall()]
+            results = [dict(r) for r in cur.fetchall()]
+            return results
+        finally:
+            self._return_connection(conn)
 
     def update_event_status(self, event_id: int, new_status: str) -> None:
-        with self._conn() as conn:
+        with self._PooledConnection(self) as conn:
             conn.execute("UPDATE events SET status=? WHERE id=?", (new_status, event_id))
 
     # --- Search helpers ---
@@ -248,9 +353,13 @@ class DatabaseManager:
             return []
         like = f"%{kw}%"
         sql = "SELECT * FROM events WHERE LOWER(event_name) LIKE ? ORDER BY start_time"
-        with self._conn() as conn:
+        conn = self._get_connection()
+        try:
             cur = conn.execute(sql, (like,))
-            return [dict(r) for r in cur.fetchall()]
+            results = [dict(r) for r in cur.fetchall()]
+            return results
+        finally:
+            self._return_connection(conn)
 
     def search_events_by_location(self, keyword: str) -> List[Dict[str, Any]]:
         kw = (keyword or '').strip().lower()
@@ -258,9 +367,13 @@ class DatabaseManager:
             return []
         like = f"%{kw}%"
         sql = "SELECT * FROM events WHERE location IS NOT NULL AND LOWER(location) LIKE ? ORDER BY start_time"
-        with self._conn() as conn:
+        conn = self._get_connection()
+        try:
             cur = conn.execute(sql, (like,))
-            return [dict(r) for r in cur.fetchall()]
+            results = [dict(r) for r in cur.fetchall()]
+            return results
+        finally:
+            self._return_connection(conn)
 
     # --- Duplicate checking helpers ---
     def check_duplicate_time(self, start_time_iso: str, exclude_id: int = None) -> List[Dict[str, Any]]:
@@ -292,6 +405,22 @@ class DatabaseManager:
             sql += " AND id != ?"
             params.append(exclude_id)
         
-        with self._conn() as conn:
+        conn = self._get_connection()
+        try:
             cur = conn.execute(sql, params)
-            return [dict(r) for r in cur.fetchall()]
+            results = [dict(r) for r in cur.fetchall()]
+            return results
+        finally:
+            self._return_connection(conn)
+    
+    def close_pool(self):
+        """Close all connections in pool (call on app shutdown)"""
+        with self._pool_lock:
+            while not self._connection_pool.empty():
+                try:
+                    conn = self._connection_pool.get_nowait()
+                    conn.close()
+                except:
+                    pass
+            self._pool_size = 0
+            print(f"🔒 Database connection pool closed")

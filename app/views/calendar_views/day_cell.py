@@ -43,7 +43,7 @@ class DayCell(ctk.CTkFrame):
         self._bind_events()
     
     def _setup_ui(self):
-        """Setup cell UI elements"""
+        """Setup cell UI elements - OPTIMIZED: Create widgets ONCE, reuse forever"""
         # Container for content (to handle padding)
         self.content_frame = ctk.CTkFrame(
             self,
@@ -69,6 +69,35 @@ class DayCell(ctk.CTkFrame):
         )
         self.events_container.pack(fill='x', side='bottom')
         self.events_container.pack_propagate(False)
+        
+        # OPTIMIZATION: Pre-create 3 dot labels + "more" label for reuse
+        self.dots_frame = ctk.CTkFrame(
+            self.events_container,
+            fg_color='transparent'
+        )
+        self.dots_frame.pack(anchor='center')
+        
+        self._event_dots = []
+        for i in range(3):
+            dot = ctk.CTkLabel(
+                self.dots_frame,
+                text="●",
+                font=("Arial", 12),
+                width=8,
+                height=8
+            )
+            dot.pack(side='left', padx=1)
+            dot.pack_forget()  # Hide initially
+            self._event_dots.append(dot)
+        
+        self._more_label = ctk.CTkLabel(
+            self.dots_frame,
+            text="",
+            font=("Arial", 8),
+            width=20
+        )
+        self._more_label.pack(side='left', padx=2)
+        self._more_label.pack_forget()  # Hide initially
     
     def _bind_events(self):
         """Bind mouse events"""
@@ -160,47 +189,40 @@ class DayCell(ctk.CTkFrame):
         self.day_label.configure(text_color=text_color)
     
     def _update_event_dots(self):
-        """Display event dots (max 3 + more indicator)"""
-        # Clear existing dots
-        for widget in self.events_container.winfo_children():
-            widget.destroy()
-        
+        """
+        OPTIMIZED: Display event dots WITHOUT destroying/creating widgets
+        Reuse pre-created labels, only update text and visibility
+        """
         if not self.events:
+            # Hide all dots
+            for dot in self._event_dots:
+                dot.pack_forget()
+            self._more_label.pack_forget()
             return
         
-        # Create dots frame
-        dots_frame = ctk.CTkFrame(
-            self.events_container,
-            fg_color='transparent'
-        )
-        dots_frame.pack(anchor='center')
-        
-        # Show up to 3 events as dots
+        # Show up to 3 events as dots (reuse existing labels)
         visible_events = self.events[:3]
-        more_count = len(self.events) - 3
         
-        for event in visible_events:
-            # Create colored dot
-            dot = ctk.CTkLabel(
-                dots_frame,
-                text="●",
-                text_color=event.category_color,
-                font=("Arial", 12),
-                width=8,
-                height=8
-            )
-            dot.pack(side='left', padx=1)
+        for i, dot in enumerate(self._event_dots):
+            if i < len(visible_events):
+                # Update and show dot
+                event = visible_events[i]
+                dot.configure(text_color=event.category_color)
+                dot.pack(side='left', padx=1)
+            else:
+                # Hide unused dot
+                dot.pack_forget()
         
         # Show "+N more" if there are more events
+        more_count = len(self.events) - 3
         if more_count > 0:
-            more_label = ctk.CTkLabel(
-                dots_frame,
+            self._more_label.configure(
                 text=f"+{more_count}",
-                font=("Arial", 8),
-                text_color=COLORS['text_secondary'],
-                width=20
+                text_color=COLORS['text_secondary']
             )
-            more_label.pack(side='left', padx=2)
+            self._more_label.pack(side='left', padx=2)
+        else:
+            self._more_label.pack_forget()
     
     def _on_click(self, event):
         """Handle cell click - navigate to that date"""

@@ -149,15 +149,16 @@ LAYOUT = {
     "window_default_height": 800,
 }
 
-# Animation & Transitions
+# Animation & Transitions - OPTIMIZED for instant feel
 ANIMATIONS = {
-    "hover_duration": 200,  # milliseconds
-    "transition_duration": 300,
-    "fade_duration": 200,
-    "slide_duration": 250,
-    "theme_transition": 300,
+    "hover_duration": 100,  # milliseconds (faster = more responsive)
+    "transition_duration": 150,  # Reduced from 300ms
+    "fade_duration": 100,  # Reduced from 200ms (users prefer instant)
+    "slide_duration": 120,  # Reduced from 250ms
+    "theme_transition": 150,  # Reduced from 300ms
     "fps": 60,  # frames per second for smooth animation
-    "easing": "ease_in_out",  # easing function
+    "easing": "ease_out_expo",  # Fast deceleration for snappy feel
+    "debounce_delay": 50,  # Debounce UI updates (ms)
 }
 
 # View Types

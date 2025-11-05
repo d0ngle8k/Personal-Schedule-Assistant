@@ -32,6 +32,10 @@ class MonthView(ctk.CTkFrame):
         self.selected_date = date.today()
         self.day_cells: List[List[DayCell]] = []
         
+        # PERFORMANCE: Cache for instant view switching
+        self._events_cache = {}
+        self._last_cache_key = None
+        
         self._setup_ui()
     
     def _setup_ui(self):
@@ -208,11 +212,19 @@ class MonthView(ctk.CTkFrame):
         
         Returns:
             Dictionary mapping date to list of Event objects
+        ULTRA OPTIMIZED: Cache events for instant view switches
         """
         if not hasattr(self.controller, 'model'):
             return {}
         
         try:
+            # Generate cache key
+            cache_key = f"{self.current_year}-{self.current_month:02d}"
+            
+            # OPTIMIZATION: Return cached data if same month (instant!)
+            if cache_key == self._last_cache_key and self._events_cache:
+                return self._events_cache
+            
             # Get first and last day of month
             first_day = date(self.current_year, self.current_month, 1)
             
@@ -230,14 +242,25 @@ class MonthView(ctk.CTkFrame):
             events = self.controller.model.get_events_for_date_range(start_date, end_date)
             
             # Group by date
-            return self.controller.model.group_events_by_date(events)
+            events_by_date = self.controller.model.group_events_by_date(events)
+            
+            # CACHE the result for instant future access
+            self._events_cache = events_by_date
+            self._last_cache_key = cache_key
+            
+            return events_by_date
         
         except Exception as e:
             print(f"Error getting events for month: {e}")
             return {}
     
+    def clear_cache(self):
+        """Clear events cache when data changes"""
+        self._events_cache = {}
+        self._last_cache_key = None
+    
     def refresh(self):
-        """Refresh calendar display"""
+        """Refresh calendar display (uses cached data if available)"""
         self.update_calendar(
             year=self.current_year,
             month=self.current_month,

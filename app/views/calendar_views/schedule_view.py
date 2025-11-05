@@ -28,6 +28,11 @@ class ScheduleView(ctk.CTkFrame):
         self.current_date = date.today()
         self.days_ahead = 30  # Show next 30 days
         
+        # WIDGET POOLING: Store widgets for reuse
+        self._date_headers = []  # Pool of date header widgets
+        self._event_cards = []   # Pool of event card widgets
+        self._widgets_in_use = [] # Track what's currently displayed
+        
         self._setup_ui()
     
     def _setup_ui(self):
@@ -49,26 +54,31 @@ class ScheduleView(ctk.CTkFrame):
         self.empty_label.pack(pady=SPACING['xl'])
     
     def update_schedule(self):
-        """Update schedule view with events"""
-        # Clear existing widgets
-        for widget in self.scroll_frame.winfo_children():
-            widget.destroy()
+        """OPTIMIZED: Update schedule view with widget pooling (no destroy!)"""
+        # Hide all widgets currently in use (return to pool)
+        for widget_data in self._widgets_in_use:
+            widget_data['widget'].pack_forget()
+            if widget_data['type'] == 'header':
+                self._date_headers.append(widget_data)
+            else:
+                self._event_cards.append(widget_data)
+        self._widgets_in_use = []
         
         # Get events for next 30 days
         events_by_date = self._get_upcoming_events()
         
         if not events_by_date:
-            # Show empty state
-            empty_label = ctk.CTkLabel(
-                self.scroll_frame,
+            # Show empty state (reuse or create)
+            empty_label = self._get_or_create_date_header()
+            empty_label['widget'].configure(
                 text="📭 Không có sự kiện nào sắp tới",
-                font=FONTS['heading'],
                 text_color=COLORS['text_secondary']
             )
-            empty_label.pack(pady=SPACING['xxl'])
+            empty_label['widget'].pack(pady=SPACING['xxl'])
+            self._widgets_in_use.append(empty_label)
             return
         
-        # Create date sections
+        # Create date sections (reuse widgets)
         for event_date in sorted(events_by_date.keys()):
             self._create_date_section(event_date, events_by_date[event_date])
     
@@ -90,15 +100,102 @@ class ScheduleView(ctk.CTkFrame):
             print(f"Error getting upcoming events: {e}")
             return {}
     
+    def _get_or_create_date_header(self):
+        """WIDGET POOLING: Get date header from pool or create new"""
+        if self._date_headers:
+            return self._date_headers.pop()
+        
+        # Create new date header
+        date_header = ctk.CTkFrame(
+            self.scroll_frame,
+            fg_color='transparent',
+            corner_radius=6
+        )
+        date_label = ctk.CTkLabel(
+            date_header,
+            text="",
+            font=FONTS['subheading'],
+            anchor='w'
+        )
+        date_label.pack(side='left', padx=SPACING['sm'], pady=SPACING['xs'])
+        
+        count_label = ctk.CTkLabel(
+            date_header,
+            text="",
+            font=FONTS['caption'],
+            text_color=COLORS['text_secondary']
+        )
+        count_label.pack(side='right', padx=SPACING['sm'], pady=SPACING['xs'])
+        
+        return {
+            'type': 'header',
+            'widget': date_header,
+            'date_label': date_label,
+            'count_label': count_label
+        }
+    
+    def _get_or_create_event_card(self):
+        """WIDGET POOLING: Get event card from pool or create new"""
+        if self._event_cards:
+            return self._event_cards.pop()
+        
+        # Create new event card
+        card = ctk.CTkFrame(
+            self.scroll_frame,
+            fg_color=COLORS['bg_white'],
+            border_width=1,
+            border_color=COLORS['border_light'],
+            corner_radius=8
+        )
+        
+        inner_frame = ctk.CTkFrame(card, fg_color='transparent')
+        inner_frame.pack(fill='both', expand=True, padx=SPACING['sm'], pady=SPACING['sm'])
+        
+        color_bar = ctk.CTkFrame(
+            inner_frame,
+            width=4,
+            corner_radius=2
+        )
+        color_bar.pack(side='left', fill='y', padx=(0, SPACING['sm']))
+        
+        content_frame = ctk.CTkFrame(inner_frame, fg_color='transparent')
+        content_frame.pack(side='left', fill='both', expand=True)
+        
+        name_label = ctk.CTkLabel(
+            content_frame,
+            text="",
+            font=FONTS['body_bold'],
+            text_color=COLORS['text_primary'],
+            anchor='w'
+        )
+        name_label.pack(fill='x', anchor='w')
+        
+        info_label = ctk.CTkLabel(
+            content_frame,
+            text="",
+            font=FONTS['caption'],
+            text_color=COLORS['text_secondary'],
+            anchor='w'
+        )
+        info_label.pack(fill='x', anchor='w', pady=(SPACING['xs'], 0))
+        
+        return {
+            'type': 'card',
+            'widget': card,
+            'color_bar': color_bar,
+            'name_label': name_label,
+            'info_label': info_label
+        }
+    
     def _create_date_section(self, event_date: date, events: List):
         """
-        Create a section for one date with its events
+        OPTIMIZED: Reuse date header and event cards from pool
         
         Args:
             event_date: Date for this section
             events: List of Event objects for this date
         """
-        # Date header
+        # Date header text
         is_today = event_date == date.today()
         is_tomorrow = event_date == date.today() + timedelta(days=1)
         
@@ -111,30 +208,18 @@ class ScheduleView(ctk.CTkFrame):
             weekday = weekday_names[event_date.weekday()]
             date_text = f"{weekday}, {event_date.strftime('%d/%m/%Y')}"
         
-        date_header = ctk.CTkFrame(
-            self.scroll_frame,
-            fg_color=COLORS['bg_gray'] if is_today else 'transparent',
-            corner_radius=6
+        # WIDGET POOLING: Reuse date header
+        header_data = self._get_or_create_date_header()
+        header_data['widget'].configure(
+            fg_color=COLORS['bg_gray'] if is_today else 'transparent'
         )
-        date_header.pack(fill='x', pady=(SPACING['md'], SPACING['xs']), padx=SPACING['sm'])
-        
-        date_label = ctk.CTkLabel(
-            date_header,
+        header_data['date_label'].configure(
             text=date_text,
-            font=FONTS['subheading'],
-            text_color=COLORS['primary_blue'] if is_today else COLORS['text_primary'],
-            anchor='w'
+            text_color=COLORS['primary_blue'] if is_today else COLORS['text_primary']
         )
-        date_label.pack(side='left', padx=SPACING['sm'], pady=SPACING['xs'])
-        
-        # Event count
-        count_label = ctk.CTkLabel(
-            date_header,
-            text=f"{len(events)} sự kiện",
-            font=FONTS['caption'],
-            text_color=COLORS['text_secondary']
-        )
-        count_label.pack(side='right', padx=SPACING['sm'], pady=SPACING['xs'])
+        header_data['count_label'].configure(text=f"{len(events)} sự kiện")
+        header_data['widget'].pack(fill='x', pady=(SPACING['md'], SPACING['xs']), padx=SPACING['sm'])
+        self._widgets_in_use.append(header_data)
         
         # Event list
         for event in sorted(events, key=lambda e: e.start_time if e.start_time else datetime.min):
@@ -142,67 +227,38 @@ class ScheduleView(ctk.CTkFrame):
     
     def _create_event_card(self, event):
         """
-        Create event card in list
+        OPTIMIZED: Reuse event card from pool
         
         Args:
             event: Event object
         """
-        # Event card
-        card = ctk.CTkFrame(
-            self.scroll_frame,
-            fg_color=COLORS['bg_white'],
-            border_width=1,
-            border_color=COLORS['border_light'],
-            corner_radius=8
-        )
-        card.pack(fill='x', pady=SPACING['xs'], padx=SPACING['md'])
+        # WIDGET POOLING: Reuse event card
+        card_data = self._get_or_create_event_card()
         
-        # Add click handler
-        card.bind("<Button-1>", lambda e: self._on_event_click(event))
+        # Update properties
+        card_data['color_bar'].configure(fg_color=event.category_color)
+        card_data['name_label'].configure(text=event.event_name)
         
-        # Inner padding frame
-        inner_frame = ctk.CTkFrame(card, fg_color='transparent')
-        inner_frame.pack(fill='both', expand=True, padx=SPACING['sm'], pady=SPACING['sm'])
-        
-        # Left side - Color indicator
-        color_bar = ctk.CTkFrame(
-            inner_frame,
-            width=4,
-            fg_color=event.category_color,
-            corner_radius=2
-        )
-        color_bar.pack(side='left', fill='y', padx=(0, SPACING['sm']))
-        
-        # Content frame
-        content_frame = ctk.CTkFrame(inner_frame, fg_color='transparent')
-        content_frame.pack(side='left', fill='both', expand=True)
-        
-        # Event name
-        name_label = ctk.CTkLabel(
-            content_frame,
-            text=event.event_name,
-            font=FONTS['body_bold'],
-            text_color=COLORS['text_primary'],
-            anchor='w'
-        )
-        name_label.pack(fill='x', anchor='w')
-        
-        # Time and category
+        # Update time info
         if event.start_time:
             time_str = event.start_time.strftime("%H:%M")
             if event.end_time:
                 time_str += f" - {event.end_time.strftime('%H:%M')}"
-            
             info_text = f"⏰ {time_str}  •  📂 {event.category}"
-            
-            info_label = ctk.CTkLabel(
-                content_frame,
-                text=info_text,
-                font=FONTS['caption'],
-                text_color=COLORS['text_secondary'],
-                anchor='w'
-            )
-            info_label.pack(fill='x', anchor='w', pady=(SPACING['xs'], 0))
+            card_data['info_label'].configure(text=info_text)
+        else:
+            card_data['info_label'].configure(text=f"📂 {event.category}")
+        
+        # Update click handler
+        try:
+            card_data['widget'].unbind("<Button-1>")
+        except:
+            pass
+        card_data['widget'].bind("<Button-1>", lambda e: self._on_event_click(event))
+        
+        # Show card
+        card_data['widget'].pack(fill='x', pady=SPACING['xs'], padx=SPACING['md'])
+        self._widgets_in_use.append(card_data)
     
     def _on_event_click(self, event):
         """Handle event click"""

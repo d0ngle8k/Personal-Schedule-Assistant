@@ -28,6 +28,15 @@ class WeekView(ctk.CTkFrame):
         self.current_date = date.today()
         self.week_start = self._get_week_start(self.current_date)
         
+        # PERFORMANCE: Cache for instant view switching
+        self._events_cache = {}
+        self._last_cache_key = None
+        
+        # WIDGET POOLING: Store event blocks and header labels for reuse
+        self._event_blocks = []
+        self._event_blocks_in_use = []
+        self._header_labels = []  # Pre-created header labels (14 labels = 7 days × 2 labels each)
+        
         self._setup_ui()
     
     def _get_week_start(self, target_date: date) -> date:
@@ -47,7 +56,7 @@ class WeekView(ctk.CTkFrame):
         self._create_timeline()
     
     def _create_week_header(self):
-        """Create header row with day names and dates"""
+        """OPTIMIZED: Create header row with pre-created labels for reuse"""
         header_frame = ctk.CTkFrame(
             self.container,
             fg_color='transparent',
@@ -79,7 +88,7 @@ class WeekView(ctk.CTkFrame):
             )
             day_frame.pack(side='left', fill='both', expand=True, padx=1)
             
-            # Weekday name
+            # WIDGET POOLING: Pre-create weekday and date labels (reuse forever)
             weekday_label = ctk.CTkLabel(
                 day_frame,
                 text=weekdays_vi[i],
@@ -88,7 +97,6 @@ class WeekView(ctk.CTkFrame):
             )
             weekday_label.pack(pady=(SPACING['xs'], 0))
             
-            # Date number
             date_label = ctk.CTkLabel(
                 day_frame,
                 text=str(day_date.day),
@@ -96,6 +104,12 @@ class WeekView(ctk.CTkFrame):
                 text_color=COLORS['primary_blue'] if is_today else COLORS['text_primary']
             )
             date_label.pack()
+            
+            # Store labels for reuse
+            self._header_labels.append({
+                'weekday': weekday_label,
+                'date': date_label
+            })
             
             self.day_headers.append(day_frame)
     
@@ -184,15 +198,15 @@ class WeekView(ctk.CTkFrame):
         self._update_headers()
     
     def _clear_event_blocks(self):
-        """Clear all event blocks from timeline"""
-        for row_data in self.hour_rows:
-            for slot in row_data['slots']:
-                for widget in slot.winfo_children():
-                    widget.destroy()
+        """OPTIMIZED: Hide event blocks for reuse (no destroy!)"""
+        for event_block in self._event_blocks_in_use:
+            event_block['frame'].place_forget()  # Hide
+            self._event_blocks.append(event_block)  # Return to pool
+        self._event_blocks_in_use = []  # Clear in-use list
     
     def _get_events_for_week(self) -> Dict[date, List]:
         """
-        Get events grouped by date for current week
+        ULTRA OPTIMIZED: Get events with smart caching
         
         Returns:
             Dictionary mapping date to list of Event objects
@@ -201,10 +215,23 @@ class WeekView(ctk.CTkFrame):
             return {}
         
         try:
+            # Generate cache key from week start
+            cache_key = self.week_start.isoformat()
+            
+            # OPTIMIZATION: Return cached data if same week (instant!)
+            if cache_key == self._last_cache_key and self._events_cache:
+                return self._events_cache
+            
             # Get events for 7 days
             end_date = self.week_start + timedelta(days=6)
             events = self.controller.model.get_events_for_date_range(self.week_start, end_date)
-            return self.controller.model.group_events_by_date(events)
+            events_by_date = self.controller.model.group_events_by_date(events)
+            
+            # CACHE the result
+            self._events_cache = events_by_date
+            self._last_cache_key = cache_key
+            
+            return events_by_date
         except Exception as e:
             print(f"Error getting events for week: {e}")
             return {}
@@ -240,7 +267,7 @@ class WeekView(ctk.CTkFrame):
     def _create_event_block(self, day_idx: int, start_hour: int, start_minute: int, 
                            duration_hours: float, event):
         """
-        Create an event block in the timeline
+        OPTIMIZED: Reuse event block from pool or create new
         
         Args:
             day_idx: Day index (0-6)
@@ -255,41 +282,79 @@ class WeekView(ctk.CTkFrame):
         # Find the slot
         slot = self.hour_rows[start_hour]['slots'][day_idx]
         
-        # Calculate vertical position and height
-        # Each hour slot is 60px, position based on minutes
+        # Calculate position and size
         y_offset = int((start_minute / 60) * 60)
-        block_height = max(20, int(duration_hours * 60))  # Min 20px
+        block_height = max(20, int(duration_hours * 60))
         
-        # Get slot width for block width calculation
         slot.update_idletasks()
-        slot_width = max(100, slot.winfo_width() - 4)  # Leave 4px padding
-        
-        # Create event block
-        event_block = ctk.CTkFrame(
-            slot,
-            width=slot_width,
-            height=block_height,
-            fg_color=event.category_color,
-            corner_radius=4
-        )
-        
-        event_block.place(x=2, y=y_offset)
+        slot_width = max(100, slot.winfo_width() - 4)
         
         # Event text (truncate if needed)
         event_text = event.event_name[:20] + "..." if len(event.event_name) > 20 else event.event_name
         
-        event_label = ctk.CTkLabel(
-            event_block,
-            text=event_text,
-            font=FONTS['small'],
-            text_color='white',
-            anchor='nw'
-        )
-        event_label.pack(padx=4, pady=2, anchor='nw')
+        # WIDGET POOLING: Reuse from pool or create new
+        if self._event_blocks:
+            # Reuse existing block
+            block_data = self._event_blocks.pop()
+            event_block = block_data['frame']
+            event_label = block_data['label']
+            
+            # Update properties
+            event_block.configure(
+                width=slot_width,
+                height=block_height,
+                fg_color=event.category_color
+            )
+            event_label.configure(text=event_text)
+            
+            # Update click handler
+            try:
+                event_block.unbind("<Button-1>")
+                event_label.unbind("<Button-1>")
+            except:
+                pass
+            event_block.bind("<Button-1>", lambda e: self._on_event_click(event))
+            event_label.bind("<Button-1>", lambda e: self._on_event_click(event))
+            
+            # CRITICAL: Lift widget to new parent container (slot)
+            # This allows placing widget in different slot
+            event_block.place(x=2, y=y_offset, in_=slot)
+            event_block.lift()
+            
+        else:
+            # Create new block with THIS VIEW as parent (allows flexible placement)
+            event_block = ctk.CTkFrame(
+                self,  # Parent is view itself, not slot
+                width=slot_width,
+                height=block_height,
+                fg_color=event.category_color,
+                corner_radius=4
+            )
+            
+            event_label = ctk.CTkLabel(
+                event_block,
+                text=event_text,
+                font=FONTS['small'],
+                text_color='white',
+                anchor='nw'
+            )
+            event_label.pack(padx=4, pady=2, anchor='nw')
+            
+            # Click handler
+            event_block.bind("<Button-1>", lambda e: self._on_event_click(event))
+            event_label.bind("<Button-1>", lambda e: self._on_event_click(event))
+            
+            # Store widget references
+            block_data = {
+                'frame': event_block,
+                'label': event_label
+            }
+            
+            # Position block
+            event_block.place(x=2, y=y_offset, in_=slot)
         
-        # Click handler
-        event_block.bind("<Button-1>", lambda e: self._on_event_click(event))
-        event_label.bind("<Button-1>", lambda e: self._on_event_click(event))
+        # Track as in-use
+        self._event_blocks_in_use.append(block_data)
     
     def _on_event_click(self, event):
         """Handle event block click"""
@@ -297,7 +362,7 @@ class WeekView(ctk.CTkFrame):
             self.controller.handle_event_clicked(event.id)
     
     def _update_headers(self):
-        """Update day headers for current week"""
+        """OPTIMIZED: Update day headers using pre-created labels (no destroy!)"""
         weekdays_vi = ['THỨ 2', 'THỨ 3', 'THỨ 4', 'THỨ 5', 'THỨ 6', 'THỨ 7', 'CHỦ NHẬT']
         
         for i, header_frame in enumerate(self.day_headers):
@@ -309,27 +374,18 @@ class WeekView(ctk.CTkFrame):
                 fg_color=COLORS['primary_blue_light'] if is_today else 'transparent'
             )
             
-            # Update labels
-            for widget in header_frame.winfo_children():
-                widget.destroy()
+            # WIDGET POOLING: Update existing labels (no destroy/create!)
+            labels = self._header_labels[i]
             
-            # Weekday name
-            weekday_label = ctk.CTkLabel(
-                header_frame,
-                text=weekdays_vi[i],
-                font=FONTS['caption'],
-                text_color=COLORS['text_secondary']
-            )
-            weekday_label.pack(pady=(SPACING['xs'], 0))
+            # Update weekday label text
+            labels['weekday'].configure(text=weekdays_vi[i])
             
-            # Date number
-            date_label = ctk.CTkLabel(
-                header_frame,
+            # Update date label text and styling
+            labels['date'].configure(
                 text=str(day_date.day),
                 font=FONTS['heading'] if is_today else FONTS['body_bold'],
                 text_color=COLORS['primary_blue'] if is_today else COLORS['text_primary']
             )
-            date_label.pack()
     
     def go_previous_week(self):
         """Navigate to previous week"""
@@ -350,8 +406,13 @@ class WeekView(ctk.CTkFrame):
         self.current_date = today
         self.update_week()
     
+    def clear_cache(self):
+        """Clear events cache when data changes"""
+        self._events_cache = {}
+        self._last_cache_key = None
+    
     def refresh(self):
-        """Refresh week view"""
+        """Refresh week view (uses cached data if available)"""
         self.update_week()
     
     def get_current_period_text(self) -> str:

@@ -9,6 +9,7 @@ from app.models import Event, CalendarModel
 from database.db_manager import DatabaseManager
 from app.animation_helper import AnimationHelper
 from app.config import ANIMATIONS
+from app.thread_pool_manager import get_thread_pool
 
 
 class MainController:
@@ -28,6 +29,9 @@ class MainController:
         self.view = view
         self.db = DatabaseManager(db_path)
         self.model = CalendarModel(self.db)
+        
+        # Performance optimization: Thread pool for async operations
+        self.thread_pool = get_thread_pool()
         
         # Performance optimization: Debounce refresh
         self._refresh_timer = None
@@ -99,7 +103,7 @@ class MainController:
     
     def handle_create_event_from_nlp(self, text: str) -> bool:
         """
-        Handle create event from natural language input
+        Handle create event from natural language input (MULTITHREADED)
         
         Args:
             text: Natural language event description
@@ -111,19 +115,34 @@ class MainController:
             # Import NLP pipeline
             from core_nlp.pipeline import NLPPipeline
             
-            # Parse text
-            nlp = NLPPipeline()
-            parsed = nlp.parse_event(text)
+            # Parse text in background thread (CPU-intensive)
+            def parse_in_background():
+                nlp = NLPPipeline()
+                return nlp.parse_event(text)
             
-            if not parsed:
-                self.show_notification("Không thể hiểu câu lệnh", "error")
-                return False
+            def on_success(parsed):
+                if not parsed:
+                    self.show_notification("Không thể hiểu câu lệnh", "error")
+                    return
+                # Create event from parsed data
+                self.handle_create_event(parsed)
             
-            # Create event from parsed data
-            return self.handle_create_event(parsed)
+            def on_error(error):
+                print(f"Error in NLP parsing: {error}")
+                self.show_notification(f"Lỗi NLP: {str(error)}", "error")
+            
+            # Submit to thread pool
+            self.thread_pool.submit_compute_task(
+                task_id=f"nlp_parse_{hash(text)}",
+                func=parse_in_background,
+                callback=on_success,
+                error_callback=on_error
+            )
+            
+            return True
         except Exception as e:
             print(f"Error in handle_create_event_from_nlp: {e}")
-            self.show_notification(f"Lỗi NLP: {str(e)}", "error")
+            self.show_notification(f"Lỗi: {str(e)}", "error")
             return False
     
     def handle_edit_event(self, event_id: int, updated_data: dict) -> bool:
@@ -320,18 +339,39 @@ class MainController:
         except Exception as e:
             print(f"Error in handle_day_cell_double_click: {e}")
     
-    def search_events(self, keyword: str):
+    def search_events(self, keyword: str, callback=None):
         """
-        Search events by keyword
+        Search events by keyword (MULTITHREADED)
         
         Args:
             keyword: Search keyword
+            callback: Optional callback function(results) to call with results
             
         Returns:
-            List of matching Event objects
+            List of matching Event objects (if synchronous)
         """
         try:
-            return self.model.search_events(keyword)
+            # If no callback, execute synchronously
+            if callback is None:
+                return self.model.search_events(keyword)
+            
+            # Execute search in background (I/O-bound database operation)
+            def search_in_background():
+                return self.model.search_events(keyword)
+            
+            def on_error(error):
+                print(f"Error in search: {error}")
+                callback([])
+            
+            # Submit to thread pool
+            self.thread_pool.submit_io_task(
+                task_id=f"search_{hash(keyword)}",
+                func=search_in_background,
+                callback=callback,
+                error_callback=on_error
+            )
+            
+            return []  # Results will be provided via callback
         except Exception as e:
             print(f"Error in search_events: {e}")
             return []
@@ -387,58 +427,48 @@ class MainController:
             print(f"Error in handle_view_changed: {e}")
     
     def handle_navigate_previous(self):
-        """Handle navigate to previous period with fade animation"""
+        """OPTIMIZED: Instant navigation (no animation lag)"""
         try:
-            # Get current view widget for animation
-            current_widget = self._get_current_view_widget()
+            # Navigate immediately for instant feel
+            self.model.navigate_previous()
             
-            # Fade out current view
-            if current_widget:
-                AnimationHelper.fade_out(
-                    current_widget,
-                    duration_ms=ANIMATIONS['fade_duration'] // 2,
-                    callback=lambda: self._complete_navigation('previous')
-                )
-            else:
-                self._complete_navigation('previous')
+            # Refresh immediately (no delay for responsiveness)
+            self._complete_navigation_instant()
         except Exception as e:
             print(f"Error in handle_navigate_previous: {e}")
     
     def handle_navigate_next(self):
-        """Handle navigate to next period with fade animation"""
+        """OPTIMIZED: Instant navigation (no animation lag)"""
         try:
-            # Get current view widget for animation
-            current_widget = self._get_current_view_widget()
+            # Navigate immediately for instant feel
+            self.model.navigate_next()
             
-            # Fade out current view
-            if current_widget:
-                AnimationHelper.fade_out(
-                    current_widget,
-                    duration_ms=ANIMATIONS['fade_duration'] // 2,
-                    callback=lambda: self._complete_navigation('next')
-                )
-            else:
-                self._complete_navigation('next')
+            # Refresh immediately (no delay for responsiveness)
+            self._complete_navigation_instant()
         except Exception as e:
             print(f"Error in handle_navigate_next: {e}")
     
     def handle_navigate_today(self):
-        """Handle navigate to today with fade animation"""
+        """OPTIMIZED: Instant navigation (no animation lag)"""
         try:
-            # Get current view widget for animation
-            current_widget = self._get_current_view_widget()
+            # Navigate immediately for instant feel
+            self.model.navigate_today()
             
-            # Fade out current view
-            if current_widget:
-                AnimationHelper.fade_out(
-                    current_widget,
-                    duration_ms=ANIMATIONS['fade_duration'] // 2,
-                    callback=lambda: self._complete_navigation('today')
-                )
-            else:
-                self._complete_navigation('today')
+            # Refresh immediately (no delay for responsiveness)
+            self._complete_navigation_instant()
         except Exception as e:
             print(f"Error in handle_navigate_today: {e}")
+    
+    def _complete_navigation_instant(self):
+        """Complete navigation without animation for instant feel"""
+        try:
+            # Refresh views (already optimized with debouncing)
+            self.refresh_events(debounce_ms=0)
+            
+            # Update title
+            self.update_calendar_title()
+        except Exception as e:
+            print(f"Error completing navigation: {e}")
     
     def _get_current_view_widget(self):
         """Get the current active view widget for animation"""
@@ -689,33 +719,51 @@ class MainController:
     
     def handle_export_events(self, format: str, file_path: str) -> bool:
         """
-        Handle export events
+        Handle export events (MULTITHREADED)
         
         Args:
             format: Export format (json, ics)
             file_path: Output file path
             
         Returns:
-            bool: True if successful
+            bool: True if task submitted successfully
         """
         try:
             from services.export_service import export_to_json, export_to_ics
             
-            success = False
+            # Export in background thread (I/O-bound operation)
+            def export_in_background():
+                if format == 'json':
+                    export_to_json(self.db, file_path)
+                    return True
+                elif format == 'ics':
+                    export_to_ics(self.db, file_path)
+                    return True
+                else:
+                    return False
             
-            if format == 'json':
-                export_to_json(self.db, file_path)
-                success = True
-            elif format == 'ics':
-                export_to_ics(self.db, file_path)
-                success = True
+            def on_success(result):
+                if result:
+                    self.show_notification(f"✅ Đã xuất dữ liệu ra {file_path}", "success")
+                else:
+                    self.show_notification("❌ Định dạng không hợp lệ", "error")
             
-            if success:
-                self.show_notification(f"✅ Đã xuất dữ liệu ra {file_path}", "success")
-            else:
-                self.show_notification("❌ Định dạng không hợp lệ", "error")
+            def on_error(error):
+                print(f"Error in export: {error}")
+                self.show_notification(f"❌ Lỗi: {str(error)}", "error")
             
-            return success
+            # Show progress notification
+            self.show_notification("⏳ Đang xuất dữ liệu...", "info")
+            
+            # Submit to thread pool
+            self.thread_pool.submit_io_task(
+                task_id=f"export_{format}_{hash(file_path)}",
+                func=export_in_background,
+                callback=on_success,
+                error_callback=on_error
+            )
+            
+            return True
         except Exception as e:
             print(f"Error in handle_export_events: {e}")
             self.show_notification(f"❌ Lỗi: {str(e)}", "error")
@@ -723,32 +771,50 @@ class MainController:
     
     def handle_import_events(self, format: str, file_path: str) -> bool:
         """
-        Handle import events
+        Handle import events (MULTITHREADED)
         
         Args:
             format: Import format (json, ics)
             file_path: Input file path
             
         Returns:
-            bool: True if successful
+            bool: True if task submitted successfully
         """
         try:
             from services.import_service import import_from_json, import_from_ics
             
-            count = 0
+            # Import in background thread (I/O-bound operation)
+            def import_in_background():
+                if format == 'json':
+                    return import_from_json(self.db, file_path, nlp_pipeline=None)
+                elif format == 'ics':
+                    return import_from_ics(self.db, file_path)
+                else:
+                    return 0
             
-            if format == 'json':
-                count = import_from_json(self.db, file_path, nlp_pipeline=None)
-            elif format == 'ics':
-                count = import_from_ics(self.db, file_path)
+            def on_success(count):
+                if count > 0:
+                    self.refresh_events()
+                    self.show_notification(f"✅ Đã nhập {count} sự kiện từ {file_path}", "success")
+                else:
+                    self.show_notification("⚠️ Không tìm thấy sự kiện hợp lệ", "warning")
             
-            if count > 0:
-                self.refresh_events()
-                self.show_notification(f"✅ Đã nhập {count} sự kiện từ {file_path}", "success")
-                return True
-            else:
-                self.show_notification("⚠️ Không tìm thấy sự kiện hợp lệ", "warning")
-                return False
+            def on_error(error):
+                print(f"Error in import: {error}")
+                self.show_notification(f"❌ Lỗi: {str(error)}", "error")
+            
+            # Show progress notification
+            self.show_notification("⏳ Đang nhập dữ liệu...", "info")
+            
+            # Submit to thread pool
+            self.thread_pool.submit_io_task(
+                task_id=f"import_{format}_{hash(file_path)}",
+                func=import_in_background,
+                callback=on_success,
+                error_callback=on_error
+            )
+            
+            return True
         except Exception as e:
             print(f"Error in handle_import_events: {e}")
             self.show_notification(f"❌ Lỗi: {str(e)}", "error")
@@ -757,8 +823,13 @@ class MainController:
     # ==================== App Lifecycle ====================
     
     def on_app_close(self):
-        """Handle app closing"""
+        """Handle app closing (CLEANUP THREADS)"""
         try:
+            # Shutdown thread pool gracefully
+            print("🛑 Shutting down thread pool...")
+            from app.thread_pool_manager import shutdown_thread_pool
+            shutdown_thread_pool(wait=True)
+            
             # DatabaseManager uses context managers, no explicit close needed
             print("Application closed successfully")
         except Exception as e:
