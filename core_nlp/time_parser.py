@@ -398,17 +398,17 @@ def _parse_relative_words(base: datetime, s_norm: str) -> tuple[Optional[datetim
         text = re.sub(r"\bhom kia\b", "", text).strip()
         return dt, text
     # tuần sau / tuần tới (next week - Monday of next week)
-    if re.search(r"\btuan\s+(?:sau|toi)\b", text):
+    if re.search(r"\btuan\s+(?:sau|toi|tới)\b", text):
         days_ahead = (7 - base.weekday()) % 7  # Days until next Monday
         days_ahead = 7 if days_ahead == 0 else days_ahead  # If today is Monday, go to next Monday
         dt = (base + timedelta(days=days_ahead)).replace(hour=base.hour, minute=base.minute)
-        text = re.sub(r"\btuan\s+(?:sau|toi)\b", "", text).strip()
+        text = re.sub(r"\btuan\s+(?:sau|toi|tới)\b", "", text).strip()
         return dt, text
     # tháng sau / tháng tới (next month - 1st day of next month)
-    if re.search(r"\bthang\s+(?:sau|toi)\b", text):
+    if re.search(r"\bthang\s+(?:sau|toi|tới)\b", text):
         # Approximate: add 30 days
         dt = (base + timedelta(days=30)).replace(hour=base.hour, minute=base.minute)
-        text = re.sub(r"\bthang\s+(?:sau|toi)\b", "", text).strip()
+        text = re.sub(r"\bthang\s+(?:sau|toi|tới)\b", "", text).strip()
         return dt, text
     return None, s_norm
 

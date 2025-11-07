@@ -39,6 +39,9 @@ class NLPPipeline:
             r"|\btoi\s+(?:nay|mai|qua|hom\s*nay|hom\s*qua|hom\s*kia)(?=\s|$)"
             # Weekend
             r"|(?:cuối tuần|cuoi tuan)(?!\w)"
+            # ENHANCEMENT: Relative week/month patterns (tuần sau, tháng sau, etc.)
+            r"|\b(?:tuần|tuan)\s+(?:sau|toi|tới|này|nay|trước|truoc)(?!\w)"  # tuần sau, tuần tới, tuần này, tuần trước
+            r"|\b(?:tháng|thang)\s+(?:sau|toi|tới|này|nay|trước|truoc)(?!\w)"  # tháng sau, tháng tới, tháng này, tháng trước
             # Weekday patterns with optional period or number words (including typos with/without diacritics)
             # Pattern 1: weekday + number words (e.g., "t5 támh", "thứ 2 bah", "chu nhat mười haih")
             # Use word boundaries \b to prevent partial matches like "tam" matching "támh"

@@ -1,0 +1,2534 @@
+{
+  "timestamp": "2025-11-07T18:28:33.887142",
+  "summary": {
+    "total": 995,
+    "passed": 923,
+    "failed": 72,
+    "errors": 0,
+    "success_rate": 92.76381909547739
+  },
+  "by_category": {
+    "normal": {
+      "total": 300,
+      "passed": 300,
+      "failed": 0,
+      "errors": 0
+    },
+    "edge_time": {
+      "total": 145,
+      "passed": 130,
+      "failed": 15,
+      "errors": 0
+    },
+    "edge_event": {
+      "total": 150,
+      "passed": 150,
+      "failed": 0,
+      "errors": 0
+    },
+    "edge_location": {
+      "total": 100,
+      "passed": 100,
+      "failed": 0,
+      "errors": 0
+    },
+    "edge_reminder": {
+      "total": 50,
+      "passed": 50,
+      "failed": 0,
+      "errors": 0
+    },
+    "stress_long": {
+      "total": 50,
+      "passed": 50,
+      "failed": 0,
+      "errors": 0
+    },
+    "stress_missing": {
+      "total": 30,
+      "passed": 0,
+      "failed": 30,
+      "errors": 0
+    },
+    "stress_minimal": {
+      "total": 20,
+      "passed": 8,
+      "failed": 12,
+      "errors": 0
+    },
+    "stress_typo": {
+      "total": 50,
+      "passed": 50,
+      "failed": 0,
+      "errors": 0
+    },
+    "real_world": {
+      "total": 50,
+      "passed": 50,
+      "failed": 0,
+      "errors": 0
+    },
+    "boundary": {
+      "total": 50,
+      "passed": 35,
+      "failed": 15,
+      "errors": 0
+    }
+  },
+  "performance": {
+    "avg_ms": 0.37990452261306534,
+    "min_ms": 0.0,
+    "max_ms": 10.999
+  },
+  "failures": [
+    {
+      "id": "edge_time_9",
+      "category": "edge_time",
+      "input": "học bài tuần sau",
+      "error": "Missing or None start_time",
+      "result": {
+        "event_name": "học bài",
+        "start_time": null,
+        "end_time": null,
+        "location": null,
+        "reminder_minutes": 0,
+        "_agreement_scores": {
+          "event": 1.0,
+          "time": 0.0,
+          "location": 1.0,
+          "reminder": 1.0
+        },
+        "_models_used": "hybrid",
+        "_rule_based": {
+          "event_name": "học bài",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        },
+        "_phobert": {
+          "event": "học bài",
+          "start_time": "2025-11-10T18:28:33.635142",
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        }
+      }
+    },
+    {
+      "id": "edge_time_10",
+      "category": "edge_time",
+      "input": "họp tuần tới",
+      "error": "Missing or None start_time",
+      "result": {
+        "event_name": "họp tuần",
+        "start_time": null,
+        "end_time": null,
+        "location": null,
+        "reminder_minutes": 0,
+        "_agreement_scores": {
+          "event": 0.7,
+          "time": 0.0,
+          "location": 1.0,
+          "reminder": 1.0
+        },
+        "_models_used": "hybrid",
+        "_rule_based": {
+          "event_name": "họp tuần",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        },
+        "_phobert": {
+          "event": "họp",
+          "start_time": "2025-11-10T18:28:33.635142",
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        }
+      }
+    },
+    {
+      "id": "edge_time_11",
+      "category": "edge_time",
+      "input": "gặp khách tháng sau",
+      "error": "Missing or None start_time",
+      "result": {
+        "event_name": "gặp khách tháng sau",
+        "start_time": null,
+        "end_time": null,
+        "location": null,
+        "reminder_minutes": 0,
+        "_agreement_scores": {
+          "event": 0.7,
+          "time": 0.0,
+          "location": 1.0,
+          "reminder": 1.0
+        },
+        "_models_used": "hybrid",
+        "_rule_based": {
+          "event_name": "gặp khách tháng sau",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        },
+        "_phobert": {
+          "event": "gặp khách",
+          "start_time": "2025-12-07T18:28:33.635142",
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        }
+      }
+    },
+    {
+      "id": "edge_time_38",
+      "category": "edge_time",
+      "input": "họp tuần sau",
+      "error": "Missing or None start_time",
+      "result": {
+        "event_name": "họp",
+        "start_time": null,
+        "end_time": null,
+        "location": null,
+        "reminder_minutes": 0,
+        "_agreement_scores": {
+          "event": 1.0,
+          "time": 0.0,
+          "location": 1.0,
+          "reminder": 1.0
+        },
+        "_models_used": "hybrid",
+        "_rule_based": {
+          "event_name": "họp",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        },
+        "_phobert": {
+          "event": "họp",
+          "start_time": "2025-11-10T18:28:33.644141",
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        }
+      }
+    },
+    {
+      "id": "edge_time_39",
+      "category": "edge_time",
+      "input": "gặp khách tuần tới",
+      "error": "Missing or None start_time",
+      "result": {
+        "event_name": "gặp khách tuần",
+        "start_time": null,
+        "end_time": null,
+        "location": null,
+        "reminder_minutes": 0,
+        "_agreement_scores": {
+          "event": 0.7,
+          "time": 0.0,
+          "location": 1.0,
+          "reminder": 1.0
+        },
+        "_models_used": "hybrid",
+        "_rule_based": {
+          "event_name": "gặp khách tuần",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        },
+        "_phobert": {
+          "event": "gặp khách",
+          "start_time": "2025-11-10T18:28:33.644141",
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        }
+      }
+    },
+    {
+      "id": "edge_time_40",
+      "category": "edge_time",
+      "input": "làm việc tháng sau",
+      "error": "Missing or None start_time",
+      "result": {
+        "event_name": "làm việc tháng sau",
+        "start_time": null,
+        "end_time": null,
+        "location": null,
+        "reminder_minutes": 0,
+        "_agreement_scores": {
+          "event": 0.7,
+          "time": 0.0,
+          "location": 1.0,
+          "reminder": 1.0
+        },
+        "_models_used": "hybrid",
+        "_rule_based": {
+          "event_name": "làm việc tháng sau",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        },
+        "_phobert": {
+          "event": "làm việc",
+          "start_time": "2025-12-07T18:28:33.644141",
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        }
+      }
+    },
+    {
+      "id": "edge_time_67",
+      "category": "edge_time",
+      "input": "họp tuần sau",
+      "error": "Missing or None start_time",
+      "result": {
+        "event_name": "họp",
+        "start_time": null,
+        "end_time": null,
+        "location": null,
+        "reminder_minutes": 0,
+        "_agreement_scores": {
+          "event": 1.0,
+          "time": 0.0,
+          "location": 1.0,
+          "reminder": 1.0
+        },
+        "_models_used": "hybrid",
+        "_rule_based": {
+          "event_name": "họp",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        },
+        "_phobert": {
+          "event": "họp",
+          "start_time": "2025-11-10T18:28:33.653141",
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        }
+      }
+    },
+    {
+      "id": "edge_time_68",
+      "category": "edge_time",
+      "input": "gặp khách tuần tới",
+      "error": "Missing or None start_time",
+      "result": {
+        "event_name": "gặp khách tuần",
+        "start_time": null,
+        "end_time": null,
+        "location": null,
+        "reminder_minutes": 0,
+        "_agreement_scores": {
+          "event": 0.7,
+          "time": 0.0,
+          "location": 1.0,
+          "reminder": 1.0
+        },
+        "_models_used": "hybrid",
+        "_rule_based": {
+          "event_name": "gặp khách tuần",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        },
+        "_phobert": {
+          "event": "gặp khách",
+          "start_time": "2025-11-10T18:28:33.653141",
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        }
+      }
+    },
+    {
+      "id": "edge_time_69",
+      "category": "edge_time",
+      "input": "làm việc tháng sau",
+      "error": "Missing or None start_time",
+      "result": {
+        "event_name": "làm việc tháng sau",
+        "start_time": null,
+        "end_time": null,
+        "location": null,
+        "reminder_minutes": 0,
+        "_agreement_scores": {
+          "event": 0.7,
+          "time": 0.0,
+          "location": 1.0,
+          "reminder": 1.0
+        },
+        "_models_used": "hybrid",
+        "_rule_based": {
+          "event_name": "làm việc tháng sau",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        },
+        "_phobert": {
+          "event": "làm việc",
+          "start_time": "2025-12-07T18:28:33.653141",
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        }
+      }
+    },
+    {
+      "id": "edge_time_96",
+      "category": "edge_time",
+      "input": "gặp khách tuần sau",
+      "error": "Missing or None start_time",
+      "result": {
+        "event_name": "gặp khách",
+        "start_time": null,
+        "end_time": null,
+        "location": null,
+        "reminder_minutes": 0,
+        "_agreement_scores": {
+          "event": 1.0,
+          "time": 0.0,
+          "location": 1.0,
+          "reminder": 1.0
+        },
+        "_models_used": "hybrid",
+        "_rule_based": {
+          "event_name": "gặp khách",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        },
+        "_phobert": {
+          "event": "gặp khách",
+          "start_time": "2025-11-10T18:28:33.661141",
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        }
+      }
+    },
+    {
+      "id": "edge_time_97",
+      "category": "edge_time",
+      "input": "gặp khách tuần tới",
+      "error": "Missing or None start_time",
+      "result": {
+        "event_name": "gặp khách tuần",
+        "start_time": null,
+        "end_time": null,
+        "location": null,
+        "reminder_minutes": 0,
+        "_agreement_scores": {
+          "event": 0.7,
+          "time": 0.0,
+          "location": 1.0,
+          "reminder": 1.0
+        },
+        "_models_used": "hybrid",
+        "_rule_based": {
+          "event_name": "gặp khách tuần",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        },
+        "_phobert": {
+          "event": "gặp khách",
+          "start_time": "2025-11-10T18:28:33.661141",
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        }
+      }
+    },
+    {
+      "id": "edge_time_98",
+      "category": "edge_time",
+      "input": "họp tháng sau",
+      "error": "Missing or None start_time",
+      "result": {
+        "event_name": "họp tháng sau",
+        "start_time": null,
+        "end_time": null,
+        "location": null,
+        "reminder_minutes": 0,
+        "_agreement_scores": {
+          "event": 0.7,
+          "time": 0.0,
+          "location": 1.0,
+          "reminder": 1.0
+        },
+        "_models_used": "hybrid",
+        "_rule_based": {
+          "event_name": "họp tháng sau",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        },
+        "_phobert": {
+          "event": "họp",
+          "start_time": "2025-12-07T18:28:33.662141",
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        }
+      }
+    },
+    {
+      "id": "edge_time_125",
+      "category": "edge_time",
+      "input": "gặp khách tuần sau",
+      "error": "Missing or None start_time",
+      "result": {
+        "event_name": "gặp khách",
+        "start_time": null,
+        "end_time": null,
+        "location": null,
+        "reminder_minutes": 0,
+        "_agreement_scores": {
+          "event": 1.0,
+          "time": 0.0,
+          "location": 1.0,
+          "reminder": 1.0
+        },
+        "_models_used": "hybrid",
+        "_rule_based": {
+          "event_name": "gặp khách",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        },
+        "_phobert": {
+          "event": "gặp khách",
+          "start_time": "2025-11-10T18:28:33.670142",
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        }
+      }
+    },
+    {
+      "id": "edge_time_126",
+      "category": "edge_time",
+      "input": "họp tuần tới",
+      "error": "Missing or None start_time",
+      "result": {
+        "event_name": "họp tuần",
+        "start_time": null,
+        "end_time": null,
+        "location": null,
+        "reminder_minutes": 0,
+        "_agreement_scores": {
+          "event": 0.7,
+          "time": 0.0,
+          "location": 1.0,
+          "reminder": 1.0
+        },
+        "_models_used": "hybrid",
+        "_rule_based": {
+          "event_name": "họp tuần",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        },
+        "_phobert": {
+          "event": "họp",
+          "start_time": "2025-11-10T18:28:33.670142",
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        }
+      }
+    },
+    {
+      "id": "edge_time_127",
+      "category": "edge_time",
+      "input": "họp tháng sau",
+      "error": "Missing or None start_time",
+      "result": {
+        "event_name": "họp tháng sau",
+        "start_time": null,
+        "end_time": null,
+        "location": null,
+        "reminder_minutes": 0,
+        "_agreement_scores": {
+          "event": 0.7,
+          "time": 0.0,
+          "location": 1.0,
+          "reminder": 1.0
+        },
+        "_models_used": "hybrid",
+        "_rule_based": {
+          "event_name": "họp tháng sau",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        },
+        "_phobert": {
+          "event": "họp",
+          "start_time": "2025-12-07T18:28:33.670142",
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        }
+      }
+    },
+    {
+      "id": "stress_no_time_1",
+      "category": "stress_missing",
+      "input": "làm báo cáo",
+      "error": "Should fail but got: làm báo cáo",
+      "result": {
+        "event_name": "làm báo cáo",
+        "start_time": null,
+        "end_time": null,
+        "location": null,
+        "reminder_minutes": 0,
+        "_agreement_scores": {
+          "event": 1.0,
+          "time": 1.0,
+          "location": 1.0,
+          "reminder": 1.0
+        },
+        "_models_used": "hybrid",
+        "_rule_based": {
+          "event_name": "làm báo cáo",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        },
+        "_phobert": {
+          "event": "làm báo cáo",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        }
+      }
+    },
+    {
+      "id": "stress_no_time_2",
+      "category": "stress_missing",
+      "input": "họp dự án",
+      "error": "Should fail but got: họp dự án",
+      "result": {
+        "event_name": "họp dự án",
+        "start_time": null,
+        "end_time": null,
+        "location": null,
+        "reminder_minutes": 0,
+        "_agreement_scores": {
+          "event": 1.0,
+          "time": 1.0,
+          "location": 1.0,
+          "reminder": 1.0
+        },
+        "_models_used": "hybrid",
+        "_rule_based": {
+          "event_name": "họp dự án",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        },
+        "_phobert": {
+          "event": "họp dự án",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        }
+      }
+    },
+    {
+      "id": "stress_no_time_3",
+      "category": "stress_missing",
+      "input": "học python",
+      "error": "Should fail but got: học python",
+      "result": {
+        "event_name": "học python",
+        "start_time": null,
+        "end_time": null,
+        "location": null,
+        "reminder_minutes": 0,
+        "_agreement_scores": {
+          "event": 1.0,
+          "time": 1.0,
+          "location": 1.0,
+          "reminder": 1.0
+        },
+        "_models_used": "hybrid",
+        "_rule_based": {
+          "event_name": "học python",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        },
+        "_phobert": {
+          "event": "học python",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        }
+      }
+    },
+    {
+      "id": "stress_no_time_4",
+      "category": "stress_missing",
+      "input": "ăn tối",
+      "error": "Should fail but got: ăn tối",
+      "result": {
+        "event_name": "ăn tối",
+        "start_time": null,
+        "end_time": null,
+        "location": null,
+        "reminder_minutes": 0,
+        "_agreement_scores": {
+          "event": 1.0,
+          "time": 1.0,
+          "location": 1.0,
+          "reminder": 1.0
+        },
+        "_models_used": "hybrid",
+        "_rule_based": {
+          "event_name": "ăn tối",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        },
+        "_phobert": {
+          "event": "ăn tối",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        }
+      }
+    },
+    {
+      "id": "stress_no_time_5",
+      "category": "stress_missing",
+      "input": "đọc sách",
+      "error": "Should fail but got: đọc sách",
+      "result": {
+        "event_name": "đọc sách",
+        "start_time": null,
+        "end_time": null,
+        "location": null,
+        "reminder_minutes": 0,
+        "_agreement_scores": {
+          "event": 1.0,
+          "time": 1.0,
+          "location": 1.0,
+          "reminder": 1.0
+        },
+        "_models_used": "hybrid",
+        "_rule_based": {
+          "event_name": "đọc sách",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        },
+        "_phobert": {
+          "event": "đọc sách",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        }
+      }
+    },
+    {
+      "id": "stress_no_time_6",
+      "category": "stress_missing",
+      "input": "tập thể dục",
+      "error": "Should fail but got: tập thể dục",
+      "result": {
+        "event_name": "tập thể dục",
+        "start_time": null,
+        "end_time": null,
+        "location": null,
+        "reminder_minutes": 0,
+        "_agreement_scores": {
+          "event": 1.0,
+          "time": 1.0,
+          "location": 1.0,
+          "reminder": 1.0
+        },
+        "_models_used": "hybrid",
+        "_rule_based": {
+          "event_name": "tập thể dục",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        },
+        "_phobert": {
+          "event": "tập thể dục",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        }
+      }
+    },
+    {
+      "id": "stress_no_time_7",
+      "category": "stress_missing",
+      "input": "làm",
+      "error": "Should fail but got: làm",
+      "result": {
+        "event_name": "làm",
+        "start_time": null,
+        "end_time": null,
+        "location": null,
+        "reminder_minutes": 0,
+        "_agreement_scores": {
+          "event": 1.0,
+          "time": 1.0,
+          "location": 1.0,
+          "reminder": 1.0
+        },
+        "_models_used": "hybrid",
+        "_rule_based": {
+          "event_name": "làm",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        },
+        "_phobert": {
+          "event": "làm",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        }
+      }
+    },
+    {
+      "id": "stress_no_time_8",
+      "category": "stress_missing",
+      "input": "họp dự án",
+      "error": "Should fail but got: họp dự án",
+      "result": {
+        "event_name": "họp dự án",
+        "start_time": null,
+        "end_time": null,
+        "location": null,
+        "reminder_minutes": 0,
+        "_agreement_scores": {
+          "event": 1.0,
+          "time": 1.0,
+          "location": 1.0,
+          "reminder": 1.0
+        },
+        "_models_used": "hybrid",
+        "_rule_based": {
+          "event_name": "họp dự án",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        },
+        "_phobert": {
+          "event": "họp dự án",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        }
+      }
+    },
+    {
+      "id": "stress_no_time_9",
+      "category": "stress_missing",
+      "input": "xem",
+      "error": "Should fail but got: xem",
+      "result": {
+        "event_name": "xem",
+        "start_time": null,
+        "end_time": null,
+        "location": null,
+        "reminder_minutes": 0,
+        "_agreement_scores": {
+          "event": 1.0,
+          "time": 1.0,
+          "location": 1.0,
+          "reminder": 1.0
+        },
+        "_models_used": "hybrid",
+        "_rule_based": {
+          "event_name": "xem",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        },
+        "_phobert": {
+          "event": "xem",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        }
+      }
+    },
+    {
+      "id": "stress_no_time_10",
+      "category": "stress_missing",
+      "input": "chạy bộ",
+      "error": "Should fail but got: chạy bộ",
+      "result": {
+        "event_name": "chạy bộ",
+        "start_time": null,
+        "end_time": null,
+        "location": null,
+        "reminder_minutes": 0,
+        "_agreement_scores": {
+          "event": 1.0,
+          "time": 1.0,
+          "location": 1.0,
+          "reminder": 1.0
+        },
+        "_models_used": "hybrid",
+        "_rule_based": {
+          "event_name": "chạy bộ",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        },
+        "_phobert": {
+          "event": "chạy bộ",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        }
+      }
+    },
+    {
+      "id": "stress_no_time_11",
+      "category": "stress_missing",
+      "input": "xem",
+      "error": "Should fail but got: xem",
+      "result": {
+        "event_name": "xem",
+        "start_time": null,
+        "end_time": null,
+        "location": null,
+        "reminder_minutes": 0,
+        "_agreement_scores": {
+          "event": 1.0,
+          "time": 1.0,
+          "location": 1.0,
+          "reminder": 1.0
+        },
+        "_models_used": "hybrid",
+        "_rule_based": {
+          "event_name": "xem",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        },
+        "_phobert": {
+          "event": "xem",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        }
+      }
+    },
+    {
+      "id": "stress_no_time_12",
+      "category": "stress_missing",
+      "input": "gặp khách",
+      "error": "Should fail but got: gặp khách",
+      "result": {
+        "event_name": "gặp khách",
+        "start_time": null,
+        "end_time": null,
+        "location": null,
+        "reminder_minutes": 0,
+        "_agreement_scores": {
+          "event": 1.0,
+          "time": 1.0,
+          "location": 1.0,
+          "reminder": 1.0
+        },
+        "_models_used": "hybrid",
+        "_rule_based": {
+          "event_name": "gặp khách",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        },
+        "_phobert": {
+          "event": "gặp khách",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        }
+      }
+    },
+    {
+      "id": "stress_no_time_13",
+      "category": "stress_missing",
+      "input": "xem phim",
+      "error": "Should fail but got: xem phim",
+      "result": {
+        "event_name": "xem phim",
+        "start_time": null,
+        "end_time": null,
+        "location": null,
+        "reminder_minutes": 0,
+        "_agreement_scores": {
+          "event": 1.0,
+          "time": 1.0,
+          "location": 1.0,
+          "reminder": 1.0
+        },
+        "_models_used": "hybrid",
+        "_rule_based": {
+          "event_name": "xem phim",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        },
+        "_phobert": {
+          "event": "xem phim",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        }
+      }
+    },
+    {
+      "id": "stress_no_time_14",
+      "category": "stress_missing",
+      "input": "ăn",
+      "error": "Should fail but got: ăn",
+      "result": {
+        "event_name": "ăn",
+        "start_time": null,
+        "end_time": null,
+        "location": null,
+        "reminder_minutes": 0,
+        "_agreement_scores": {
+          "event": 1.0,
+          "time": 1.0,
+          "location": 1.0,
+          "reminder": 1.0
+        },
+        "_models_used": "hybrid",
+        "_rule_based": {
+          "event_name": "ăn",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        },
+        "_phobert": {
+          "event": "ăn",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        }
+      }
+    },
+    {
+      "id": "stress_no_time_15",
+      "category": "stress_missing",
+      "input": "viết báo cáo",
+      "error": "Should fail but got: viết báo cáo",
+      "result": {
+        "event_name": "viết báo cáo",
+        "start_time": null,
+        "end_time": null,
+        "location": null,
+        "reminder_minutes": 0,
+        "_agreement_scores": {
+          "event": 1.0,
+          "time": 1.0,
+          "location": 1.0,
+          "reminder": 1.0
+        },
+        "_models_used": "hybrid",
+        "_rule_based": {
+          "event_name": "viết báo cáo",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        },
+        "_phobert": {
+          "event": "viết báo cáo",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        }
+      }
+    },
+    {
+      "id": "stress_no_event_1",
+      "category": "stress_missing",
+      "input": "lúc 8h",
+      "error": "Should fail but got: lúc 8h",
+      "result": {
+        "event_name": "lúc 8h",
+        "start_time": "2025-11-07T08:00:00",
+        "end_time": null,
+        "location": null,
+        "reminder_minutes": 0,
+        "_agreement_scores": {
+          "event": 0.0,
+          "time": 1.0,
+          "location": 1.0,
+          "reminder": 1.0
+        },
+        "_models_used": "hybrid",
+        "_rule_based": {
+          "event_name": "",
+          "start_time": "2025-11-07T08:00:00",
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        },
+        "_phobert": {
+          "event": "lúc 8h",
+          "start_time": "2025-11-07T08:00:00",
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        }
+      }
+    },
+    {
+      "id": "stress_no_event_2",
+      "category": "stress_missing",
+      "input": "14h chiều nay",
+      "error": "Should fail but got: 14h chiều nay",
+      "result": {
+        "event_name": "14h chiều nay",
+        "start_time": "2025-11-07T14:00:00",
+        "end_time": null,
+        "location": null,
+        "reminder_minutes": 0,
+        "_agreement_scores": {
+          "event": 0.0,
+          "time": 0.0,
+          "location": 1.0,
+          "reminder": 1.0
+        },
+        "_models_used": "hybrid",
+        "_rule_based": {
+          "event_name": "",
+          "start_time": "2025-11-07T14:00:00",
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        },
+        "_phobert": {
+          "event": "14h chiều nay",
+          "start_time": "2025-11-07T15:00:00",
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        }
+      }
+    },
+    {
+      "id": "stress_no_event_3",
+      "category": "stress_missing",
+      "input": "14h chiều nay",
+      "error": "Should fail but got: 14h chiều nay",
+      "result": {
+        "event_name": "14h chiều nay",
+        "start_time": "2025-11-07T14:00:00",
+        "end_time": null,
+        "location": null,
+        "reminder_minutes": 0,
+        "_agreement_scores": {
+          "event": 0.0,
+          "time": 0.0,
+          "location": 1.0,
+          "reminder": 1.0
+        },
+        "_models_used": "hybrid",
+        "_rule_based": {
+          "event_name": "",
+          "start_time": "2025-11-07T14:00:00",
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        },
+        "_phobert": {
+          "event": "14h chiều nay",
+          "start_time": "2025-11-07T15:00:00",
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        }
+      }
+    },
+    {
+      "id": "stress_no_event_4",
+      "category": "stress_missing",
+      "input": "10h sáng mai",
+      "error": "Should fail but got: 10h sáng mai",
+      "result": {
+        "event_name": "10h sáng mai",
+        "start_time": "2025-11-08T10:00:00",
+        "end_time": null,
+        "location": null,
+        "reminder_minutes": 0,
+        "_agreement_scores": {
+          "event": 0.0,
+          "time": 1.0,
+          "location": 1.0,
+          "reminder": 1.0
+        },
+        "_models_used": "hybrid",
+        "_rule_based": {
+          "event_name": "",
+          "start_time": "2025-11-08T10:00:00",
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        },
+        "_phobert": {
+          "event": "10h sáng mai",
+          "start_time": "2025-11-08T10:00:00",
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        }
+      }
+    },
+    {
+      "id": "stress_no_event_5",
+      "category": "stress_missing",
+      "input": "10h sáng mai",
+      "error": "Should fail but got: 10h sáng mai",
+      "result": {
+        "event_name": "10h sáng mai",
+        "start_time": "2025-11-08T10:00:00",
+        "end_time": null,
+        "location": null,
+        "reminder_minutes": 0,
+        "_agreement_scores": {
+          "event": 0.0,
+          "time": 1.0,
+          "location": 1.0,
+          "reminder": 1.0
+        },
+        "_models_used": "hybrid",
+        "_rule_based": {
+          "event_name": "",
+          "start_time": "2025-11-08T10:00:00",
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        },
+        "_phobert": {
+          "event": "10h sáng mai",
+          "start_time": "2025-11-08T10:00:00",
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        }
+      }
+    },
+    {
+      "id": "stress_no_event_6",
+      "category": "stress_missing",
+      "input": "lúc 8h",
+      "error": "Should fail but got: lúc 8h",
+      "result": {
+        "event_name": "lúc 8h",
+        "start_time": "2025-11-07T08:00:00",
+        "end_time": null,
+        "location": null,
+        "reminder_minutes": 0,
+        "_agreement_scores": {
+          "event": 0.0,
+          "time": 1.0,
+          "location": 1.0,
+          "reminder": 1.0
+        },
+        "_models_used": "hybrid",
+        "_rule_based": {
+          "event_name": "",
+          "start_time": "2025-11-07T08:00:00",
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        },
+        "_phobert": {
+          "event": "lúc 8h",
+          "start_time": "2025-11-07T08:00:00",
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        }
+      }
+    },
+    {
+      "id": "stress_no_event_7",
+      "category": "stress_missing",
+      "input": "14h chiều nay",
+      "error": "Should fail but got: 14h chiều nay",
+      "result": {
+        "event_name": "14h chiều nay",
+        "start_time": "2025-11-07T14:00:00",
+        "end_time": null,
+        "location": null,
+        "reminder_minutes": 0,
+        "_agreement_scores": {
+          "event": 0.0,
+          "time": 0.0,
+          "location": 1.0,
+          "reminder": 1.0
+        },
+        "_models_used": "hybrid",
+        "_rule_based": {
+          "event_name": "",
+          "start_time": "2025-11-07T14:00:00",
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        },
+        "_phobert": {
+          "event": "14h chiều nay",
+          "start_time": "2025-11-07T15:00:00",
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        }
+      }
+    },
+    {
+      "id": "stress_no_event_8",
+      "category": "stress_missing",
+      "input": "14h chiều nay",
+      "error": "Should fail but got: 14h chiều nay",
+      "result": {
+        "event_name": "14h chiều nay",
+        "start_time": "2025-11-07T14:00:00",
+        "end_time": null,
+        "location": null,
+        "reminder_minutes": 0,
+        "_agreement_scores": {
+          "event": 0.0,
+          "time": 0.0,
+          "location": 1.0,
+          "reminder": 1.0
+        },
+        "_models_used": "hybrid",
+        "_rule_based": {
+          "event_name": "",
+          "start_time": "2025-11-07T14:00:00",
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        },
+        "_phobert": {
+          "event": "14h chiều nay",
+          "start_time": "2025-11-07T15:00:00",
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        }
+      }
+    },
+    {
+      "id": "stress_no_event_9",
+      "category": "stress_missing",
+      "input": "14h chiều nay",
+      "error": "Should fail but got: 14h chiều nay",
+      "result": {
+        "event_name": "14h chiều nay",
+        "start_time": "2025-11-07T14:00:00",
+        "end_time": null,
+        "location": null,
+        "reminder_minutes": 0,
+        "_agreement_scores": {
+          "event": 0.0,
+          "time": 0.0,
+          "location": 1.0,
+          "reminder": 1.0
+        },
+        "_models_used": "hybrid",
+        "_rule_based": {
+          "event_name": "",
+          "start_time": "2025-11-07T14:00:00",
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        },
+        "_phobert": {
+          "event": "14h chiều nay",
+          "start_time": "2025-11-07T15:00:00",
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        }
+      }
+    },
+    {
+      "id": "stress_no_event_10",
+      "category": "stress_missing",
+      "input": "lúc 8h",
+      "error": "Should fail but got: lúc 8h",
+      "result": {
+        "event_name": "lúc 8h",
+        "start_time": "2025-11-07T08:00:00",
+        "end_time": null,
+        "location": null,
+        "reminder_minutes": 0,
+        "_agreement_scores": {
+          "event": 0.0,
+          "time": 1.0,
+          "location": 1.0,
+          "reminder": 1.0
+        },
+        "_models_used": "hybrid",
+        "_rule_based": {
+          "event_name": "",
+          "start_time": "2025-11-07T08:00:00",
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        },
+        "_phobert": {
+          "event": "lúc 8h",
+          "start_time": "2025-11-07T08:00:00",
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        }
+      }
+    },
+    {
+      "id": "stress_no_event_11",
+      "category": "stress_missing",
+      "input": "lúc 8h",
+      "error": "Should fail but got: lúc 8h",
+      "result": {
+        "event_name": "lúc 8h",
+        "start_time": "2025-11-07T08:00:00",
+        "end_time": null,
+        "location": null,
+        "reminder_minutes": 0,
+        "_agreement_scores": {
+          "event": 0.0,
+          "time": 1.0,
+          "location": 1.0,
+          "reminder": 1.0
+        },
+        "_models_used": "hybrid",
+        "_rule_based": {
+          "event_name": "",
+          "start_time": "2025-11-07T08:00:00",
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        },
+        "_phobert": {
+          "event": "lúc 8h",
+          "start_time": "2025-11-07T08:00:00",
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        }
+      }
+    },
+    {
+      "id": "stress_no_event_12",
+      "category": "stress_missing",
+      "input": "10h sáng mai",
+      "error": "Should fail but got: 10h sáng mai",
+      "result": {
+        "event_name": "10h sáng mai",
+        "start_time": "2025-11-08T10:00:00",
+        "end_time": null,
+        "location": null,
+        "reminder_minutes": 0,
+        "_agreement_scores": {
+          "event": 0.0,
+          "time": 1.0,
+          "location": 1.0,
+          "reminder": 1.0
+        },
+        "_models_used": "hybrid",
+        "_rule_based": {
+          "event_name": "",
+          "start_time": "2025-11-08T10:00:00",
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        },
+        "_phobert": {
+          "event": "10h sáng mai",
+          "start_time": "2025-11-08T10:00:00",
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        }
+      }
+    },
+    {
+      "id": "stress_no_event_13",
+      "category": "stress_missing",
+      "input": "10h sáng mai",
+      "error": "Should fail but got: 10h sáng mai",
+      "result": {
+        "event_name": "10h sáng mai",
+        "start_time": "2025-11-08T10:00:00",
+        "end_time": null,
+        "location": null,
+        "reminder_minutes": 0,
+        "_agreement_scores": {
+          "event": 0.0,
+          "time": 1.0,
+          "location": 1.0,
+          "reminder": 1.0
+        },
+        "_models_used": "hybrid",
+        "_rule_based": {
+          "event_name": "",
+          "start_time": "2025-11-08T10:00:00",
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        },
+        "_phobert": {
+          "event": "10h sáng mai",
+          "start_time": "2025-11-08T10:00:00",
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        }
+      }
+    },
+    {
+      "id": "stress_no_event_14",
+      "category": "stress_missing",
+      "input": "lúc 8h",
+      "error": "Should fail but got: lúc 8h",
+      "result": {
+        "event_name": "lúc 8h",
+        "start_time": "2025-11-07T08:00:00",
+        "end_time": null,
+        "location": null,
+        "reminder_minutes": 0,
+        "_agreement_scores": {
+          "event": 0.0,
+          "time": 1.0,
+          "location": 1.0,
+          "reminder": 1.0
+        },
+        "_models_used": "hybrid",
+        "_rule_based": {
+          "event_name": "",
+          "start_time": "2025-11-07T08:00:00",
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        },
+        "_phobert": {
+          "event": "lúc 8h",
+          "start_time": "2025-11-07T08:00:00",
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        }
+      }
+    },
+    {
+      "id": "stress_no_event_15",
+      "category": "stress_missing",
+      "input": "14h chiều nay",
+      "error": "Should fail but got: 14h chiều nay",
+      "result": {
+        "event_name": "14h chiều nay",
+        "start_time": "2025-11-07T14:00:00",
+        "end_time": null,
+        "location": null,
+        "reminder_minutes": 0,
+        "_agreement_scores": {
+          "event": 0.0,
+          "time": 0.0,
+          "location": 1.0,
+          "reminder": 1.0
+        },
+        "_models_used": "hybrid",
+        "_rule_based": {
+          "event_name": "",
+          "start_time": "2025-11-07T14:00:00",
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        },
+        "_phobert": {
+          "event": "14h chiều nay",
+          "start_time": "2025-11-07T15:00:00",
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        }
+      }
+    },
+    {
+      "id": "stress_minimal_1",
+      "category": "stress_minimal",
+      "input": "gặp nay",
+      "error": "Missing or None start_time",
+      "result": {
+        "event_name": "gặp",
+        "start_time": null,
+        "end_time": null,
+        "location": null,
+        "reminder_minutes": 0,
+        "_agreement_scores": {
+          "event": 1.0,
+          "time": 1.0,
+          "location": 1.0,
+          "reminder": 1.0
+        },
+        "_models_used": "hybrid",
+        "_rule_based": {
+          "event_name": "gặp",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        },
+        "_phobert": {
+          "event": "gặp",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        }
+      }
+    },
+    {
+      "id": "stress_minimal_2",
+      "category": "stress_minimal",
+      "input": "gặp nay",
+      "error": "Missing or None start_time",
+      "result": {
+        "event_name": "gặp",
+        "start_time": null,
+        "end_time": null,
+        "location": null,
+        "reminder_minutes": 0,
+        "_agreement_scores": {
+          "event": 1.0,
+          "time": 1.0,
+          "location": 1.0,
+          "reminder": 1.0
+        },
+        "_models_used": "hybrid",
+        "_rule_based": {
+          "event_name": "gặp",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        },
+        "_phobert": {
+          "event": "gặp",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        }
+      }
+    },
+    {
+      "id": "stress_minimal_3",
+      "category": "stress_minimal",
+      "input": "gặp nay",
+      "error": "Missing or None start_time",
+      "result": {
+        "event_name": "gặp",
+        "start_time": null,
+        "end_time": null,
+        "location": null,
+        "reminder_minutes": 0,
+        "_agreement_scores": {
+          "event": 1.0,
+          "time": 1.0,
+          "location": 1.0,
+          "reminder": 1.0
+        },
+        "_models_used": "hybrid",
+        "_rule_based": {
+          "event_name": "gặp",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        },
+        "_phobert": {
+          "event": "gặp",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        }
+      }
+    },
+    {
+      "id": "stress_minimal_5",
+      "category": "stress_minimal",
+      "input": "ăn trưa",
+      "error": "Missing or None start_time",
+      "result": {
+        "event_name": "ăn trưa",
+        "start_time": null,
+        "end_time": null,
+        "location": null,
+        "reminder_minutes": 0,
+        "_agreement_scores": {
+          "event": 0.7,
+          "time": 1.0,
+          "location": 1.0,
+          "reminder": 1.0
+        },
+        "_models_used": "hybrid",
+        "_rule_based": {
+          "event_name": "ăn trưa",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        },
+        "_phobert": {
+          "event": "ăn",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        }
+      }
+    },
+    {
+      "id": "stress_minimal_7",
+      "category": "stress_minimal",
+      "input": "học tối",
+      "error": "Missing or None start_time",
+      "result": {
+        "event_name": "học tối",
+        "start_time": null,
+        "end_time": null,
+        "location": null,
+        "reminder_minutes": 0,
+        "_agreement_scores": {
+          "event": 0.7,
+          "time": 1.0,
+          "location": 1.0,
+          "reminder": 1.0
+        },
+        "_models_used": "hybrid",
+        "_rule_based": {
+          "event_name": "học tối",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        },
+        "_phobert": {
+          "event": "học",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        }
+      }
+    },
+    {
+      "id": "stress_minimal_8",
+      "category": "stress_minimal",
+      "input": "gặp nay",
+      "error": "Missing or None start_time",
+      "result": {
+        "event_name": "gặp",
+        "start_time": null,
+        "end_time": null,
+        "location": null,
+        "reminder_minutes": 0,
+        "_agreement_scores": {
+          "event": 1.0,
+          "time": 1.0,
+          "location": 1.0,
+          "reminder": 1.0
+        },
+        "_models_used": "hybrid",
+        "_rule_based": {
+          "event_name": "gặp",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        },
+        "_phobert": {
+          "event": "gặp",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        }
+      }
+    },
+    {
+      "id": "stress_minimal_9",
+      "category": "stress_minimal",
+      "input": "học tối",
+      "error": "Missing or None start_time",
+      "result": {
+        "event_name": "học tối",
+        "start_time": null,
+        "end_time": null,
+        "location": null,
+        "reminder_minutes": 0,
+        "_agreement_scores": {
+          "event": 0.7,
+          "time": 1.0,
+          "location": 1.0,
+          "reminder": 1.0
+        },
+        "_models_used": "hybrid",
+        "_rule_based": {
+          "event_name": "học tối",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        },
+        "_phobert": {
+          "event": "học",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        }
+      }
+    },
+    {
+      "id": "stress_minimal_14",
+      "category": "stress_minimal",
+      "input": "gặp nay",
+      "error": "Missing or None start_time",
+      "result": {
+        "event_name": "gặp",
+        "start_time": null,
+        "end_time": null,
+        "location": null,
+        "reminder_minutes": 0,
+        "_agreement_scores": {
+          "event": 1.0,
+          "time": 1.0,
+          "location": 1.0,
+          "reminder": 1.0
+        },
+        "_models_used": "hybrid",
+        "_rule_based": {
+          "event_name": "gặp",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        },
+        "_phobert": {
+          "event": "gặp",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        }
+      }
+    },
+    {
+      "id": "stress_minimal_15",
+      "category": "stress_minimal",
+      "input": "gặp nay",
+      "error": "Missing or None start_time",
+      "result": {
+        "event_name": "gặp",
+        "start_time": null,
+        "end_time": null,
+        "location": null,
+        "reminder_minutes": 0,
+        "_agreement_scores": {
+          "event": 1.0,
+          "time": 1.0,
+          "location": 1.0,
+          "reminder": 1.0
+        },
+        "_models_used": "hybrid",
+        "_rule_based": {
+          "event_name": "gặp",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        },
+        "_phobert": {
+          "event": "gặp",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        }
+      }
+    },
+    {
+      "id": "stress_minimal_16",
+      "category": "stress_minimal",
+      "input": "ăn trưa",
+      "error": "Missing or None start_time",
+      "result": {
+        "event_name": "ăn trưa",
+        "start_time": null,
+        "end_time": null,
+        "location": null,
+        "reminder_minutes": 0,
+        "_agreement_scores": {
+          "event": 0.7,
+          "time": 1.0,
+          "location": 1.0,
+          "reminder": 1.0
+        },
+        "_models_used": "hybrid",
+        "_rule_based": {
+          "event_name": "ăn trưa",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        },
+        "_phobert": {
+          "event": "ăn",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        }
+      }
+    },
+    {
+      "id": "stress_minimal_19",
+      "category": "stress_minimal",
+      "input": "gặp nay",
+      "error": "Missing or None start_time",
+      "result": {
+        "event_name": "gặp",
+        "start_time": null,
+        "end_time": null,
+        "location": null,
+        "reminder_minutes": 0,
+        "_agreement_scores": {
+          "event": 1.0,
+          "time": 1.0,
+          "location": 1.0,
+          "reminder": 1.0
+        },
+        "_models_used": "hybrid",
+        "_rule_based": {
+          "event_name": "gặp",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        },
+        "_phobert": {
+          "event": "gặp",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        }
+      }
+    },
+    {
+      "id": "stress_minimal_20",
+      "category": "stress_minimal",
+      "input": "gặp nay",
+      "error": "Missing or None start_time",
+      "result": {
+        "event_name": "gặp",
+        "start_time": null,
+        "end_time": null,
+        "location": null,
+        "reminder_minutes": 0,
+        "_agreement_scores": {
+          "event": 1.0,
+          "time": 1.0,
+          "location": 1.0,
+          "reminder": 1.0
+        },
+        "_models_used": "hybrid",
+        "_rule_based": {
+          "event_name": "gặp",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        },
+        "_phobert": {
+          "event": "gặp",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        }
+      }
+    },
+    {
+      "id": "boundary_short_1",
+      "category": "boundary",
+      "input": "đ",
+      "error": "Should fail but got: đ",
+      "result": {
+        "event_name": "đ",
+        "start_time": null,
+        "end_time": null,
+        "location": null,
+        "reminder_minutes": 0,
+        "_agreement_scores": {
+          "event": 1.0,
+          "time": 1.0,
+          "location": 1.0,
+          "reminder": 1.0
+        },
+        "_models_used": "hybrid",
+        "_rule_based": {
+          "event_name": "đ",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        },
+        "_phobert": {
+          "event": "đ",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        }
+      }
+    },
+    {
+      "id": "boundary_short_2",
+      "category": "boundary",
+      "input": "đ",
+      "error": "Should fail but got: đ",
+      "result": {
+        "event_name": "đ",
+        "start_time": null,
+        "end_time": null,
+        "location": null,
+        "reminder_minutes": 0,
+        "_agreement_scores": {
+          "event": 1.0,
+          "time": 1.0,
+          "location": 1.0,
+          "reminder": 1.0
+        },
+        "_models_used": "hybrid",
+        "_rule_based": {
+          "event_name": "đ",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        },
+        "_phobert": {
+          "event": "đ",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        }
+      }
+    },
+    {
+      "id": "boundary_short_3",
+      "category": "boundary",
+      "input": "ab",
+      "error": "Should fail but got: ab",
+      "result": {
+        "event_name": "ab",
+        "start_time": null,
+        "end_time": null,
+        "location": null,
+        "reminder_minutes": 0,
+        "_agreement_scores": {
+          "event": 1.0,
+          "time": 1.0,
+          "location": 1.0,
+          "reminder": 1.0
+        },
+        "_models_used": "hybrid",
+        "_rule_based": {
+          "event_name": "ab",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        },
+        "_phobert": {
+          "event": "ab",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        }
+      }
+    },
+    {
+      "id": "boundary_short_4",
+      "category": "boundary",
+      "input": "ab",
+      "error": "Should fail but got: ab",
+      "result": {
+        "event_name": "ab",
+        "start_time": null,
+        "end_time": null,
+        "location": null,
+        "reminder_minutes": 0,
+        "_agreement_scores": {
+          "event": 1.0,
+          "time": 1.0,
+          "location": 1.0,
+          "reminder": 1.0
+        },
+        "_models_used": "hybrid",
+        "_rule_based": {
+          "event_name": "ab",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        },
+        "_phobert": {
+          "event": "ab",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        }
+      }
+    },
+    {
+      "id": "boundary_short_5",
+      "category": "boundary",
+      "input": "g",
+      "error": "Should fail but got: g",
+      "result": {
+        "event_name": "g",
+        "start_time": null,
+        "end_time": null,
+        "location": null,
+        "reminder_minutes": 0,
+        "_agreement_scores": {
+          "event": 1.0,
+          "time": 1.0,
+          "location": 1.0,
+          "reminder": 1.0
+        },
+        "_models_used": "hybrid",
+        "_rule_based": {
+          "event_name": "g",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        },
+        "_phobert": {
+          "event": "g",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        }
+      }
+    },
+    {
+      "id": "boundary_short_6",
+      "category": "boundary",
+      "input": "g",
+      "error": "Should fail but got: g",
+      "result": {
+        "event_name": "g",
+        "start_time": null,
+        "end_time": null,
+        "location": null,
+        "reminder_minutes": 0,
+        "_agreement_scores": {
+          "event": 1.0,
+          "time": 1.0,
+          "location": 1.0,
+          "reminder": 1.0
+        },
+        "_models_used": "hybrid",
+        "_rule_based": {
+          "event_name": "g",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        },
+        "_phobert": {
+          "event": "g",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        }
+      }
+    },
+    {
+      "id": "boundary_short_7",
+      "category": "boundary",
+      "input": "12",
+      "error": "Should fail but got: 12",
+      "result": {
+        "event_name": "12",
+        "start_time": null,
+        "end_time": null,
+        "location": null,
+        "reminder_minutes": 0,
+        "_agreement_scores": {
+          "event": 1.0,
+          "time": 1.0,
+          "location": 1.0,
+          "reminder": 1.0
+        },
+        "_models_used": "hybrid",
+        "_rule_based": {
+          "event_name": "12",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        },
+        "_phobert": {
+          "event": "12",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        }
+      }
+    },
+    {
+      "id": "boundary_short_8",
+      "category": "boundary",
+      "input": "đ",
+      "error": "Should fail but got: đ",
+      "result": {
+        "event_name": "đ",
+        "start_time": null,
+        "end_time": null,
+        "location": null,
+        "reminder_minutes": 0,
+        "_agreement_scores": {
+          "event": 1.0,
+          "time": 1.0,
+          "location": 1.0,
+          "reminder": 1.0
+        },
+        "_models_used": "hybrid",
+        "_rule_based": {
+          "event_name": "đ",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        },
+        "_phobert": {
+          "event": "đ",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        }
+      }
+    },
+    {
+      "id": "boundary_short_9",
+      "category": "boundary",
+      "input": "12",
+      "error": "Should fail but got: 12",
+      "result": {
+        "event_name": "12",
+        "start_time": null,
+        "end_time": null,
+        "location": null,
+        "reminder_minutes": 0,
+        "_agreement_scores": {
+          "event": 1.0,
+          "time": 1.0,
+          "location": 1.0,
+          "reminder": 1.0
+        },
+        "_models_used": "hybrid",
+        "_rule_based": {
+          "event_name": "12",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        },
+        "_phobert": {
+          "event": "12",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        }
+      }
+    },
+    {
+      "id": "boundary_short_10",
+      "category": "boundary",
+      "input": "ab",
+      "error": "Should fail but got: ab",
+      "result": {
+        "event_name": "ab",
+        "start_time": null,
+        "end_time": null,
+        "location": null,
+        "reminder_minutes": 0,
+        "_agreement_scores": {
+          "event": 1.0,
+          "time": 1.0,
+          "location": 1.0,
+          "reminder": 1.0
+        },
+        "_models_used": "hybrid",
+        "_rule_based": {
+          "event_name": "ab",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        },
+        "_phobert": {
+          "event": "ab",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        }
+      }
+    },
+    {
+      "id": "boundary_short_11",
+      "category": "boundary",
+      "input": "h",
+      "error": "Should fail but got: h",
+      "result": {
+        "event_name": "h",
+        "start_time": null,
+        "end_time": null,
+        "location": null,
+        "reminder_minutes": 0,
+        "_agreement_scores": {
+          "event": 1.0,
+          "time": 1.0,
+          "location": 1.0,
+          "reminder": 1.0
+        },
+        "_models_used": "hybrid",
+        "_rule_based": {
+          "event_name": "h",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        },
+        "_phobert": {
+          "event": "h",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        }
+      }
+    },
+    {
+      "id": "boundary_short_12",
+      "category": "boundary",
+      "input": "h",
+      "error": "Should fail but got: h",
+      "result": {
+        "event_name": "h",
+        "start_time": null,
+        "end_time": null,
+        "location": null,
+        "reminder_minutes": 0,
+        "_agreement_scores": {
+          "event": 1.0,
+          "time": 1.0,
+          "location": 1.0,
+          "reminder": 1.0
+        },
+        "_models_used": "hybrid",
+        "_rule_based": {
+          "event_name": "h",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        },
+        "_phobert": {
+          "event": "h",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        }
+      }
+    },
+    {
+      "id": "boundary_short_13",
+      "category": "boundary",
+      "input": "ab",
+      "error": "Should fail but got: ab",
+      "result": {
+        "event_name": "ab",
+        "start_time": null,
+        "end_time": null,
+        "location": null,
+        "reminder_minutes": 0,
+        "_agreement_scores": {
+          "event": 1.0,
+          "time": 1.0,
+          "location": 1.0,
+          "reminder": 1.0
+        },
+        "_models_used": "hybrid",
+        "_rule_based": {
+          "event_name": "ab",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        },
+        "_phobert": {
+          "event": "ab",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        }
+      }
+    },
+    {
+      "id": "boundary_short_14",
+      "category": "boundary",
+      "input": "đ",
+      "error": "Should fail but got: đ",
+      "result": {
+        "event_name": "đ",
+        "start_time": null,
+        "end_time": null,
+        "location": null,
+        "reminder_minutes": 0,
+        "_agreement_scores": {
+          "event": 1.0,
+          "time": 1.0,
+          "location": 1.0,
+          "reminder": 1.0
+        },
+        "_models_used": "hybrid",
+        "_rule_based": {
+          "event_name": "đ",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        },
+        "_phobert": {
+          "event": "đ",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        }
+      }
+    },
+    {
+      "id": "boundary_short_15",
+      "category": "boundary",
+      "input": "g",
+      "error": "Should fail but got: g",
+      "result": {
+        "event_name": "g",
+        "start_time": null,
+        "end_time": null,
+        "location": null,
+        "reminder_minutes": 0,
+        "_agreement_scores": {
+          "event": 1.0,
+          "time": 1.0,
+          "location": 1.0,
+          "reminder": 1.0
+        },
+        "_models_used": "hybrid",
+        "_rule_based": {
+          "event_name": "g",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        },
+        "_phobert": {
+          "event": "g",
+          "start_time": null,
+          "end_time": null,
+          "location": null,
+          "reminder_minutes": 0
+        }
+      }
+    }
+  ],
+  "critical_issues": []
+}
