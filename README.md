@@ -1,4 +1,4 @@
-# 📅 Vietnamese NLP Event Scheduler# 📅 Trợ Lý Lịch Trình - Vietnamese NLP Calendar Assistant# 📅 Trợ Lý Lịch Trình - NLP Tiếng Việt
+# 📅 Trợ Lý Lịch Trình - Vietnamese NLP Calendar Assistant
 
 
 
@@ -6,19 +6,19 @@
 
 > **Status:** Production Ready ✅  
 
-> **Test Coverage:** 100% (1065/1065 tests)![Version](https://img.shields.io/badge/version-0.8.1-blue.svg)![Version](https://img.shields.io/badge/version-0.8.1-blue.svg)
+> **Test Coverage:** 100% (1065/1065 tests)![Version](https://img.shields.io/badge/version-0.8.1-blue.svg)
 
 
 
-Hệ thống AI phân tích ngôn ngữ tự nhiên tiếng Việt để tạo lịch hẹn tự động với độ chính xác cao.![Python](https://img.shields.io/badge/python-3.9%2B-green.svg)![Python](https://img.shields.io/badge/python-3.9%2B-green.svg)
+Hệ thống AI phân tích ngôn ngữ tự nhiên tiếng Việt để tạo lịch hẹn tự động với độ chính xác cao.![Python](https://img.shields.io/badge/python-3.9%2B-green.svg)
 
 
 
-## 🎯 Tính năng![License](https://img.shields.io/badge/license-MIT-yellow.svg)![License](https://img.shields.io/badge/license-MIT-yellow.svg)
+## 🎯 Tính năng
 
 
 
-### Core Features![Edge Cases](https://img.shields.io/badge/edge_cases-96.6%25-brightgreen.svg)![Platform](https://img.shields.io/badge/platform-Windows-lightgrey.svg)
+### Core Features![Platform](https://img.shields.io/badge/platform-Windows-lightgrey.svg)
 
 - ✅ **Hybrid AI Model** - Kết hợp Rule-based (100% accurate) + PhoBERT Fine-tuned (95% accurate)
 
