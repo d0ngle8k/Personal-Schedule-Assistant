@@ -232,6 +232,9 @@ def _parse_explicit_date(base: datetime, s_norm: str) -> tuple[Optional[datetime
         year = int(m.group(3))
         try:
             dt = datetime(year, month, day, base.hour, base.minute)
+            # VALIDATION: Reject dates in the past (with 1 day tolerance)
+            if dt < base - timedelta(days=1):
+                return None, s_norm  # Return None for past dates
             return dt, re.sub(m.group(0), "", s_norm, 1).strip()
         except ValueError:
             pass
@@ -245,18 +248,60 @@ def _parse_explicit_date(base: datetime, s_norm: str) -> tuple[Optional[datetime
         year = base.year
         try:
             dt = datetime(year, month, day, base.hour, base.minute)
+            # VALIDATION: Reject dates in the past
+            if dt < base - timedelta(days=1):
+                return None, s_norm
             return dt, re.sub(m.group(0), "", s_norm, 1).strip()
         except ValueError:
             pass
     
-    # Format: ngay 6 thang 12 (normalized Vietnamese)
-    m = re.search(r"ngay\s*(\d{1,2})\s*thang\s*(\d{1,2})", s_norm)
+    # Format: ngay DD thang MM (normalized Vietnamese)
+    m = re.search(r"ngay\s*(\d{1,2})\s*thang\s*(\d{1,2})(?:\s*nam\s*(\d{4}))?", s_norm)
     if m:
         day = int(m.group(1))
         month = int(m.group(2))
+        year = int(m.group(3)) if m.group(3) else base.year
+        try:
+            dt = datetime(year, month, day, base.hour, base.minute)
+            # VALIDATION: Reject dates in the past
+            if dt < base - timedelta(days=1):
+                return None, s_norm
+            return dt, re.sub(m.group(0), "", s_norm, 1).strip()
+        except ValueError:
+            pass
+    
+    # ENHANCEMENT: ngay DD (without month - assumes current or next month)
+    m = re.search(r"ngay\s+(\d{1,2})(?!\s*(?:thang|/))", s_norm)
+    if m:
+        day = int(m.group(1))
+        # Use current month, or next month if day has passed
+        month = base.month
         year = base.year
         try:
             dt = datetime(year, month, day, base.hour, base.minute)
+            # If date is in the past, use next month
+            if dt < base:
+                month += 1
+                if month > 12:
+                    month = 1
+                    year += 1
+                dt = datetime(year, month, day, base.hour, base.minute)
+            return dt, re.sub(r"ngay\s+\d{1,2}", "", s_norm, 1).strip()
+        except ValueError:
+            pass
+    
+    # ENHANCEMENT: thang MM (without day - assumes 1st of month)
+    m = re.search(r"thang\s+(\d{1,2})(?:\s*nam\s*(\d{4}))?", s_norm)
+    if m:
+        month = int(m.group(1))
+        year = int(m.group(2)) if m.group(2) else base.year
+        day = 1  # First day of the month
+        try:
+            dt = datetime(year, month, day, base.hour, base.minute)
+            # If date is in the past, use next year
+            if dt < base:
+                year += 1
+                dt = datetime(year, month, day, base.hour, base.minute)
             return dt, re.sub(m.group(0), "", s_norm, 1).strip()
         except ValueError:
             pass
@@ -410,6 +455,31 @@ def _parse_relative_words(base: datetime, s_norm: str) -> tuple[Optional[datetim
         dt = (base + timedelta(days=30)).replace(hour=base.hour, minute=base.minute)
         text = re.sub(r"\bthang\s+(?:sau|toi|tới)\b", "", text).strip()
         return dt, text
+    
+    # ENHANCEMENT: năm sau / năm tới (next year - January 1st of next year)
+    if re.search(r"\bnam\s+(?:sau|toi|tới)\b", text):
+        dt = datetime(base.year + 1, 1, 1, base.hour, base.minute)
+        text = re.sub(r"\bnam\s+(?:sau|toi|tới)\b", "", text).strip()
+        return dt, text
+    
+    # ENHANCEMENT: năm nay / năm này (this year - keeps current date)
+    if re.search(r"\bnam\s+(?:nay|này)\b", text):
+        dt = base  # Keep current date
+        text = re.sub(r"\bnam\s+(?:nay|này)\b", "", text).strip()
+        return dt, text
+    
+    # ENHANCEMENT: năm YYYY (specific year - January 1st of that year)
+    m = re.search(r"\bnam\s+(\d{4})\b", text)
+    if m:
+        year = int(m.group(1))
+        # Validate: cannot create events in the past (before current year)
+        if year < base.year:
+            # Return None to indicate past year (invalid)
+            return None, text
+        dt = datetime(year, 1, 1, base.hour, base.minute)
+        text = re.sub(m.group(0), "", text).strip()
+        return dt, text
+    
     return None, s_norm
 
 
@@ -573,10 +643,20 @@ def parse_vietnamese_time_range(time_str: str | None, *, relative_base: Optional
 
     start_dt = build_dt(start_h, start_m)
     end_dt = build_dt(end_h, end_m) if end_h is not None else None
+    
+    # VALIDATION: Prevent creating events in the past
+    # Allow events up to 1 hour in the past (for clock differences/processing time)
+    if start_dt:
+        time_threshold = base - timedelta(hours=1)
+        if start_dt < time_threshold:
+            # Event is in the past, return None to indicate invalid
+            return None, None
+    
     # Ensure end after start if both present
     if start_dt and end_dt and end_dt <= start_dt:
         # If end <= start, assume same day but later hour ambiguity; keep as-is for now.
         pass
+    
     return start_dt, end_dt
 
 def parse_vietnamese_time(time_str: str | None, *, relative_base: Optional[datetime] = None) -> Optional[datetime]:

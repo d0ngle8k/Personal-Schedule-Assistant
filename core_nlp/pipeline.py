@@ -26,9 +26,16 @@ class NLPPipeline:
             # FIXED: Support h followed by digits (17h30) using (?:h\d{1,2}|:\d{1,2})
             # Negative lookbehind ensures no word character (includes all Vietnamese) before digit
             r"(?<!\w)\d{1,2}(?:h\d{1,2}|\s*(?:giờ|gio)|:\d{1,2}|h)(?:\s*\d{1,2}(?:p|\s*phút))?\b"
-            # Date patterns - FIXED: Add DD/MM and DD/MM/YYYY formats
+            # Date patterns - ENHANCED: Full date support with year
             r"|(?:ngày|ngay)?\s*\d{1,2}/\d{1,2}(?:/\d{2,4})?"  # 20/10, 20/10/2025, ngày 20/10
-            r"|(?:ngày|ngay)\s*\d{1,2}\s*(?:tháng|thang)\s*\d{1,2}"
+            r"|(?:ngày|ngay)\s*\d{1,2}\s*(?:tháng|thang)\s*\d{1,2}(?:\s*(?:năm|nam)\s*\d{4})?"  # ngày 20 tháng 10, ngày 20 tháng 10 năm 2025
+            # Specific day without month (assumes current/next month)
+            r"|(?:ngày|ngay)\s+\d{1,2}(?!\s*(?:tháng|thang|/))(?!\w)"  # ngày 15 (without tháng)
+            # Specific month without day (assumes 1st of month)
+            r"|(?:tháng|thang)\s+\d{1,2}(?:\s*(?:năm|nam)\s*\d{4})?"  # tháng 12, tháng 12 năm 2025
+            # Year patterns
+            r"|\b(?:năm|nam)\s+(?:sau|toi|tới|nay|này|trước|truoc)(?!\w)"  # năm sau, năm tới, năm nay
+            r"|\b(?:năm|nam)\s+\d{4}(?!\w)"  # năm 2026, năm 2027
             # Relative day markers
             r"|(?:hôm nay|hom nay|ngày mai|ngay mai|mai)(?!\w)"  # Added negative lookahead
             r"|(?:ngày mốt|ngay mot|mốt|mot|mai mốt|mai mot|ngày kia|ngay kia)(?!\w)"

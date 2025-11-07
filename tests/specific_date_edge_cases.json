@@ -1,0 +1,587 @@
+[
+  {
+    "id": "specific_day_1",
+    "input": "Họp nhóm ngày 15",
+    "category": "specific_day",
+    "pattern": "ngày 15",
+    "description": "Assumes current/next month day 15",
+    "expected_fields": [
+      "event_name",
+      "start_time"
+    ],
+    "validation": "day should be in current or next month"
+  },
+  {
+    "id": "specific_day_2",
+    "input": "Gặp khách ngày 20 lúc 10h",
+    "category": "specific_day",
+    "pattern": "ngày 20 + 10h",
+    "description": "Day 20 at 10:00",
+    "expected_fields": [
+      "event_name",
+      "start_time"
+    ],
+    "validation": "day should be in current or next month"
+  },
+  {
+    "id": "specific_day_3",
+    "input": "Học bài ngày 25 sáng mai",
+    "category": "specific_day",
+    "pattern": "ngày 25 + sáng",
+    "description": "Day 25 morning",
+    "expected_fields": [
+      "event_name",
+      "start_time"
+    ],
+    "validation": "day should be in current or next month"
+  },
+  {
+    "id": "specific_day_4",
+    "input": "Đi khám ngày 5 chiều",
+    "category": "specific_day",
+    "pattern": "ngày 5 + chiều",
+    "description": "Day 5 afternoon",
+    "expected_fields": [
+      "event_name",
+      "start_time"
+    ],
+    "validation": "day should be in current or next month"
+  },
+  {
+    "id": "specific_day_5",
+    "input": "Meeting ngày 30",
+    "category": "specific_day",
+    "pattern": "ngày 30",
+    "description": "End of month",
+    "expected_fields": [
+      "event_name",
+      "start_time"
+    ],
+    "validation": "day should be in current or next month"
+  },
+  {
+    "id": "specific_day_6",
+    "input": "Review ngày 1",
+    "category": "specific_day",
+    "pattern": "ngày 1",
+    "description": "First day of month",
+    "expected_fields": [
+      "event_name",
+      "start_time"
+    ],
+    "validation": "day should be in current or next month"
+  },
+  {
+    "id": "specific_day_7",
+    "input": "Họp ngày 10 tối",
+    "category": "specific_day",
+    "pattern": "ngày 10 + tối",
+    "description": "Day 10 evening",
+    "expected_fields": [
+      "event_name",
+      "start_time"
+    ],
+    "validation": "day should be in current or next month"
+  },
+  {
+    "id": "specific_day_8",
+    "input": "Gặp ngày 18 14h",
+    "category": "specific_day",
+    "pattern": "ngày 18 + 14h",
+    "description": "Day 18 at 14:00",
+    "expected_fields": [
+      "event_name",
+      "start_time"
+    ],
+    "validation": "day should be in current or next month"
+  },
+  {
+    "id": "specific_day_9",
+    "input": "Học ngày 22 trưa",
+    "category": "specific_day",
+    "pattern": "ngày 22 + trưa",
+    "description": "Day 22 noon",
+    "expected_fields": [
+      "event_name",
+      "start_time"
+    ],
+    "validation": "day should be in current or next month"
+  },
+  {
+    "id": "specific_day_10",
+    "input": "Đi ngày 28 lúc 16h30",
+    "category": "specific_day",
+    "pattern": "ngày 28 + 16h30",
+    "description": "Day 28 at 16:30",
+    "expected_fields": [
+      "event_name",
+      "start_time"
+    ],
+    "validation": "day should be in current or next month"
+  },
+  {
+    "id": "day_month_11",
+    "input": "Họp nhóm ngày 15 tháng 12",
+    "category": "day_month",
+    "pattern": "15/12",
+    "description": "December 15",
+    "expected_fields": [
+      "event_name",
+      "start_time"
+    ],
+    "validation": "should be in current year"
+  },
+  {
+    "id": "day_month_12",
+    "input": "Gặp khách ngày 20 tháng 11 lúc 10h",
+    "category": "day_month",
+    "pattern": "20/11 + 10h",
+    "description": "November 20 at 10:00",
+    "expected_fields": [
+      "event_name",
+      "start_time"
+    ],
+    "validation": "should be in current year"
+  },
+  {
+    "id": "day_month_13",
+    "input": "Sinh nhật ngày 25 tháng 12 tối",
+    "category": "day_month",
+    "pattern": "25/12 + tối",
+    "description": "Christmas evening",
+    "expected_fields": [
+      "event_name",
+      "start_time"
+    ],
+    "validation": "should be in current year"
+  },
+  {
+    "id": "day_month_14",
+    "input": "Review ngày 1 tháng 1",
+    "category": "day_month",
+    "pattern": "1/1",
+    "description": "New Year's Day",
+    "expected_fields": [
+      "event_name",
+      "start_time"
+    ],
+    "validation": "should be in current year"
+  },
+  {
+    "id": "day_month_15",
+    "input": "Meeting ngày 30 tháng 11 sáng",
+    "category": "day_month",
+    "pattern": "30/11 + sáng",
+    "description": "November 30 morning",
+    "expected_fields": [
+      "event_name",
+      "start_time"
+    ],
+    "validation": "should be in current year"
+  },
+  {
+    "id": "day_month_16",
+    "input": "Họp ngày 10 tháng 12 14h",
+    "category": "day_month",
+    "pattern": "10/12 + 14h",
+    "description": "December 10 at 14:00",
+    "expected_fields": [
+      "event_name",
+      "start_time"
+    ],
+    "validation": "should be in current year"
+  },
+  {
+    "id": "day_month_17",
+    "input": "Gặp ngày 5 tháng 12",
+    "category": "day_month",
+    "pattern": "5/12",
+    "description": "December 5",
+    "expected_fields": [
+      "event_name",
+      "start_time"
+    ],
+    "validation": "should be in current year"
+  },
+  {
+    "id": "day_month_18",
+    "input": "Học ngày 18 tháng 11 chiều",
+    "category": "day_month",
+    "pattern": "18/11 + chiều",
+    "description": "November 18 afternoon",
+    "expected_fields": [
+      "event_name",
+      "start_time"
+    ],
+    "validation": "should be in current year"
+  },
+  {
+    "id": "day_month_19",
+    "input": "Đi ngày 22 tháng 12 lúc 9h",
+    "category": "day_month",
+    "pattern": "22/12 + 9h",
+    "description": "December 22 at 9:00",
+    "expected_fields": [
+      "event_name",
+      "start_time"
+    ],
+    "validation": "should be in current year"
+  },
+  {
+    "id": "day_month_20",
+    "input": "Cafe ngày 8 tháng 12 15h30",
+    "category": "day_month",
+    "pattern": "8/12 + 15h30",
+    "description": "December 8 at 15:30",
+    "expected_fields": [
+      "event_name",
+      "start_time"
+    ],
+    "validation": "should be in current year"
+  },
+  {
+    "id": "full_date_21",
+    "input": "Họp ngày 15 tháng 12 năm 2025",
+    "category": "full_date",
+    "pattern": "15/12/2025",
+    "description": "Full date 2025",
+    "expected_fields": [
+      "event_name",
+      "start_time"
+    ],
+    "validation": "should match exact year"
+  },
+  {
+    "id": "full_date_22",
+    "input": "Gặp khách ngày 20 tháng 1 năm 2026 lúc 10h",
+    "category": "full_date",
+    "pattern": "20/1/2026 + 10h",
+    "description": "January 2026",
+    "expected_fields": [
+      "event_name",
+      "start_time"
+    ],
+    "validation": "should match exact year"
+  },
+  {
+    "id": "full_date_23",
+    "input": "Review ngày 1 tháng 1 năm 2026",
+    "category": "full_date",
+    "pattern": "1/1/2026",
+    "description": "New Year 2026",
+    "expected_fields": [
+      "event_name",
+      "start_time"
+    ],
+    "validation": "should match exact year"
+  },
+  {
+    "id": "full_date_24",
+    "input": "Meeting ngày 25 tháng 12 năm 2025 sáng",
+    "category": "full_date",
+    "pattern": "25/12/2025 + sáng",
+    "description": "Christmas 2025",
+    "expected_fields": [
+      "event_name",
+      "start_time"
+    ],
+    "validation": "should match exact year"
+  },
+  {
+    "id": "full_date_25",
+    "input": "Họp ngày 10 tháng 11 năm 2025 14h",
+    "category": "full_date",
+    "pattern": "10/11/2025 + 14h",
+    "description": "November 2025",
+    "expected_fields": [
+      "event_name",
+      "start_time"
+    ],
+    "validation": "should match exact year"
+  },
+  {
+    "id": "full_date_26",
+    "input": "Gặp ngày 5 tháng 6 năm 2026",
+    "category": "full_date",
+    "pattern": "5/6/2026",
+    "description": "June 2026",
+    "expected_fields": [
+      "event_name",
+      "start_time"
+    ],
+    "validation": "should match exact year"
+  },
+  {
+    "id": "full_date_27",
+    "input": "Học ngày 18 tháng 3 năm 2026 chiều",
+    "category": "full_date",
+    "pattern": "18/3/2026 + chiều",
+    "description": "March 2026",
+    "expected_fields": [
+      "event_name",
+      "start_time"
+    ],
+    "validation": "should match exact year"
+  },
+  {
+    "id": "full_date_28",
+    "input": "Đi ngày 22 tháng 7 năm 2026 lúc 9h",
+    "category": "full_date",
+    "pattern": "22/7/2026 + 9h",
+    "description": "July 2026",
+    "expected_fields": [
+      "event_name",
+      "start_time"
+    ],
+    "validation": "should match exact year"
+  },
+  {
+    "id": "full_date_29",
+    "input": "Cafe ngày 8 tháng 12 năm 2025 15h30",
+    "category": "full_date",
+    "pattern": "8/12/2025 + 15h30",
+    "description": "December 2025",
+    "expected_fields": [
+      "event_name",
+      "start_time"
+    ],
+    "validation": "should match exact year"
+  },
+  {
+    "id": "full_date_30",
+    "input": "Sprint ngày 30 tháng 11 năm 2025",
+    "category": "full_date",
+    "pattern": "30/11/2025",
+    "description": "November 30, 2025",
+    "expected_fields": [
+      "event_name",
+      "start_time"
+    ],
+    "validation": "should match exact year"
+  },
+  {
+    "id": "specific_month_31",
+    "input": "Họp tháng 12",
+    "category": "specific_month",
+    "pattern": "tháng 12",
+    "description": "Assumes 1st of December",
+    "expected_fields": [
+      "event_name",
+      "start_time"
+    ],
+    "validation": "should default to 1st of month"
+  },
+  {
+    "id": "specific_month_32",
+    "input": "Gặp khách tháng 11 lúc 10h",
+    "category": "specific_month",
+    "pattern": "tháng 11 + 10h",
+    "description": "November 1st at 10:00",
+    "expected_fields": [
+      "event_name",
+      "start_time"
+    ],
+    "validation": "should default to 1st of month"
+  },
+  {
+    "id": "specific_month_33",
+    "input": "Review tháng 1",
+    "category": "specific_month",
+    "pattern": "tháng 1",
+    "description": "January 1st (next year if past)",
+    "expected_fields": [
+      "event_name",
+      "start_time"
+    ],
+    "validation": "should default to 1st of month"
+  },
+  {
+    "id": "specific_month_34",
+    "input": "Meeting tháng 12 sáng",
+    "category": "specific_month",
+    "pattern": "tháng 12 + sáng",
+    "description": "December 1st morning",
+    "expected_fields": [
+      "event_name",
+      "start_time"
+    ],
+    "validation": "should default to 1st of month"
+  },
+  {
+    "id": "specific_month_35",
+    "input": "Học tháng 6 năm 2026",
+    "category": "specific_month",
+    "pattern": "tháng 6 năm 2026",
+    "description": "June 1st, 2026",
+    "expected_fields": [
+      "event_name",
+      "start_time"
+    ],
+    "validation": "should default to 1st of month"
+  },
+  {
+    "id": "year_pattern_36",
+    "input": "Họp năm sau",
+    "category": "year_pattern",
+    "pattern": "năm sau",
+    "description": "Next year (Jan 1)",
+    "expected_fields": [
+      "event_name",
+      "start_time"
+    ],
+    "validation": "should be future year only"
+  },
+  {
+    "id": "year_pattern_37",
+    "input": "Gặp khách năm tới lúc 10h",
+    "category": "year_pattern",
+    "pattern": "năm tới + 10h",
+    "description": "Next year Jan 1 at 10:00",
+    "expected_fields": [
+      "event_name",
+      "start_time"
+    ],
+    "validation": "should be future year only"
+  },
+  {
+    "id": "year_pattern_38",
+    "input": "Review năm 2026",
+    "category": "year_pattern",
+    "pattern": "năm 2026",
+    "description": "Year 2026 (Jan 1)",
+    "expected_fields": [
+      "event_name",
+      "start_time"
+    ],
+    "validation": "should be future year only"
+  },
+  {
+    "id": "year_pattern_39",
+    "input": "Meeting năm 2027 sáng",
+    "category": "year_pattern",
+    "pattern": "năm 2027 + sáng",
+    "description": "Year 2027 morning",
+    "expected_fields": [
+      "event_name",
+      "start_time"
+    ],
+    "validation": "should be future year only"
+  },
+  {
+    "id": "year_pattern_40",
+    "input": "Học năm 2025 chiều",
+    "category": "year_pattern",
+    "pattern": "năm 2025 + chiều",
+    "description": "Current year afternoon",
+    "expected_fields": [
+      "event_name",
+      "start_time"
+    ],
+    "validation": "should be future year only"
+  },
+  {
+    "id": "year_pattern_41",
+    "input": "Deadline năm sau tháng 6",
+    "category": "year_pattern",
+    "pattern": "năm sau + tháng 6",
+    "description": "Next year June",
+    "expected_fields": [
+      "event_name",
+      "start_time"
+    ],
+    "validation": "should be future year only"
+  },
+  {
+    "id": "year_pattern_42",
+    "input": "Sprint planning năm 2026",
+    "category": "year_pattern",
+    "pattern": "năm 2026",
+    "description": "Year 2026",
+    "expected_fields": [
+      "event_name",
+      "start_time"
+    ],
+    "validation": "should be future year only"
+  },
+  {
+    "id": "year_pattern_43",
+    "input": "Annual review năm tới",
+    "category": "year_pattern",
+    "pattern": "năm tới",
+    "description": "Next year",
+    "expected_fields": [
+      "event_name",
+      "start_time"
+    ],
+    "validation": "should be future year only"
+  },
+  {
+    "id": "year_pattern_44",
+    "input": "Conference năm 2028",
+    "category": "year_pattern",
+    "pattern": "năm 2028",
+    "description": "Year 2028",
+    "expected_fields": [
+      "event_name",
+      "start_time"
+    ],
+    "validation": "should be future year only"
+  },
+  {
+    "id": "year_pattern_45",
+    "input": "Audit năm sau ngày 15",
+    "category": "year_pattern",
+    "pattern": "năm sau + ngày 15",
+    "description": "Next year day 15",
+    "expected_fields": [
+      "event_name",
+      "start_time"
+    ],
+    "validation": "should be future year only"
+  },
+  {
+    "id": "past_date_46",
+    "input": "Họp ngày 1 tháng 1 năm 2024",
+    "category": "past_date_validation",
+    "pattern": "năm 2024",
+    "description": "Past year - should fail",
+    "should_fail": true,
+    "validation": "MUST reject past dates"
+  },
+  {
+    "id": "past_date_47",
+    "input": "Gặp ngày 15 tháng 10 năm 2024",
+    "category": "past_date_validation",
+    "pattern": "15/10/2024",
+    "description": "Past date - should fail",
+    "should_fail": true,
+    "validation": "MUST reject past dates"
+  },
+  {
+    "id": "past_date_48",
+    "input": "Review năm 2023",
+    "category": "past_date_validation",
+    "pattern": "năm 2023",
+    "description": "Old year - should fail",
+    "should_fail": true,
+    "validation": "MUST reject past dates"
+  },
+  {
+    "id": "past_date_49",
+    "input": "Meeting ngày 20 tháng 5 năm 2024",
+    "category": "past_date_validation",
+    "pattern": "20/5/2024",
+    "description": "Past month - should fail",
+    "should_fail": true,
+    "validation": "MUST reject past dates"
+  },
+  {
+    "id": "past_date_50",
+    "input": "Học năm 2020",
+    "category": "past_date_validation",
+    "pattern": "năm 2020",
+    "description": "Very old year - should fail",
+    "should_fail": true,
+    "validation": "MUST reject past dates"
+  }
+]
