@@ -44,10 +44,12 @@ def import_from_json(db_manager, filepath: str, nlp_pipeline=None) -> int:
                     'reminder_minutes': int(parsed.get('reminder_minutes') or 0),
                 }
                 if to_insert['event_name'] and to_insert['start_time']:
-                    db_manager.add_event(to_insert)
-                    count += 1
-            except Exception:
+                    result = db_manager.add_event(to_insert)
+                    if result.get('success'):
+                        count += 1
+            except Exception as e:
                 # Skip items that fail to parse
+                print(f"Warning: Failed to import '{input_text}': {e}")
                 continue
         else:
             # Map compatible fields from export format
@@ -59,8 +61,9 @@ def import_from_json(db_manager, filepath: str, nlp_pipeline=None) -> int:
                 'reminder_minutes': int(ev.get('reminder_minutes') or 0),
             }
             if to_insert['event_name'] and to_insert['start_time']:
-                db_manager.add_event(to_insert)
-                count += 1
+                result = db_manager.add_event(to_insert)
+                if result.get('success'):
+                    count += 1
     return count
 
 

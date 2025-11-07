@@ -504,9 +504,35 @@ class Application(tk.Tk):
         if not path:
             return
         try:
+            # Get count before import
+            before_count = len(self.db_manager.get_all_events())
+            
             count = import_from_json(self.db_manager, path, self.nlp_pipeline)
+            
+            # Get count after import
+            after_count = len(self.db_manager.get_all_events())
+            actual_added = after_count - before_count
+            
             self.refresh_for_date(self.calendar.selection_get())
-            messagebox.showinfo("Nhập JSON", f"Đã nhập {count} sự kiện từ JSON.")
+            
+            # Show detailed message
+            if count == 0:
+                messagebox.showwarning(
+                    "Không nhập được",
+                    "Không có sự kiện mới nào được nhập.\n\n"
+                    "Có thể do:\n"
+                    "• File JSON không hợp lệ\n"
+                    "• Tất cả sự kiện đã tồn tại (trùng thời gian)\n"
+                    "• Thiếu thông tin bắt buộc (tên hoặc thời gian)"
+                )
+            elif actual_added < count:
+                messagebox.showinfo(
+                    "Nhập JSON",
+                    f"✅ Đã nhập {actual_added}/{count} sự kiện mới.\n\n"
+                    f"⚠️ {count - actual_added} sự kiện bị bỏ qua do trùng thời gian."
+                )
+            else:
+                messagebox.showinfo("Nhập JSON", f"✅ Đã nhập {count} sự kiện từ JSON.")
         except Exception as e:
             messagebox.showerror("Lỗi", f"Nhập JSON thất bại: {e}")
 
