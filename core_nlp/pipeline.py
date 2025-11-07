@@ -356,7 +356,7 @@ class NLPPipeline:
         # Parse time
         start_dt, end_dt = parse_vietnamese_time_range(ex['time_str'], relative_base=self.relative_base)
         result = {
-            'event': ex['event_name'],
+            'event_name': ex['event_name'],  # Changed from 'event' to match database schema
             'start_time': start_dt.isoformat() if start_dt else None,
             'end_time': end_dt.isoformat() if end_dt else None,
             'location': self._clean_location_of_reminder(ex.get('location')),

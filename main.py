@@ -10,7 +10,7 @@ if getattr(sys, 'frozen', False) and hasattr(sys, '_MEIPASS'):
 import tkinter as tk
 from tkinter import ttk, messagebox, filedialog
 from tkcalendar import Calendar
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
 
 from database.db_manager import DatabaseManager
 from services.notification_service import start_notification_service
@@ -190,7 +190,23 @@ class Application(tk.Tk):
         messagebox.showinfo("Thông báo", "Chức năng đang được phát triển.")
 
     def _load_today(self):
-        self.refresh_for_date(self.calendar.selection_get())
+        """Load events for initial display - shows wider date range for better UX"""
+        # Load events from 30 days ago to 60 days in future (90 days total)
+        # This ensures users can see past and upcoming events without searching
+        today = date.today()
+        start_date = today - timedelta(days=30)
+        end_date = today + timedelta(days=60)
+        
+        events = self.db_manager.get_events_by_date_range(start_date, end_date)
+        
+        # Limit to max 1000 events for performance
+        if len(events) > 1000:
+            events = events[:1000]
+        
+        self._render_events(events)
+        
+        # Optional: Set search mode to indicate we're showing filtered view
+        # self.search_mode = True  # Uncomment if you want "Xóa lọc" to show today only
 
     def handle_add_event(self):
         text = self.nlp_entry.get().strip()
@@ -218,7 +234,9 @@ class Application(tk.Tk):
             event_dict = self.nlp_pipeline.process(text)
             
             # Strict validation: event name and start_time are mandatory
-            if not event_dict.get('event'):
+            # Check for None or empty string
+            event_name = event_dict.get('event_name')
+            if not event_name or not event_name.strip():
                 messagebox.showerror(
                     "Thiếu tên sự kiện",
                     "Không thể xác định tên sự kiện.\n\n"
@@ -249,7 +267,7 @@ class Application(tk.Tk):
             if not event_dict.get('location'):
                 response = messagebox.askyesno(
                     "Thiếu địa điểm",
-                    f"Sự kiện: {event_dict['event']}\n"
+                    f"Sự kiện: {event_dict['event_name']}\n"
                     f"Thời gian: {event_dict['start_time'][:16]}\n\n"
                     "Bạn chưa chỉ định địa điểm.\n"
                     "Bạn có muốn tiếp tục không?",
@@ -259,7 +277,7 @@ class Application(tk.Tk):
                     self.nlp_entry.focus()
                     return
             
-            # Add event to database with duplicate checking
+            # Add event to database with duplicate checking (keys already match schema)
             result = self.db_manager.add_event(event_dict)
             
             if not result.get('success'):
@@ -299,7 +317,7 @@ class Application(tk.Tk):
             messagebox.showinfo(
                 "Thành công",
                 f"Đã thêm sự kiện:\n\n"
-                f"• Tên: {event_dict['event']}\n"
+                f"• Tên: {event_dict['event_name']}\n"
                 f"• Thời gian: {event_dict['start_time'][:16]}\n"
                 f"• Địa điểm: {loc_text}\n"
                 f"• Nhắc trước: {rem_text}"
@@ -311,23 +329,29 @@ class Application(tk.Tk):
     def handle_date_select(self, _evt=None):
         # Nếu đang ở chế độ tìm kiếm, bỏ qua refresh theo ngày để không mất kết quả
         if not getattr(self, 'search_mode', False):
-            self.refresh_for_date(self.calendar.selection_get())
+            # Load events around selected date (±30 days) for better context
+            selected_date = self.calendar.selection_get()
+            start_date = selected_date - timedelta(days=30)
+            end_date = selected_date + timedelta(days=30)
+            events = self.db_manager.get_events_by_date_range(start_date, end_date)
+            
+            # Limit to 1000 events max
+            if len(events) > 1000:
+                events = events[:1000]
+            
+            self._render_events(events)
 
     def refresh_for_date(self, date_obj: date):
-        events = self.db_manager.get_events_by_date(date_obj)
-        for item in self.tree.get_children():
-            self.tree.delete(item)
-        for ev in events:
-            # Hiển thị đầy đủ: DD/MM/YYYY HH:MM
-            time_str = ''
-            if ev.get('start_time'):
-                try:
-                    dt = datetime.fromisoformat(ev['start_time'])
-                    time_str = dt.strftime('%d/%m/%Y %H:%M')
-                except:
-                    time_str = ev['start_time']
-            remind_str = 'Có' if (ev.get('reminder_minutes') or 0) > 0 else 'Không'
-            self.tree.insert('', 'end', values=(ev['id'], ev['event_name'], time_str, remind_str, ev.get('location') or ''))
+        """Refresh display to show events around the given date (±30 days)"""
+        start_date = date_obj - timedelta(days=30)
+        end_date = date_obj + timedelta(days=30)
+        events = self.db_manager.get_events_by_date_range(start_date, end_date)
+        
+        # Limit to 1000 events max
+        if len(events) > 1000:
+            events = events[:1000]
+        
+        self._render_events(events)
 
     def _render_events(self, events):
         for item in self.tree.get_children():

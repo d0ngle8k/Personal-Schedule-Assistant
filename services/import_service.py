@@ -37,13 +37,13 @@ def import_from_json(db_manager, filepath: str, nlp_pipeline=None) -> int:
             try:
                 parsed = nlp_pipeline.process(input_text)
                 to_insert = {
-                    'event': parsed.get('event') or '',
+                    'event_name': parsed.get('event_name') or '',
                     'start_time': parsed.get('start_time'),
                     'end_time': parsed.get('end_time'),
                     'location': parsed.get('location'),
                     'reminder_minutes': int(parsed.get('reminder_minutes') or 0),
                 }
-                if to_insert['event'] and to_insert['start_time']:
+                if to_insert['event_name'] and to_insert['start_time']:
                     db_manager.add_event(to_insert)
                     count += 1
             except Exception:
@@ -52,13 +52,13 @@ def import_from_json(db_manager, filepath: str, nlp_pipeline=None) -> int:
         else:
             # Map compatible fields from export format
             to_insert = {
-                'event': ev.get('event_name') or ev.get('event') or '',
+                'event_name': ev.get('event_name') or ev.get('event') or '',
                 'start_time': ev.get('start_time'),
                 'end_time': ev.get('end_time'),
                 'location': ev.get('location'),
                 'reminder_minutes': int(ev.get('reminder_minutes') or 0),
             }
-            if to_insert['event'] and to_insert['start_time']:
+            if to_insert['event_name'] and to_insert['start_time']:
                 db_manager.add_event(to_insert)
                 count += 1
     return count
@@ -91,13 +91,13 @@ def import_from_ics(db_manager, filepath: str) -> int:
             except Exception:
                 start_iso = None
         to_insert = {
-            'event': name or '',
+            'event_name': name or '',
             'start_time': start_iso,
             'end_time': None,
             'location': location or None,
             'reminder_minutes': 0,
         }
-        if to_insert['event'] and to_insert['start_time']:
+        if to_insert['event_name'] and to_insert['start_time']:
             db_manager.add_event(to_insert)
             count += 1
     return count

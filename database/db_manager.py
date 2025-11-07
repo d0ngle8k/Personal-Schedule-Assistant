@@ -173,6 +173,9 @@ class DatabaseManager:
             "INSERT INTO events (event_name, start_time, end_time, location, reminder_minutes) "
             "VALUES (:event_name, :start_time, :end_time, :location, :reminder_minutes)"
         )
+        
+        # Pass event_dict directly - validation should be done by caller
+        # event_name must not be None or empty - caller must validate
         try:
             with self._PooledConnection(self) as conn:
                 conn.execute(sql, event_dict)
