@@ -11,7 +11,7 @@ venv/
 /dist/
 /build/
 *.spec
-build_main_ctk.spec
+!build_main_ctk.spec
 
 # Database file
 /database/*.db
