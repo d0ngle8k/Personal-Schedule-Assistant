@@ -1,14 +1,17 @@
 # -*- mode: python ; coding: utf-8 -*-
-from PyInstaller.utils.hooks import collect_submodules, collect_data_files
+from PyInstaller.utils.hooks import collect_submodules, collect_data_files, collect_all
 import os
+import sys
 
 block_cipher = None
 
-# Collect all customtkinter data files
-ctk_datas = collect_data_files('customtkinter')
+# Get customtkinter path - use absolute path
+import customtkinter
+ctk_path = os.path.dirname(customtkinter.__file__)
 
 # Manually add project data directories
 datas = [
+    (ctk_path, 'customtkinter'),  # Include entire customtkinter package
     ('database/schema.sql', 'database'),
     ('database/db_manager.py', 'database'),
     ('core_nlp', 'core_nlp'),
@@ -31,9 +34,6 @@ if os.path.exists('training_data'):
 if os.path.exists('sounds'):
     datas.append(('sounds', 'sounds'))
 
-# Merge customtkinter data files
-datas.extend(ctk_datas)
-
 # Hidden imports for dependencies
 hiddenimports = (
     collect_submodules('customtkinter') +
@@ -44,7 +44,7 @@ hiddenimports = (
     collect_submodules('underthesea') +
     collect_submodules('transformers') +
     collect_submodules('torch') +
-    ['pkg_resources.py2_warn']
+    ['customtkinter', 'customtkinter.windows', 'customtkinter.windows.widgets']
 )
 
 a = Analysis(

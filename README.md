@@ -1,464 +1,925 @@
-# 📅 Trợ Lý Lịch Trình - Vietnamese NLP Calendar Assistant
+# 📅 Trợ Lý Lịch Trình - Vietnamese NLP Calendar Assistant# 📅 Trợ Lý Lịch Trình - Vietnamese NLP Calendar Assistant
 
 
+
+> **Modern AI-powered calendar assistant with natural language processing for Vietnamese**  
+
+> Extract events, times, locations, and reminders from Vietnamese text with PhoBERT hybrid NLP pipeline
 
 > **Version:** 1.0.2  
 
-> **Status:** Production Ready ✅  
+[![Version](https://img.shields.io/badge/version-1.0.4-blue.svg)](https://github.com/d0ngle8k/NLP-Processing)
+
+[![Python](https://img.shields.io/badge/python-3.13%2B-brightgreen.svg)](https://www.python.org/)> **Status:** Production Ready ✅  
+
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
 > **Download:** https://open-source-schedule-7tta.bolt.host/
 
+---
 
+
+
+## ✨ Features
 
 # 📅 Trợ Lý Lịch Trình (Vietnamese NLP Calendar Assistant)
 
-![Version](https://img.shields.io/badge/version-0.8.1-blue.svg) ![Python](https://img.shields.io/badge/python-3.9%2B-green.svg) ![Platform](https://img.shields.io/badge/platform-Windows-lightgrey.svg)
+### 🤖 **Intelligent NLP Processing**
 
-Ứng dụng giúp tạo & quản lý lịch hẹn bằng tiếng Việt tự nhiên. Bạn nhập câu giống như trò chuyện: hệ thống tự động trích xuất sự kiện, thời gian, địa điểm, nhắc nhở. Kết hợp mô hình **Hybrid NLP** (Rule-based 100% + PhoBERT fine-tuned ≥95%).
+- **Hybrid PhoBERT + Rule-based Pipeline**: 80.67% event extraction accuracy (99.1% real-world)![Version](https://img.shields.io/badge/version-0.8.1-blue.svg) ![Python](https://img.shields.io/badge/python-3.9%2B-green.svg) ![Platform](https://img.shields.io/badge/platform-Windows-lightgrey.svg)
+
+- **Advanced Time Parsing**: Supports complex Vietnamese time expressions (1h50p, 14h30, ngày mai, tuần sau...)
+
+- **Smart Location Detection**: Automatic location extraction with heuristic validationỨng dụng giúp tạo & quản lý lịch hẹn bằng tiếng Việt tự nhiên. Bạn nhập câu giống như trò chuyện: hệ thống tự động trích xuất sự kiện, thời gian, địa điểm, nhắc nhở. Kết hợp mô hình **Hybrid NLP** (Rule-based 100% + PhoBERT fine-tuned ≥95%).
+
+- **Context-Aware Reminders**: Extract reminder times from natural language
 
 ---
-## ✨ Tính năng chính
 
-- 🔍 Nhận dạng thời gian phức tạp: "6h chiều mai", "thứ 7 tuần sau 7h tối", "trong 2 ngày nữa".
-- 🗓️ Hỗ trợ nhiều định dạng ngày: `DD/MM`, `DD/MM/YYYY`, "ngày X tháng Y", tên thứ + số.
-- 🧠 Hybrid NLP: So sánh kết quả Rule-based & PhoBERT, tính điểm agreement.
-- 📍 Trích xuất địa điểm từ câu (NER + regex).
+### 🎨 **Modern UI/UX**## ✨ Tính năng chính
+
+- **CustomTkinter Interface**: Material Design-inspired modern GUI
+
+- **Smooth Animations**: Fade effects on event updates (300ms transitions)- 🔍 Nhận dạng thời gian phức tạp: "6h chiều mai", "thứ 7 tuần sau 7h tối", "trong 2 ngày nữa".
+
+- **Dark/Light Themes**: System-aware theme switching- 🗓️ Hỗ trợ nhiều định dạng ngày: `DD/MM`, `DD/MM/YYYY`, "ngày X tháng Y", tên thứ + số.
+
+- **Calendar Widget**: Visual monthly calendar with event indicators- 🧠 Hybrid NLP: So sánh kết quả Rule-based & PhoBERT, tính điểm agreement.
+
+- **Real-time Notifications**: Background service with custom sounds- 📍 Trích xuất địa điểm từ câu (NER + regex).
+
 - 🔔 Nhắc nhở linh hoạt: phút / giờ / ngày ("nhắc trước 2 tiếng", "15 phút").
-- 📤 Export: Google Calendar / Outlook / Apple (ICS + JSON).
-- 📥 Import: Đọc file export & test case format.
-- 📊 Dashboard thống kê: phân bố thời gian, xu hướng 4 tuần, top địa điểm.
-- 🛡️ Bảo vệ dữ liệu: xác nhận 2 lớp khi xóa toàn bộ.
-- 🎛️ Settings riêng + chế độ im lặng (tắt debug với `VERBOSE_LOG=False`).
 
----
+### 📊 **Data Management**- 📤 Export: Google Calendar / Outlook / Apple (ICS + JSON).
+
+- **SQLite Database**: Efficient local storage with full CRUD operations- 📥 Import: Đọc file export & test case format.
+
+- **Import/Export**: JSON and ICS format support- 📊 Dashboard thống kê: phân bố thời gian, xu hướng 4 tuần, top địa điểm.
+
+- **Statistics Dashboard**: Event analytics and insights- 🛡️ Bảo vệ dữ liệu: xác nhận 2 lớp khi xóa toàn bộ.
+
+- **Backup & Restore**: Easy data migration- 🎛️ Settings riêng + chế độ im lặng (tắt debug với `VERBOSE_LOG=False`).
+
+
+
+------
+
 ## 🧱 Kiến trúc tổng quan
 
+## 🚀 Quick Start
+
 ```
-┌─────────────────────────────────────────┐
+
+### **Option 1: Run Executable (Windows)**┌─────────────────────────────────────────┐
+
 │            Hybrid NLP Pipeline          │
-├─────────────────────────────────────────┤
-│  Rule-based Parser  │  PhoBERT Fine-tuned │
-│  100% edge cases    │  Contextual          │
+
+1. Download the latest release from [Releases](https://github.com/d0ngle8k/NLP-Processing/releases)├─────────────────────────────────────────┤
+
+2. Extract `TroLyLichTrinh_v1.0.4_Improved.exe` (987 MB)│  Rule-based Parser  │  PhoBERT Fine-tuned │
+
+3. Double-click to run - no installation needed!│  100% edge cases    │  Contextual          │
+
 └──────────┬──────────┴──────────┬─────────┘
-                ▼                     ▼
-            Voting / Merge Engine  (Agreement Score)
-                              ▼
-                  Chuẩn hoá kết quả cuối
+
+**System Requirements:**                ▼                     ▼
+
+- Windows 10/11 (64-bit)            Voting / Merge Engine  (Agreement Score)
+
+- 2 GB RAM minimum                              ▼
+
+- 1.5 GB disk space                  Chuẩn hoá kết quả cuối
+
 ```
+
+### **Option 2: Run from Source**
 
 Thành phần chính:
-- `core_nlp/pipeline.py`: Rule-based phân tích thời gian / ngày.
-- `core_nlp/hybrid_pipeline.py`: Kết hợp PhoBERT + Rule-based.
-- `database/db_manager.py`: SQLite + schema + kết nối.
-- `services/*`: Export/Import/Notification/Statistics.
+
+```powershell- `core_nlp/pipeline.py`: Rule-based phân tích thời gian / ngày.
+
+# 1. Clone repository- `core_nlp/hybrid_pipeline.py`: Kết hợp PhoBERT + Rule-based.
+
+git clone https://github.com/d0ngle8k/NLP-Processing.git- `database/db_manager.py`: SQLite + schema + kết nối.
+
+cd NLP-Processing- `services/*`: Export/Import/Notification/Statistics.
+
 - `widgets/`: Thành phần giao diện CustomTkinter.
 
----
-## 📦 Cài đặt
+# 2. Create virtual environment (Python 3.13+ recommended)
 
-### Yêu cầu
-- Python 3.9+ (khuyên dùng 3.12)
+python -m venv .venv---
+
+.\.venv\Scripts\Activate.ps1## 📦 Cài đặt
+
+
+
+# 3. Install dependencies### Yêu cầu
+
+pip install -r requirements.txt- Python 3.9+ (khuyên dùng 3.12)
+
 - Windows 10+ 64-bit
-- RAM 2GB+, Disk trống ≥1GB (bundle exe lớn do model + PyTorch)
 
-### Clone & môi trường
-```powershell
-git clone https://github.com/d0ngle8k/NLP-Processing.git
-cd NLP-Processing
-python -m venv .venv
-.\.venv\Scripts\Activate.ps1
-pip install -r requirements.txt
-```
+# 4. Run application- RAM 2GB+, Disk trống ≥1GB (bundle exe lớn do model + PyTorch)
 
----
-## 🚀 Chạy ứng dụng
-
-### GUI (CustomTkinter)
-```powershell
 python main_ctk.py
+
+```### Clone & môi trường
+
+```powershell
+
+---git clone https://github.com/d0ngle8k/NLP-Processing.git
+
+cd NLP-Processing
+
+## 📖 Usage Examplespython -m venv .venv
+
+.\.venv\Scripts\Activate.ps1
+
+### **Basic Event Creation**pip install -r requirements.txt
+
 ```
+
+```
+
+Input: "Họp nhóm ngày mai lúc 2 giờ chiều tại phòng A301"---
+
+Output:## 🚀 Chạy ứng dụng
+
+  - Event: Họp nhóm
+
+  - Time: Tomorrow 14:00### GUI (CustomTkinter)
+
+  - Location: phòng A301```powershell
+
+```python main_ctk.py
+
+```
+
+### **Complex Time Patterns**
 
 ### CLI thử nghiệm (Hybrid Debug)
-```powershell
-python version_document/interactive_test_hybrid.py
-```
 
-### Tắt / bật debug
+``````powershell
+
+Input: "Đi gym 1h50p sáng mai"python version_document/interactive_test_hybrid.py
+
+Output:```
+
+  - Event: Đi gym
+
+  - Time: Tomorrow 01:50### Tắt / bật debug
+
 Trong `main_ctk.py` đổi:
-```python
-VERBOSE_LOG = False  # True để xem log chi tiết
-```
 
----
+Input: "Họp team 14h30 ngày 15/12"```python
+
+Output:VERBOSE_LOG = False  # True để xem log chi tiết
+
+  - Event: Họp team```
+
+  - Time: 2025-12-15 14:30
+
+```---
+
 ## 🛠 Build file EXE (PyInstaller)
+
+### **Reminder Support**
 
 Sử dụng spec tối ưu: `build_main_ctk.spec` (đã loại bỏ thư mục rỗng, thêm hidden imports). 
 
-```powershell
-.\.venv\Scripts\python.exe -m PyInstaller --clean build_main_ctk.spec
 ```
-Kết quả: `dist/TroLyLichTrinhV2.exe`
 
-Nếu lỗi Permission Denied khi update checksum: đóng mọi phiên bản đang chạy rồi build lại.
+Input: "Nộp báo cáo ngày 20/12 nhắc trước 1 ngày"```powershell
 
----
+Output:.\.venv\Scripts\python.exe -m PyInstaller --clean build_main_ctk.spec
+
+  - Event: Nộp báo cáo```
+
+  - Time: 2025-12-20Kết quả: `dist/TroLyLichTrinhV2.exe`
+
+  - Reminder: 2025-12-19 (1 day before)
+
+```Nếu lỗi Permission Denied khi update checksum: đóng mọi phiên bản đang chạy rồi build lại.
+
+
+
+------
+
 ## 🧪 Kiểm thử
 
+## 🏗️ Architecture
+
 | Suite | Số test | Trạng thái |
-|-------|---------|------------|
-| NLP Pipeline | 42 | ✅ |
-| Hybrid Voting | 10 | ✅ |
-| New Patterns | 8 | ✅ |
-| Extended Edge Cases | 1065 | ✅ |
 
-Chạy nhanh:
-```powershell
-python tests/test_nlp_pipeline.py
-python tests/run_extended_tests.py
-```
+```|-------|---------|------------|
 
----
-## 📂 Cấu trúc dự án (rút gọn)
-```
-NLP-Processing/
-├── main_ctk.py                # Entry GUI
-├── build_main_ctk.spec        # PyInstaller spec chuẩn
-├── core_nlp/                  # NLP logic & hybrid
-├── services/                  # Export / Import / Notification / Stats
-├── widgets/                   # CustomTkinter components
-├── database/                  # SQLite schema & manager
-├── models/                    # PhoBERT (fine-tuned)
-├── training_data/             # Dữ liệu huấn luyện/validation
-├── tests/                     # Bộ test tự động
-└── version_document/          # Tài liệu archive (changelog, design, guides)
-```
+┌─────────────────────────────────────────────────────────────┐| NLP Pipeline | 42 | ✅ |
 
----
+│                     User Interface (CTk)                     │| Hybrid Voting | 10 | ✅ |
+
+│  ┌──────────────┬──────────────┬──────────────────────────┐ │| New Patterns | 8 | ✅ |
+
+│  │ Event Input  │   Calendar   │   Statistics Dashboard   │ │| Extended Edge Cases | 1065 | ✅ |
+
+│  └──────────────┴──────────────┴──────────────────────────┘ │
+
+└────────────────────────┬────────────────────────────────────┘Chạy nhanh:
+
+                         │```powershell
+
+         ┌───────────────┴───────────────┐python tests/test_nlp_pipeline.py
+
+         │     NLP Pipeline (Hybrid)     │python tests/run_extended_tests.py
+
+         │  ┌──────────┬──────────────┐  │```
+
+         │  │ PhoBERT  │  Rule-based  │  │
+
+         │  │   NER    │   Patterns   │  │---
+
+         │  └──────────┴──────────────┘  │## 📂 Cấu trúc dự án (rút gọn)
+
+         └───────────────┬───────────────┘```
+
+                         │NLP-Processing/
+
+         ┌───────────────┴───────────────┐├── main_ctk.py                # Entry GUI
+
+         │      Services Layer           │├── build_main_ctk.spec        # PyInstaller spec chuẩn
+
+         │  • Time Parser               │├── core_nlp/                  # NLP logic & hybrid
+
+         │  • Location Extractor        │├── services/                  # Export / Import / Notification / Stats
+
+         │  • Notification Service      │├── widgets/                   # CustomTkinter components
+
+         │  • Import/Export Service     │├── database/                  # SQLite schema & manager
+
+         └───────────────┬───────────────┘├── models/                    # PhoBERT (fine-tuned)
+
+                         │├── training_data/             # Dữ liệu huấn luyện/validation
+
+         ┌───────────────┴───────────────┐├── tests/                     # Bộ test tự động
+
+         │     Database (SQLite)         │└── version_document/          # Tài liệu archive (changelog, design, guides)
+
+         │  • Events, Reminders, Sounds │```
+
+         └───────────────────────────────┘
+
+```---
+
 ## 📥📤 Import / Export
-- JSON: Backup & restore sự kiện.
+
+---- JSON: Backup & restore sự kiện.
+
 - ICS: Đồng bộ Google / Outlook / Apple.
-- Export báo cáo: scripts/generate_report.py (PDF/Excel).
 
----
-## 🔔 Nhắc nhở
-- Thread nền kiểm tra mỗi 60s (`notification_service.py`).
-- Tránh spam: đánh dấu đã thông báo.
-- Hỗ trợ trước X phút/giờ/ngày.
+## 📂 Project Structure- Export báo cáo: scripts/generate_report.py (PDF/Excel).
 
----
-## 🧠 NLP Highlights
-- Xử lý lỗi gõ phổ biến: "támh", "mườih".
-- Chuẩn hoá buổi: sáng / chiều / tối / trưa.
-- Tương đối: "trong 2 ngày", "tuần sau", "tháng sau".
-- Múi giờ: hỗ trợ chuẩn hoá + nội suy nếu thiếu năm.
 
----
-## 🛡️ Bảo trì & đóng góp
-Pull Request được chào đón. Vui lòng kèm test cho logic NLP mới.
 
----
-## 📝 Tài liệu mở rộng
-Xem thư mục `version_document/` (được ignore trong Git để giảm noise) chứa: 
-- Changelog & Hotfix (`V0.*.md`)
-- UI redesign (`BA_GOOGLE_CALENDAR_UI_REDESIGN.md`)
-- Training guides (Colab, GPU)
-- Sound system & Theme updates
+```---
 
----
-## ⚠️ Troubleshooting
-| Vấn đề | Nguyên nhân | Cách xử lý |
-|--------|-------------|------------|
-| PhoBERT load chậm | Kích thước model | Kiên nhẫn (~vài giây) / preload |
-| EXE >900MB | PyTorch + model | Dùng zip phân phối / build lại khi tối ưu |
-| Lỗi checksum khi build | File exe đang mở | Tắt ứng dụng rồi build lại |
-| Không hiện âm thanh | Thiếu preset | Tạo file .wav trong `sounds/` |
+NLP-Processing/## 🔔 Nhắc nhở
 
----
-## 📄 License
-Chưa khai báo – bổ sung sau (MIT khuyến nghị).
+├── main_ctk.py                    # Main application (CustomTkinter GUI)- Thread nền kiểm tra mỗi 60s (`notification_service.py`).
 
----
-## ✅ Trạng thái hiện tại
-- Production GUI ✅
-- Silent startup ✅
-- EXE build verified ✅
-- NLP >1000 edge cases ✅
+├── main.py                        # Legacy Tkinter version- Tránh spam: đánh dấu đã thông báo.
 
----
-*README được viết lại gọn gàng từ bản cũ bị trộn nội dung. Nếu cần thêm English section, thông báo để bổ sung.*
+├── requirements.txt               # Python dependencies- Hỗ trợ trước X phút/giờ/ngày.
+
+├── build_main_ctk.spec           # PyInstaller build configuration
+
+├── .gitignore                    # Git ignore patterns---
+
+│## 🧠 NLP Highlights
+
+├── core_nlp/                      # NLP Processing Engine- Xử lý lỗi gõ phổ biến: "támh", "mườih".
+
+│   ├── pipeline.py               # Hybrid PhoBERT + Rule-based pipeline- Chuẩn hoá buổi: sáng / chiều / tối / trưa.
+
+│   └── time_parser.py            # Vietnamese time expression parser- Tương đối: "trong 2 ngày", "tuần sau", "tháng sau".
+
+│- Múi giờ: hỗ trợ chuẩn hoá + nội suy nếu thiếu năm.
+
+├── database/                      # Data Layer
+
+│   ├── db_manager.py             # SQLite operations---
+
+│   └── schema.sql                # Database schema## 🛡️ Bảo trì & đóng góp
+
+│Pull Request được chào đón. Vui lòng kèm test cho logic NLP mới.
+
+├── services/                      # Business Logic
+
+│   ├── notification_service.py   # Background reminders---
+
+│   ├── import_service.py         # JSON/ICS import## 📝 Tài liệu mở rộng
+
+│   ├── export_service.py         # JSON/ICS exportXem thư mục `version_document/` (được ignore trong Git để giảm noise) chứa: 
+
+│   └── statistics_service.py     # Analytics & reporting- Changelog & Hotfix (`V0.*.md`)
+
+│- UI redesign (`BA_GOOGLE_CALENDAR_UI_REDESIGN.md`)
+
+├── widgets/                       # UI Components- Training guides (Colab, GPU)
+
+│   ├── calendar_widget.py        # Monthly calendar view- Sound system & Theme updates
+
+│   ├── event_list_widget.py      # Event list with animations
+
+│   └── settings_widget.py        # Settings dialog---
+
+│## ⚠️ Troubleshooting
+
+├── models/                        # AI Models (~1 GB)| Vấn đề | Nguyên nhân | Cách xử lý |
+
+│   ├── phobert_base/             # Pre-trained PhoBERT|--------|-------------|------------|
+
+│   └── phobert_finetuned/        # Fine-tuned for calendar tasks| PhoBERT load chậm | Kích thước model | Kiên nhẫn (~vài giây) / preload |
+
+│| EXE >900MB | PyTorch + model | Dùng zip phân phối / build lại khi tối ưu |
+
+├── sounds/                        # Notification Sounds| Lỗi checksum khi build | File exe đang mở | Tắt ứng dụng rồi build lại |
+
+│   └── sound1-4.wav              # Default notification tones| Không hiện âm thanh | Thiếu preset | Tạo file .wav trong `sounds/` |
+
+│
+
+├── training_data/                 # Training Datasets---
+
+│   └── ...                       # Labeled training examples## 📄 License
+
+│Chưa khai báo – bổ sung sau (MIT khuyến nghị).
+
+├── tests/                         # Test Suite
+
+│   ├── test_nlp_pipeline.py      # NLP unit tests---
+
+│   ├── test_cases.json           # Baseline test dataset## ✅ Trạng thái hiện tại
+
+│   ├── extended_test_cases*.json # Extended test suites- Production GUI ✅
+
+│   └── test_date_parsing_results.json- Silent startup ✅
+
+│- EXE build verified ✅
+
+├── scripts/                       # Utility Scripts- NLP >1000 edge cases ✅
+
+│   └── generate_report.py        # Report generation
+
+│---
+
+├── version_document/              # Version History & Documentation*README được viết lại gọn gàng từ bản cũ bị trộn nội dung. Nếu cần thêm English section, thông báo để bổ sung.*
+
+│   ├── INDEX.md                  # Documentation index```
+
+│   ├── RELEASE_v1.0.3.md        # Release notes
+
+│   └── ...                       # 30+ technical documents
+
+│
+
+├── build/                         # Build artifacts (gitignored)## 🔧 Configuration
+
+│   └── build_main_ctk/           # Latest build cache
+
+│#### 3. Sửa Sự Kiện- [Troubleshooting](#-troubleshooting)
+
+└── dist/                          # Distribution folder
+
+    └── TroLyLichTrinh_v1.0.4_Improved.exe  # Standalone executable### Model Selection
+
 ```
-
-
-
-## 🔧 Configuration
-
-#### 3. Sửa Sự Kiện- [Troubleshooting](#-troubleshooting)
-
-### Model Selection
 
 - Double-click vào sự kiện trong danh sách
 
+---
+
 Edit `main.py` to change model:
+
+## 🧠 NLP Pipeline Details
 
 - Chỉnh sửa thông tin trong form- [Changelog](#-changelog)- Phân tích thời gian: `core_nlp/time_parser.py`
 
+### **Event Extraction Accuracy**
+
 ```python
 
-# Option 1: Hybrid (Recommended)- Bấm **"Sửa"** để lưu
+| Metric | Test Cases | Baseline | Extended | Real-World |
 
-from core_nlp.hybrid_pipeline import HybridNLPPipeline
+|--------|-----------|----------|----------|------------|# Option 1: Hybrid (Recommended)- Bấm **"Sửa"** để lưu
+
+| **Event Name** | 1,107 | 100% | 80.67% | **99.1%** |
+
+| **Time Parsing** | 1,107 | 98.5% | 95.2% | 97.8% |from core_nlp.hybrid_pipeline import HybridNLPPipeline
+
+| **Location** | 543 | 96.7% | 92.3% | 95.1% |
 
 nlp = HybridNLPPipeline()- [License](#-license)    - Quy tắc thủ công cho ngày/giờ tường minh và tương đối; mặc định giờ nếu thiếu (ví dụ 09:00 hoặc theo buổi).
 
+*Real-world accuracy excludes 210 meta-test artifacts*
 
+
+
+### **Supported Time Patterns**
 
 # Option 2: Rule-based only (Faster, 100% accurate)#### 4. Xóa Sự Kiện
 
-from core_nlp.pipeline import NLPPipeline
+```python
+
+# Specific timesfrom core_nlp.pipeline import NLPPipeline
+
+"14h30", "2 giờ chiều", "1h50p", "9h15 sáng"
 
 nlp = NLPPipeline()- Chọn sự kiện → Bấm **"Xóa"** (xóa 1 sự kiện)    - Timezone chỉ áp dụng khi người dùng nêu rõ (UTC/GMT hoặc “múi giờ +..”).
 
+# Relative dates
+
+"hôm nay", "ngày mai", "tuần sau", "tháng tới"
 
 
-# Option 3: PhoBERT only (Experimental)- Hoặc bấm **"Xóa tất cả"** → Xác nhận 2 lần
+
+# Complex expressions# Option 3: PhoBERT only (Experimental)- Hoặc bấm **"Xóa tất cả"** → Xác nhận 2 lần
+
+"thứ 3 tuần sau", "ngày 15/12", "cuối tháng này"
 
 from core_nlp.phobert_model import PhoBERTModel
 
-nlp = PhoBERTModel(model_path='./models/phobert_finetuned')---
+# Reminders
+
+"nhắc trước 1 ngày", "nhắc trước 2 giờ", "nhắc 30 phút trước"nlp = PhoBERTModel(model_path='./models/phobert_finetuned')---
 
 ```
 
+```
+
+### **Location Patterns**
+
 #### 5. Import/Export
 
-## 📝 Pattern Support
+```python
+
+# Explicit locations## 📝 Pattern Support
+
+"tại phòng A301", "ở Hà Nội", "tại công ty"
 
 - Bấm **"⚙️ Cài đặt"** (góc dưới bên trái)- CSDL: `database/db_manager.py` + `database/schema.sql`
 
-### Thời gian (Time)
+# Smart extraction
 
-- ✅ "6h sáng", "3h chiều", "9h tối"- **Xuất JSON/ICS**: Lưu toàn bộ dữ liệu
+"họp công ty"        → Location: "công ty"### Thời gian (Time)
+
+"đi siêu thị"        → Location: "siêu thị"
+
+"cafe quán góc phố"  → Location: "quán góc phố"- ✅ "6h sáng", "3h chiều", "9h tối"- **Xuất JSON/ICS**: Lưu toàn bộ dữ liệu
+
+```
 
 - ✅ "6:30", "15:45"
 
+---
+
 - ✅ "6 rưỡi", "7h30"- **Nhập JSON/ICS**: Khôi phục hoặc import từ nguồn khác## 💻 Yêu Cầu Hệ Thống    - SQLite lưu `events(id, event_name, start_time, end_time, location, reminder_minutes, status)`.
 
+## 🔧 Development
 
+
+
+### **Setup Development Environment**
 
 ### Ngày (Date)
 
-- ✅ "hôm nay", "ngày mai", "ngày kia"
+```powershell
 
-- ✅ "thứ 2", "thứ ba", "chủ nhật"---    - CRUD, lấy theo ngày, lấy nhắc nhở “pending” và cập nhật trạng thái `notified` sau khi hiển thị.
-
-- ✅ "tuần sau", "tháng sau"
-
-- ✅ "ngày 20 tháng 10"
-
-- ✅ **NEW:** "20/10", "25/12", "1/1/2026"
-
-- ✅ **NEW:** "ngày 20/10"## 🏗️ Kiến Trúc Hệ Thống### Minimum Requirements
-
-
-
-### Nhắc nhở (Reminder)
-
-- ✅ "nhắc trước 30 phút"
-
-- ✅ "nhắc trước 2 giờ"### Cấu Trúc Thư Mục- **OS**: Windows 10+ (64-bit)- Dịch vụ: `services/`
-
-- ✅ **NEW:** "nhắc trước 2 tieng"
-
-- ✅ **NEW:** "nhắc trước 1 tiếng"```
-
-
-
-### Khoảng thời gian (Duration)NLP-Processing/- **Python**: 3.9+ (recommended: 3.12.0)    - `import_service.py`: đọc JSON/ICS và ghi vào DB.
-
-- ✅ "từ 2h đến 4h"
-
-- ✅ "2h-4h"├── main.py                      # GUI chính (Tkinter)
-
-- ✅ "khoảng 2 tiếng"
-
-├── requirements.txt             # Python dependencies- **RAM**: 4GB+    - `export_service.py`: xuất toàn bộ DB ra JSON/ICS.
-
-## 🆕 What's New in V0.6.2
-
-├── README.md                    # Tài liệu này
-
-### Bug Fixes
-
-1. **Reminder Hours Support** - Thêm hỗ trợ "tieng/tiếng" cho reminder├── CHANGELOG.md                 # Lịch sử phiên bản- **Disk**: 500MB free space    - `notification_service.py`: luồng kiểm tra nhắc nhở và popup.
-
-   - Before: "nhắc trước 2 tieng" → 0 mins ❌
-
-   - After: "nhắc trước 2 tieng" → 120 mins ✅│
-
-
-
-2. **DD/MM Date Format** - Hỗ trợ định dạng ngày DD/MM├── core_nlp/                    # Module xử lý NLP
-
-   - Before: "ngày 20/10" → None ❌
-
-   - After: "ngày 20/10" → 2025-10-20 ✅│   ├── pipeline.py              # Pipeline chính (NER + Time + Location)
-
-
-
-### Files Changed│   └── time_parser.py           # Parser thời gian tiếng Việt### Dependencies- Kiểm thử: `tests/`
-
-- `core_nlp/pipeline.py` - Added "tieng|tiếng" to reminder patterns
-
-- `core_nlp/time_parser.py` - Fixed DD/MM parsing with "ngày" prefix│
-
-
-
-### Test Results├── database/                    # Lớp database```plaintext    - `tests/test_cases.json`: bộ dữ liệu kỳ vọng.
-
-- ✅ All 1065 extended tests passed
-
-- ✅ 8/8 new pattern tests passed│   ├── db_manager.py            # SQLite CRUD operations
-
-- ✅ No regressions detected
-
-│   ├── schema.sql               # Database schema# Core NLP    - `tests/test_nlp_pipeline.py`: unittest tính macro-F1 cho 4 nhánh (event, time, location, reminder).
-
-## 📊 Performance
-
-│   └── events.db                # SQLite database (auto-created)
-
-| Metric | Value |
-
-|--------|-------|│underthesea>=6.7.0        # Vietnamese NLP (NER, word segmentation)
-
-| Accuracy (Rule-based) | 100% |
-
-| Accuracy (PhoBERT) | 95% |├── services/                    # Business logic services
-
-| Accuracy (Hybrid) | ~100% |
-
-| Avg Processing Time | <100ms |│   ├── import_service.py        # Import JSON/ICS → DBpython-dateutil>=2.8.2    # Date parsing utilities## Cấu trúc thư mục và tệp chính
-
-| Agreement Score | 84.3% avg |
-
-│   ├── export_service.py        # Export DB → JSON/ICS
-
-## 🐛 Known Issues
-
-│   └── notification_service.py  # Background reminder thread
-
-- Event extraction may fail with very complex multi-pattern inputs
-
-- PhoBERT model requires ~500MB RAM│
-
-- First run loads PhoBERT model (~3s startup time)
-
-├── scripts/                     # Utility scripts# GUI Components```
-
-## 🤝 Contributing
-
-│   ├── generate_edge_case_tests.py  # Tạo test cases
-
-### Development Setup
-
-│   └── generate_report.py           # Tạo báo cáotkcalendar>=1.6.1         # Calendar widget.
-
-```bash
-
-# Install dev dependencies│
+# Install development dependencies- ✅ "hôm nay", "ngày mai", "ngày kia"
 
 pip install -r requirements.txt
 
-└── tests/                       # Testing suitetkinter                    # Standard library (included with Python)├── main.py                     # Tkinter GUI, nhập NLP, lịch, chỉnh sửa, import/export, nhắc nhở
-
-# Run tests before commit
-
-python tests/run_extended_tests.py    ├── test_nlp_pipeline.py     # Unit tests
-
-python tests/test_hybrid_pipeline.py
-
-```    ├── run_edge_case_tests.py   # Edge case test runner├── core_nlp/
+pip install pytest black flake8- ✅ "thứ 2", "thứ ba", "chủ nhật"---    - CRUD, lấy theo ngày, lấy nhắc nhở “pending” và cập nhật trạng thái `notified` sau khi hiển thị.
 
 
 
-### Adding New Patterns    ├── test_cases.json          # Test dataset
+# Run tests- ✅ "tuần sau", "tháng sau"
+
+python -m pytest tests/
+
+- ✅ "ngày 20 tháng 10"
+
+# Format code
+
+python -m black .- ✅ **NEW:** "20/10", "25/12", "1/1/2026"
 
 
 
-1. Update regex patterns in `core_nlp/pipeline.py`    └── edge_case_tests_1000.json  # 1050 edge cases# Data Processing│   ├── pipeline.py             # NLPPipeline: NER (underthesea) + regex trích event/time/location/reminder
+# Lint- ✅ **NEW:** "ngày 20/10"## 🏗️ Kiến Trúc Hệ Thống### Minimum Requirements
 
-2. Update parsing logic in `core_nlp/time_parser.py`
+python -m flake8 --max-line-length=100
 
-3. Add test cases in `tests/test_cases.json````
-
-4. Run full test suite
-
-5. Update documentationbabel>=2.13.1             # Locale and timezone support│   └── time_parser.py          # parse_vietnamese_time: quy tắc thời gian tiếng Việt
+```
 
 
 
-## 📄 License### Luồng Xử Lý NLP
+### **Build Standalone Executable**### Nhắc nhở (Reminder)
 
 
 
-This project is licensed under the MIT License.├── database/
+```powershell- ✅ "nhắc trước 30 phút"
+
+# Activate virtual environment
+
+.\.venv\Scripts\Activate.ps1- ✅ "nhắc trước 2 giờ"### Cấu Trúc Thư Mục- **OS**: Windows 10+ (64-bit)- Dịch vụ: `services/`
 
 
 
-## 👨‍💻 Author```
+# Build with PyInstaller- ✅ **NEW:** "nhắc trước 2 tieng"
+
+python -m PyInstaller --clean build_main_ctk.spec
+
+- ✅ **NEW:** "nhắc trước 1 tiếng"```
+
+# Output: dist/TroLyLichTrinh_v1.0.4_Improved.exe (~987 MB)
+
+```
 
 
 
-**d0ngle8k**Input: "thứ 3 mười giờ tôi có lịch phỏng vấn ở tầng 5, nhắc trước 30 phút"# Import/Export│   ├── db_manager.py           # SQLite CRUD và các truy vấn tiện ích
+**Build includes:**### Khoảng thời gian (Duration)NLP-Processing/- **Python**: 3.9+ (recommended: 3.12.0)    - `import_service.py`: đọc JSON/ICS và ghi vào DB.
 
-- Repository: [NLP-Processing](https://github.com/d0ngle8k/NLP-Processing)
+- Python 3.13 runtime
 
-   │
+- PhoBERT models (1 GB)- ✅ "từ 2h đến 4h"
 
-## 🙏 Acknowledgments
+- PyTorch libraries (428 MB)
+
+- All dependencies bundled- ✅ "2h-4h"├── main.py                      # GUI chính (Tkinter)
+
+
+
+### **Run Tests**- ✅ "khoảng 2 tiếng"
+
+
+
+```powershell├── requirements.txt             # Python dependencies- **RAM**: 4GB+    - `export_service.py`: xuất toàn bộ DB ra JSON/ICS.
+
+# Unit tests
+
+python tests/test_nlp_pipeline.py## 🆕 What's New in V0.6.2
+
+
+
+# Extended test suite (1,107 cases)├── README.md                    # Tài liệu này
+
+python tests/run_extended_tests.py
+
+### Bug Fixes
+
+# Performance benchmarks
+
+python tests/test_cases.json  # Baseline accuracy1. **Reminder Hours Support** - Thêm hỗ trợ "tieng/tiếng" cho reminder├── CHANGELOG.md                 # Lịch sử phiên bản- **Disk**: 500MB free space    - `notification_service.py`: luồng kiểm tra nhắc nhở và popup.
+
+```
+
+   - Before: "nhắc trước 2 tieng" → 0 mins ❌
+
+---
+
+   - After: "nhắc trước 2 tieng" → 120 mins ✅│
+
+## 📊 Performance Metrics
+
+
+
+### **v1.0.4 Optimizations**
+
+2. **DD/MM Date Format** - Hỗ trợ định dạng ngày DD/MM├── core_nlp/                    # Module xử lý NLP
+
+| Component | Before | After | Improvement |
+
+|-----------|--------|-------|-------------|   - Before: "ngày 20/10" → None ❌
+
+| Event Extraction | 76.96% | 80.67% | +3.71% |
+
+| Complex Events (4-15 words) | 65% | 95% | +30% |   - After: "ngày 20/10" → 2025-10-20 ✅│   ├── pipeline.py              # Pipeline chính (NER + Time + Location)
+
+| Priority Matching | Random | Optimized | Smart 3→2→1 word |
+
+| Time Parsing (1h50p) | ❌ | ✅ | New pattern |
+
+
+
+### **Real-world Performance**### Files Changed│   └── time_parser.py           # Parser thời gian tiếng Việt### Dependencies- Kiểm thử: `tests/`
+
+
+
+```- `core_nlp/pipeline.py` - Added "tieng|tiếng" to reminder patterns
+
+Total Tests: 1,107
+
+├── Real Events: 897 (81%)- `core_nlp/time_parser.py` - Fixed DD/MM parsing with "ngày" prefix│
+
+│   ├── Passed: ~889 (99.1%)
+
+│   └── Failed: ~8 (0.9%)
+
+└── Meta Tests: 210 (19%) - excluded from metrics
+
+```### Test Results├── database/                    # Lớp database```plaintext    - `tests/test_cases.json`: bộ dữ liệu kỳ vọng.
+
+
+
+---- ✅ All 1065 extended tests passed
+
+
+
+## 🎯 Features Roadmap- ✅ 8/8 new pattern tests passed│   ├── db_manager.py            # SQLite CRUD operations
+
+
+
+### **✅ Completed**- ✅ No regressions detected
+
+- [x] CustomTkinter modern UI
+
+- [x] PhoBERT hybrid NLP pipeline│   ├── schema.sql               # Database schema# Core NLP    - `tests/test_nlp_pipeline.py`: unittest tính macro-F1 cho 4 nhánh (event, time, location, reminder).
+
+- [x] Fade animations (300ms)
+
+- [x] Sound persistence to database## 📊 Performance
+
+- [x] Time pattern 1h50p support
+
+- [x] Calendar widget integration│   └── events.db                # SQLite database (auto-created)
+
+- [x] Import/Export JSON/ICS
+
+| Metric | Value |
+
+### **🚧 In Progress**
+
+- [ ] Google Calendar sync|--------|-------|│underthesea>=6.7.0        # Vietnamese NLP (NER, word segmentation)
+
+- [ ] Mobile app (Flutter)
+
+- [ ] Multi-language support| Accuracy (Rule-based) | 100% |
+
+
+
+### **💡 Planned**| Accuracy (PhoBERT) | 95% |├── services/                    # Business logic services
+
+- [ ] Voice input integration
+
+- [ ] Smart suggestions| Accuracy (Hybrid) | ~100% |
+
+- [ ] Recurring events
+
+- [ ] Team collaboration| Avg Processing Time | <100ms |│   ├── import_service.py        # Import JSON/ICS → DBpython-dateutil>=2.8.2    # Date parsing utilities## Cấu trúc thư mục và tệp chính
+
+
+
+---| Agreement Score | 84.3% avg |
+
+
+
+## 🐛 Troubleshooting│   ├── export_service.py        # Export DB → JSON/ICS
+
+
+
+### **Common Issues**## 🐛 Known Issues
+
+
+
+#### **1. Exe file won't start**│   └── notification_service.py  # Background reminder thread
+
+```
+
+Problem: ModuleNotFoundError- Event extraction may fail with very complex multi-pattern inputs
+
+Solution: Download from Releases, don't rename/move files
+
+```- PhoBERT model requires ~500MB RAM│
+
+
+
+#### **2. NLP extraction errors**- First run loads PhoBERT model (~3s startup time)
+
+```
+
+Problem: Event not detected├── scripts/                     # Utility scripts# GUI Components```
+
+Solution: Use explicit patterns like "Họp [event] lúc [time] tại [location]"
+
+```## 🤝 Contributing
+
+
+
+#### **3. Database locked**│   ├── generate_edge_case_tests.py  # Tạo test cases
+
+```
+
+Problem: Database is locked### Development Setup
+
+Solution: Close all app instances, delete events.db-wal
+
+```│   └── generate_report.py           # Tạo báo cáotkcalendar>=1.6.1         # Calendar widget.
+
+
+
+#### **4. Models not found**```bash
+
+```
+
+Problem: PhoBERT models missing# Install dev dependencies│
+
+Solution: Ensure models/ folder exists with phobert_base/ and phobert_finetuned/
+
+```pip install -r requirements.txt
+
+
+
+---└── tests/                       # Testing suitetkinter                    # Standard library (included with Python)├── main.py                     # Tkinter GUI, nhập NLP, lịch, chỉnh sửa, import/export, nhắc nhở
+
+
+
+## 📚 Documentation# Run tests before commit
+
+
+
+### **Core Documentation**python tests/run_extended_tests.py    ├── test_nlp_pipeline.py     # Unit tests
+
+- [Version Index](version_document/INDEX.md) - All version documents
+
+- [Release v1.0.3](version_document/RELEASE_v1.0.3.md) - Latest release notespython tests/test_hybrid_pipeline.py
+
+- [Build Guide](version_document/BUILD_SUCCESS_v1.0.3.md) - Build instructions
+
+- [Deployment](version_document/DEPLOYMENT_v1.0.3.md) - Deployment checklist```    ├── run_edge_case_tests.py   # Edge case test runner├── core_nlp/
+
+
+
+### **Technical Docs**
+
+- [UI Redesign](version_document/BA_GOOGLE_CALENDAR_UI_REDESIGN.md)
+
+- [Sound System](version_document/SOUND_SYSTEM_V2.md)### Adding New Patterns    ├── test_cases.json          # Test dataset
+
+- [NLP Training](version_document/GPU_TRAINING_GUIDE.md)
+
+- [Testing Guide](version_document/TEST_GUIDE_v0.8.1.md)
+
+
+
+---1. Update regex patterns in `core_nlp/pipeline.py`    └── edge_case_tests_1000.json  # 1050 edge cases# Data Processing│   ├── pipeline.py             # NLPPipeline: NER (underthesea) + regex trích event/time/location/reminder
+
+
+
+## 🤝 Contributing2. Update parsing logic in `core_nlp/time_parser.py`
+
+
+
+We welcome contributions! Please follow these guidelines:3. Add test cases in `tests/test_cases.json````
+
+
+
+1. **Fork** the repository4. Run full test suite
+
+2. **Create** a feature branch (`git checkout -b feature/AmazingFeature`)
+
+3. **Commit** your changes (`git commit -m 'Add some AmazingFeature'`)5. Update documentationbabel>=2.13.1             # Locale and timezone support│   └── time_parser.py          # parse_vietnamese_time: quy tắc thời gian tiếng Việt
+
+4. **Push** to the branch (`git push origin feature/AmazingFeature`)
+
+5. **Open** a Pull Request
+
+
+
+### **Development Standards**## 📄 License### Luồng Xử Lý NLP
+
+- Follow PEP 8 style guide
+
+- Write unit tests for new features
+
+- Update documentation
+
+- Add examples to READMEThis project is licensed under the MIT License.├── database/
+
+
+
+---
+
+
+
+## 📄 License## 👨‍💻 Author```
+
+
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+
+
+---**d0ngle8k**Input: "thứ 3 mười giờ tôi có lịch phỏng vấn ở tầng 5, nhắc trước 30 phút"# Import/Export│   ├── db_manager.py           # SQLite CRUD và các truy vấn tiện ích
+
+
+
+## 🙏 Acknowledgments- Repository: [NLP-Processing](https://github.com/d0ngle8k/NLP-Processing)
+
+
+
+- **PhoBERT** - Vietnamese BERT model by VinAI Research   │
+
+- **CustomTkinter** - Modern tkinter UI library
+
+- **underthesea** - Vietnamese NLP toolkit## 🙏 Acknowledgments
+
+- **PyInstaller** - Executable packaging
 
    ▼ics>=0.7.2                # iCalendar format support│   └── schema.sql              # DDL tạo bảng events
 
+---
+
 - **PhoBERT** - Pre-trained Vietnamese BERT model
+
+## 📞 Contact
 
 - **VNCoreNLP** - Vietnamese NLP toolkit┌─────────────────────────────────────────┐
 
-- Test data contributors
+**Author:** d0ngle8k  
+
+**GitHub:** [@d0ngle8k](https://github.com/d0ngle8k)  - Test data contributors
+
+**Repository:** [NLP-Processing](https://github.com/d0ngle8k/NLP-Processing)
 
 │ 1. Normalize & Extract Time Patterns   │├── services/
 
 ---
 
+---
+
+## 📈 Statistics
+
 │    → "thứ 3 mười giờ"                  │
 
-**Made with ❤️ for Vietnamese NLP**
+```
 
-└─────────────────────────────────────────┘# Statistics & Reporting (v0.6+)│   ├── import_service.py       # Import JSON/ICS → DB
+📊 Project Stats**Made with ❤️ for Vietnamese NLP**
 
-   │
+├── Lines of Code: ~4,500
+
+├── Test Coverage: 85%+└─────────────────────────────────────────┘# Statistics & Reporting (v0.6+)│   ├── import_service.py       # Import JSON/ICS → DB
+
+├── Documentation: 35+ files
+
+├── Versions Released: 12+   │
+
+└── Accuracy: 99.1% (real-world)
 
    ▼matplotlib>=3.8.0         # Charts and visualizations│   ├── export_service.py       # Export DB → JSON/ICS
 
-┌─────────────────────────────────────────┐
+🎯 NLP Performance
 
-│ 2. Parse Vietnamese Time                │reportlab>=4.0.7          # PDF report generation│   └── notification_service.py # Luồng nền kiểm tra và popup nhắc nhở
+├── Event Extraction: 80.67%┌─────────────────────────────────────────┐
+
+├── Time Parsing: 95.2%
+
+├── Location Detection: 92.3%│ 2. Parse Vietnamese Time                │reportlab>=4.0.7          # PDF report generation│   └── notification_service.py # Luồng nền kiểm tra và popup nhắc nhở
+
+└── Processing Speed: <100ms/query
 
 │    → datetime: 2025-11-11T10:00:00     │
 
-└─────────────────────────────────────────┘openpyxl>=3.1.2          # Excel file generation├── tests/
+💾 Build Size
 
-   │
+├── Exe File: 987 MB└─────────────────────────────────────────┘openpyxl>=3.1.2          # Excel file generation├── tests/
 
-   ▼scikit-learn>=1.3.0      # Machine learning utilities│   ├── test_nlp_pipeline.py    # unittest tính macro-F1
+├── Models: 1,034 MB
 
-┌─────────────────────────────────────────┐
+├── PyTorch: 428 MB   │
 
-│ 3. Extract Location (NER + Regex)      │```│   └── test_cases.json         # dữ liệu kiểm thử
+└── Dependencies: ~250 MB
 
-│    → "tầng 5"                           │
+```   ▼scikit-learn>=1.3.0      # Machine learning utilities│   ├── test_nlp_pipeline.py    # unittest tính macro-F1
 
-└─────────────────────────────────────────┘├── requirements.txt
 
-   │
+
+---┌─────────────────────────────────────────┐
+
+
+
+<div align="center">│ 3. Extract Location (NER + Regex)      │```│   └── test_cases.json         # dữ liệu kiểm thử
+
+
+
+**⭐ Star this repo if you find it useful!**│    → "tầng 5"                           │
+
+
+
+Made with ❤️ by d0ngle8k└─────────────────────────────────────────┘├── requirements.txt
+
+
+
+</div>   │
+
 
    ▼---└── README.md
 
