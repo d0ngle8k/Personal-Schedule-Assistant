@@ -21,21 +21,29 @@ except ImportError:
 
 # Global sound manager instance
 _sound_manager: SoundManager = None
+_db_manager_ref = None  # Keep reference to db_manager
 
 
-def init_sound_manager(base_dir: str = '.') -> SoundManager:
-    """Initialize global sound manager"""
-    global _sound_manager
+def init_sound_manager(base_dir: str = '.', db_manager=None) -> SoundManager:
+    """Initialize global sound manager with database persistence
+    
+    Args:
+        base_dir: Base directory for sound files
+        db_manager: DatabaseManager instance for persistence
+    """
+    global _sound_manager, _db_manager_ref
     if _sound_manager is None:
-        _sound_manager = SoundManager(base_dir)
+        _db_manager_ref = db_manager
+        _sound_manager = SoundManager(base_dir, db_manager=db_manager)
     return _sound_manager
 
 
 def get_sound_manager() -> SoundManager:
     """Get global sound manager instance"""
-    global _sound_manager
+    global _sound_manager, _db_manager_ref
     if _sound_manager is None:
-        _sound_manager = SoundManager('.')
+        # Initialize without db_manager if not available
+        _sound_manager = SoundManager('.', db_manager=_db_manager_ref)
     return _sound_manager
 
 

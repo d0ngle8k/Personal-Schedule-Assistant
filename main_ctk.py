@@ -4,7 +4,8 @@ Modern UI with Material Design, Dark/Light mode, Event Cards
 
 Migrated from Tkinter to CustomTkinter for better UX
 Author: d0ngle8k
-Version: 1.0.0-CTk
+Version: 1.0.3
+Release: MVP Production - Fade Theme Animation + 1h50p Pattern + Sound Persistence
 """
 
 from __future__ import annotations
@@ -340,11 +341,54 @@ class Application(ctk.CTk):
         self.search_mode = False
     
     def _toggle_theme(self):
-        """Toggle between dark and light mode with smooth transition"""
+        """Toggle between dark and light mode with smooth fade transition"""
         mode = self.theme_var.get()
-        ctk.set_appearance_mode(mode)
         
-        # Update calendar colors based on theme
+        # Create fade overlay for smooth transition
+        overlay = tk.Toplevel(self)
+        overlay.attributes('-topmost', True)
+        overlay.attributes('-alpha', 0.0)
+        overlay.overrideredirect(True)
+        
+        # Match overlay size and position with main window
+        x = self.winfo_x()
+        y = self.winfo_y()
+        w = self.winfo_width()
+        h = self.winfo_height()
+        overlay.geometry(f"{w}x{h}+{x}+{y}")
+        
+        # Set overlay color based on target theme
+        overlay_color = '#1a1a1a' if mode == "dark" else '#ffffff'
+        overlay_frame = tk.Frame(overlay, bg=overlay_color)
+        overlay_frame.pack(fill='both', expand=True)
+        
+        # Fade in animation (0 -> 1)
+        def fade_in(alpha=0.0):
+            if alpha < 1.0:
+                alpha += 0.1
+                overlay.attributes('-alpha', alpha)
+                self.after(20, lambda: fade_in(alpha))
+            else:
+                # Change theme at peak opacity
+                ctk.set_appearance_mode(mode)
+                self._update_calendar_theme(mode)
+                # Start fade out
+                self.after(50, lambda: fade_out(1.0))
+        
+        # Fade out animation (1 -> 0)
+        def fade_out(alpha=1.0):
+            if alpha > 0:
+                alpha -= 0.1
+                overlay.attributes('-alpha', alpha)
+                self.after(20, lambda: fade_out(alpha))
+            else:
+                overlay.destroy()
+        
+        # Start fade animation
+        fade_in()
+    
+    def _update_calendar_theme(self, mode):
+        """Update calendar colors based on theme"""
         if mode == "dark":
             self.calendar.configure(
                 background='#2b2b2b',
@@ -434,13 +478,26 @@ class Application(ctk.CTk):
         self._render_events(events)
     
     def _render_events(self, events):
-        """Render event cards (replaces Treeview)"""
+        """Render event cards (replaces Treeview) - OPTIMIZED"""
         # Store current events
         self.current_events = events
         
-        # Clear existing cards
-        for widget in self.event_container.winfo_children():
-            widget.destroy()
+        # Clear existing cards - OPTIMIZED (batch destroy)
+        # Instead of loop, destroy parent and recreate (faster for many widgets)
+        children = self.event_container.winfo_children()
+        if len(children) > 50:  # Threshold for optimization
+            # Batch destroy - much faster than loop for large lists
+            self.event_container.destroy()
+            # Recreate container
+            self.event_container = ctk.CTkScrollableFrame(
+                self.event_list_frame,
+                fg_color="transparent"
+            )
+            self.event_container.pack(fill='both', expand=True, padx=10, pady=10)
+        else:
+            # Normal destroy for small lists
+            for widget in children:
+                widget.destroy()
         
         # Update header count
         self.event_count_label.configure(
@@ -473,7 +530,7 @@ class Application(ctk.CTk):
         self._show_edit_dialog(event_data)
     
     def _handle_card_delete(self, event_data):
-        """Handle delete button click from card"""
+        """Handle delete button click from card (ASYNC - Non-blocking)"""
         ev_id = event_data.get('id')
         ev_name = event_data.get('event_name', 'N/A')
         
@@ -483,9 +540,38 @@ class Application(ctk.CTk):
         )
         
         if confirm:
-            self.db_manager.delete_event(int(ev_id))
+            # ASYNC delete - prevents UI freeze
+            self._async_delete_single(ev_id)
+    
+    def _async_delete_single(self, event_id):
+        """Delete single event asynchronously"""
+        import threading
+        
+        # Show loading
+        self._show_loading_state("Đang xóa...")
+        
+        def delete_task():
+            """Background delete"""
+            try:
+                self.db_manager.delete_event(int(event_id))
+                # Refresh on main thread
+                self.after(0, self._complete_single_delete)
+            except Exception as e:
+                self.after(0, lambda: messagebox.showerror("Lỗi", f"Không thể xóa: {e}"))
+                self.after(0, self._hide_loading_state)
+        
+        thread = threading.Thread(target=delete_task, daemon=True)
+        thread.start()
+    
+    def _complete_single_delete(self):
+        """Complete single delete"""
+        try:
             self.refresh_for_date(self.calendar.selection_get())
+            self._hide_loading_state()
             messagebox.showinfo("Thành công", "Đã xóa sự kiện")
+        except Exception as e:
+            messagebox.showerror("Lỗi", f"Lỗi refresh: {e}")
+            self._hide_loading_state()
     
     def _show_edit_dialog(self, event_data):
         """Show edit dialog as popup window"""
@@ -772,7 +858,7 @@ class Application(ctk.CTk):
             messagebox.showerror("Lỗi xử lý", f"Đã xảy ra lỗi:\n{e}")
     
     def handle_delete_all_events(self):
-        """Delete all events with confirmation"""
+        """Delete all events with confirmation (ASYNC - Non-blocking)"""
         try:
             all_events = self.db_manager.get_all_events()
             total_count = len(all_events)
@@ -808,20 +894,100 @@ class Application(ctk.CTk):
                 messagebox.showinfo("Đã hủy", "Đã hủy thao tác xóa.")
                 return
             
-            deleted_count = self.db_manager.delete_all_events()
-            self.refresh_for_date(self.calendar.selection_get())
+            # ASYNC DELETE - Non-blocking with progress feedback
+            self._async_delete_all(total_count)
             
+        except Exception as e:
+            messagebox.showerror("Lỗi", f"Không thể xóa:\n{e}")
+    
+    def _async_delete_all(self, total_count):
+        """Execute delete in background thread (prevents UI freeze)"""
+        import threading
+        
+        # Show loading state immediately (instant feedback)
+        self._show_loading_state("Đang xóa...")
+        
+        def delete_task():
+            """Background task - runs on separate thread"""
+            try:
+                # Heavy DB operation - runs without blocking UI
+                deleted_count = self.db_manager.delete_all_events()
+                
+                # Schedule UI update on main thread (thread-safe)
+                self.after(0, self._complete_delete_all, deleted_count)
+                
+            except Exception as e:
+                # Error handling on main thread
+                self.after(0, lambda: messagebox.showerror("Lỗi", f"Không thể xóa:\n{e}"))
+                self.after(0, self._hide_loading_state)
+        
+        # Start background thread (daemon - won't block app close)
+        thread = threading.Thread(target=delete_task, daemon=True)
+        thread.start()
+    
+    def _complete_delete_all(self, deleted_count):
+        """Complete delete operation on main thread (UI updates)"""
+        try:
+            # Clear search mode
             if self.search_mode:
                 self.search_entry.delete(0, 'end')
                 self.search_mode = False
             
+            # Refresh display (fast - no events left)
+            self.refresh_for_date(self.calendar.selection_get())
+            
+            # Hide loading
+            self._hide_loading_state()
+            
+            # Success message
             messagebox.showinfo(
                 "Thành công",
                 f"✅ Đã xóa {deleted_count} sự kiện."
             )
             
         except Exception as e:
-            messagebox.showerror("Lỗi", f"Không thể xóa:\n{e}")
+            messagebox.showerror("Lỗi", f"Lỗi khi làm mới: {e}")
+            self._hide_loading_state()
+    
+    def _show_loading_state(self, message="Đang tải..."):
+        """Show loading overlay (prevents user interaction during async ops)"""
+        # Clear existing events
+        for widget in self.event_container.winfo_children():
+            widget.destroy()
+        
+        # Show loading indicator
+        loading_frame = ctk.CTkFrame(
+            self.event_container,
+            fg_color="transparent"
+        )
+        loading_frame.pack(pady=100)
+        
+        # Spinner effect (simple animation)
+        spinner_label = ctk.CTkLabel(
+            loading_frame,
+            text="⏳",
+            font=("Arial", 48)
+        )
+        spinner_label.pack()
+        
+        ctk.CTkLabel(
+            loading_frame,
+            text=message,
+            font=("Arial", 16, "bold"),
+            text_color=("gray50", "gray60")
+        ).pack(pady=10)
+        
+        # Store reference for cleanup
+        self._loading_frame = loading_frame
+    
+    def _hide_loading_state(self):
+        """Hide loading overlay"""
+        if hasattr(self, '_loading_frame') and self._loading_frame:
+            try:
+                self._loading_frame.destroy()
+            except Exception:
+                pass
+            self._loading_frame = None
     
     def handle_search(self):
         """Search events"""
@@ -854,10 +1020,12 @@ class Application(ctk.CTk):
             messagebox.showerror("Lỗi", f"Không thể tìm kiếm: {e}")
     
     def handle_clear_search(self):
-        """Clear search and reload"""
+        """Clear search and reload (ASYNC - Non-blocking)"""
         self.search_entry.delete(0, 'end')
         self.search_mode = False
-        self.refresh_for_date(self.calendar.selection_get())
+        
+        # ASYNC refresh - prevents UI freeze
+        self._async_refresh_for_date(self.calendar.selection_get())
     
     def handle_date_select(self, _evt=None):
         """Handle calendar date selection"""
@@ -882,6 +1050,41 @@ class Application(ctk.CTk):
             events = events[:1000]
         
         self._render_events(events)
+    
+    def _async_refresh_for_date(self, date_obj: date):
+        """Async refresh to prevent UI freeze (for large datasets)"""
+        import threading
+        
+        # Show loading immediately
+        self._show_loading_state("Đang tải sự kiện...")
+        
+        def refresh_task():
+            """Background task"""
+            try:
+                start_date = date_obj - timedelta(days=30)
+                end_date = date_obj + timedelta(days=30)
+                events = self.db_manager.get_events_by_date_range(start_date, end_date)
+                
+                if len(events) > 1000:
+                    events = events[:1000]
+                
+                # Update UI on main thread
+                self.after(0, self._complete_refresh, events)
+                
+            except Exception as e:
+                self.after(0, lambda: messagebox.showerror("Lỗi", f"Không thể tải: {e}"))
+                self.after(0, self._hide_loading_state)
+        
+        thread = threading.Thread(target=refresh_task, daemon=True)
+        thread.start()
+    
+    def _complete_refresh(self, events):
+        """Complete refresh on main thread"""
+        try:
+            self._hide_loading_state()
+            self._render_events(events)
+        except Exception as e:
+            messagebox.showerror("Lỗi", f"Lỗi render: {e}")
     
     def handle_show_settings(self):
         """Show settings dialog"""
@@ -1032,25 +1235,16 @@ class Application(ctk.CTk):
             
             try:
                 if sound_type == 'preset':
-                    # Preset sound - CẬP NHẬT NGAY (nhanh)
-                    sound_mgr.set_preset_sound(sound_id)
-                    
-                    # Save to DB in background thread (BATCH - 1 DB call thay vì 2)
-                    def save_preset():
-                        try:
-                            self.db_manager.set_settings_batch({
-                                'notification_sound_type': 'preset',
-                                'notification_sound_preset': sound_id
-                            })
-                            print(f"✅ Saved preset to DB: {sound_id}")
-                        except Exception as e:
-                            print(f"⚠️ DB save error: {e}")
-                    
-                    import threading
-                    threading.Thread(target=save_preset, daemon=True).start()
+                    # Preset sound - SoundManager auto-saves to DB
+                    success = sound_mgr.set_preset_sound(sound_id)
+                    if success:
+                        print(f"✅ Applied preset: {sound_id}")
+                        current_label.configure(text=f"Hiện tại: {selected_item['name']}")
+                    else:
+                        print(f"❌ Failed to set preset: {sound_id}")
                     
                 elif sound_type == 'custom':
-                    # Custom sound - ensure file exists
+                    # Custom sound - SoundManager auto-saves to DB
                     filename = sound_id.replace('custom:', '')
                     file_path = sound_mgr.custom_dir / filename
                     
@@ -1061,26 +1255,13 @@ class Application(ctk.CTk):
                         )
                         return
                     
-                    # CẬP NHẬT NGAY (nhanh)
-                    sound_mgr.set_custom_sound(str(file_path))
-                    
-                    # Save to DB in background thread (BATCH - 1 DB call thay vì 3)
-                    def save_custom():
-                        try:
-                            self.db_manager.set_settings_batch({
-                                'notification_sound_type': 'custom',
-                                'notification_sound_path': str(file_path),
-                                'notification_sound_filename': filename
-                            })
-                            print(f"✅ Saved custom sound to DB: {filename}")
-                        except Exception as e:
-                            print(f"⚠️ DB save error: {e}")
-                    
-                    import threading
-                    threading.Thread(target=save_custom, daemon=True).start()
-                
-                # Update UI NGAY LẬP TỨC (không đợi DB)
-                current_label.configure(text=f"Hiện tại: {selected_item['name']}")
+                    success = sound_mgr.set_custom_sound(str(file_path))
+                    if success:
+                        print(f"✅ Applied custom sound: {filename}")
+                        current_label.configure(text=f"Hiện tại: {selected_item['name']}")
+                    else:
+                        print(f"❌ Failed to set custom sound: {filename}")
+                        messagebox.showerror("❌ Lỗi", f"Không thể áp dụng âm thanh: {filename}")
                 
             except Exception as e:
                 print(f"❌ Error changing sound: {e}")
@@ -1108,27 +1289,12 @@ class Application(ctk.CTk):
             if filepath:
                 filename = sound_mgr.add_custom_sound(filepath)
                 if filename:
-                    # Set as current sound NGAY
+                    # Set as current sound - SoundManager auto-saves to DB
                     file_path = sound_mgr.custom_dir / filename
                     sound_mgr.set_custom_sound(str(file_path))
                     
-                    # Refresh UI NGAY (không đợi DB)
+                    # Refresh UI
                     refresh_sound_dropdown()
-                    
-                    # Save to database in background (BATCH - 1 DB call thay vì 3)
-                    def save_to_db():
-                        try:
-                            self.db_manager.set_settings_batch({
-                                'notification_sound_type': 'custom',
-                                'notification_sound_path': str(file_path),
-                                'notification_sound_filename': filename
-                            })
-                            print(f"✅ Saved to DB: {filename}")
-                        except Exception as e:
-                            print(f"⚠️ DB save error: {e}")
-                    
-                    import threading
-                    threading.Thread(target=save_to_db, daemon=True).start()
                     
                     # Show success message
                     messagebox.showinfo("✅ Thành công", f"Đã thêm âm thanh:\n{filename}")
@@ -1305,7 +1471,7 @@ class Application(ctk.CTk):
         
         info_items = [
             ("📋 Tên:", "Trợ Lý Lịch Trình"),
-            ("📦 Phiên bản:", "1.0.0-CTk (CustomTkinter)"),
+            ("📦 Phiên bản:", "1.0.3-CTk (CustomTkinter)"),
             ("👨‍💻 Phát triển:", "Trương Gia Thành"),
             ("📅 Năm:", "2025"),
             ("🎨 UI Framework:", "CustomTkinter 5.2+")
@@ -1445,46 +1611,13 @@ if __name__ == '__main__':
     
     db = DatabaseManager()
     
-    # Initialize Sound Manager
+    # Initialize Sound Manager WITH DATABASE for persistence
     from services.notification_service import init_sound_manager
-    sound_mgr = init_sound_manager('.')
+    sound_mgr = init_sound_manager('.', db_manager=db)
     
-    # Load saved sound settings from DB
-    try:
-        sound_type = db.get_setting('notification_sound_type', 'preset')
-        if sound_type == 'preset':
-            preset = db.get_setting('notification_sound_preset', 'system_default')
-            sound_mgr.set_preset_sound(preset)
-            if VERBOSE_LOG:
-                print(f"🔊 Loaded preset sound: {preset}")
-        elif sound_type == 'custom':
-            # Try to load from saved path
-            custom_path = db.get_setting('notification_sound_path')
-            if custom_path and Path(custom_path).exists():
-                sound_mgr.set_custom_sound(custom_path)
-                if VERBOSE_LOG:
-                    print(f"🔊 Loaded custom sound: {Path(custom_path).name}")
-            else:
-                # Fallback: try to load from filename in custom directory
-                filename = db.get_setting('notification_sound_filename')
-                if filename:
-                    file_path = sound_mgr.custom_dir / filename
-                    if file_path.exists():
-                        sound_mgr.set_custom_sound(str(file_path))
-                        if VERBOSE_LOG:
-                            print(f"🔊 Loaded custom sound from filename: {filename}")
-                    else:
-                        if VERBOSE_LOG:
-                            print(f"⚠️ Custom sound file not found, using default")
-                        sound_mgr.set_preset_sound('system_default')
-                else:
-                    if VERBOSE_LOG:
-                        print(f"⚠️ Custom sound path not found, using default")
-                    sound_mgr.set_preset_sound('system_default')
-    except Exception as e:
-        if VERBOSE_LOG:
-            print(f"⚠️ Could not load sound settings: {e}")
-        sound_mgr.set_preset_sound('system_default')
+    if VERBOSE_LOG:
+        current_info = sound_mgr.get_current_sound_info()
+        print(f"🔊 Sound loaded: {current_info['name']} ({current_info['type']})")
     
     # Initialize NLP Pipeline
     if USE_HYBRID:
@@ -1511,6 +1644,18 @@ if __name__ == '__main__':
         nlp = NLPPipeline()
     
     app = Application(db, nlp)
+    
+    # Hook app close to flush pending sound settings
+    def on_app_closing():
+        """Flush pending saves before exit"""
+        try:
+            sound_mgr.flush_pending_saves(timeout=1.0)
+        except Exception as e:
+            print(f"⚠️ Error flushing settings: {e}")
+        app.destroy()
+    
+    app.protocol("WM_DELETE_WINDOW", on_app_closing)
+    
     start_notification_service(app, db)
     
     if VERBOSE_LOG:

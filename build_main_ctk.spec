@@ -72,7 +72,7 @@ exe = EXE(
     a.zipfiles,
     a.datas,
     [],
-    name='TroLyLichTrinhV2',
+    name='TroLyLichTrinhV2_v1.0.3',
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,

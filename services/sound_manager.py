@@ -27,19 +27,24 @@ class SoundManager:
     
     # Preset sound names - Windows System Sounds
     PRESETS = {
-        'system_default': 'Default Beep',
-        'system_asterisk': 'Asterisk',
-        'system_exclamation': 'Exclamation',
+        'system_default': 'System Default Sound',
         'system_hand': 'Critical Stop',
-        'system_question': 'Question',
-        'system_ok': 'System Notification'
+        
     }
     
-    def __init__(self, base_dir: str = '.'):
-        """Initialize sound manager"""
+    def __init__(self, base_dir: str = '.', db_manager=None):
+        """Initialize sound manager with optional database for persistence
+        
+        Args:
+            base_dir: Base directory for sound files
+            db_manager: DatabaseManager instance for saving settings (optional)
+        """
         self.base_dir = Path(base_dir)
         self.preset_dir = self.base_dir / 'sounds' / 'presets'
         self.custom_dir = self.base_dir / 'sounds' / 'custom'
+        
+        # Database for persistence
+        self.db_manager = db_manager
         
         # Ensure directories exist
         self.preset_dir.mkdir(parents=True, exist_ok=True)
@@ -49,10 +54,111 @@ class SoundManager:
         self.current_sound = 'system_default'
         self.custom_sound_path: Optional[str] = None
         
+        # Load saved settings from database
+        self._load_settings_from_db()
+        
         # Thread management for non-blocking playback
         self._playback_lock = threading.Lock()
         self._last_play_time = 0
         self._min_play_interval = 0.3  # Debounce: 300ms between plays
+        
+        # Async DB save management (prevent UI blocking)
+        self._save_lock = threading.Lock()
+        self._pending_save = None  # Store pending save data
+        self._save_timer = None  # Debounce timer for batch saves
+    
+    def _load_settings_from_db(self):
+        """Load sound settings from database (if available)"""
+        if not self.db_manager:
+            return
+        
+        try:
+            # Load sound type (preset or custom)
+            sound_type = self.db_manager.get_setting('sound_type', 'preset')
+            
+            if sound_type == 'custom':
+                # Load custom sound path
+                custom_path = self.db_manager.get_setting('sound_custom_path')
+                if custom_path and Path(custom_path).exists():
+                    self.custom_sound_path = custom_path
+                    self.current_sound = 'custom'
+                    print(f"✅ Loaded custom sound from DB: {custom_path}")
+                else:
+                    # File not found, fallback to default
+                    print(f"⚠️ Custom sound file not found: {custom_path}, using default")
+                    self.current_sound = 'system_default'
+                    self.custom_sound_path = None
+            else:
+                # Load preset sound
+                preset_name = self.db_manager.get_setting('sound_preset_name', 'system_default')
+                if preset_name in self.PRESETS:
+                    self.current_sound = preset_name
+                    self.custom_sound_path = None
+                    print(f"✅ Loaded preset sound from DB: {preset_name}")
+                else:
+                    print(f"⚠️ Unknown preset: {preset_name}, using default")
+                    self.current_sound = 'system_default'
+        except Exception as e:
+            print(f"⚠️ Error loading sound settings from DB: {e}")
+            # Fallback to default
+            self.current_sound = 'system_default'
+            self.custom_sound_path = None
+    
+    def _save_settings_to_db(self):
+        """Save current sound settings to database (ASYNC + DEBOUNCED)
+        
+        Uses background thread + debouncing to prevent UI blocking.
+        Multiple rapid changes are batched into single DB write.
+        """
+        if not self.db_manager:
+            return
+        
+        # Prepare data to save (in memory - instant)
+        if self.current_sound == 'custom' and self.custom_sound_path:
+            save_data = {
+                'sound_type': 'custom',
+                'sound_custom_path': self.custom_sound_path
+            }
+        else:
+            save_data = {
+                'sound_type': 'preset',
+                'sound_preset_name': self.current_sound
+            }
+        
+        with self._save_lock:
+            # Store pending data (will overwrite if called multiple times)
+            self._pending_save = save_data
+            
+            # Cancel previous timer if exists (debounce)
+            if self._save_timer is not None:
+                self._save_timer.cancel()
+            
+            # Schedule save after 200ms delay (batch rapid changes)
+            def _async_save():
+                """Background thread to save to DB"""
+                with self._save_lock:
+                    data = self._pending_save
+                    self._pending_save = None
+                    self._save_timer = None
+                
+                if data is None:
+                    return
+                
+                try:
+                    # BATCH WRITE - 1 DB call instead of 2
+                    self.db_manager.set_settings_batch(data)
+                    
+                    if data.get('sound_type') == 'custom':
+                        print(f"💾 [Async] Saved custom sound: {data['sound_custom_path']}")
+                    else:
+                        print(f"💾 [Async] Saved preset: {data['sound_preset_name']}")
+                except Exception as e:
+                    print(f"❌ [Async] DB save error: {e}")
+            
+            # Start debounced save timer (non-blocking)
+            self._save_timer = threading.Timer(0.2, _async_save)
+            self._save_timer.daemon = True
+            self._save_timer.start()
     
     def get_preset_sounds(self) -> dict:
         """Get list of preset sounds"""
@@ -75,7 +181,7 @@ class SoundManager:
     
     def set_preset_sound(self, preset_name: str) -> bool:
         """
-        Set current sound to a preset
+        Set current sound to a preset (INSTANT - non-blocking)
         
         Args:
             preset_name: Name from PRESETS dict
@@ -84,14 +190,19 @@ class SoundManager:
             True if valid preset
         """
         if preset_name in self.PRESETS:
+            # Update state immediately (in-memory)
             self.current_sound = preset_name
             self.custom_sound_path = None
+            
+            # Async save to DB (non-blocking, debounced)
+            self._save_settings_to_db()
+            
             return True
         return False
     
     def set_custom_sound(self, filepath: str) -> bool:
         """
-        Set current sound to a custom file
+        Set current sound to a custom file (INSTANT - non-blocking)
         
         Args:
             filepath: Full path to sound file
@@ -106,8 +217,13 @@ class SoundManager:
             path = (self.base_dir / path).resolve()
         
         if path.exists() and path.is_file():
-            self.custom_sound_path = str(path.resolve())  # Store absolute path
+            # Update state immediately (in-memory)
+            self.custom_sound_path = str(path.resolve())
             self.current_sound = 'custom'
+            
+            # Async save to DB (non-blocking, debounced)
+            self._save_settings_to_db()
+            
             print(f"✅ Set custom sound: {self.custom_sound_path}")
             return True
         else:
@@ -372,3 +488,26 @@ class SoundManager:
                 'preset_key': 'system_default',
                 'id': 'system_default'
             }
+    
+    def flush_pending_saves(self, timeout: float = 1.0):
+        """Force flush any pending DB saves (call before app exit)
+        
+        Args:
+            timeout: Max seconds to wait for save completion
+        """
+        with self._save_lock:
+            if self._save_timer is not None:
+                # Cancel timer and execute save immediately
+                self._save_timer.cancel()
+                self._save_timer = None
+                
+                data = self._pending_save
+                self._pending_save = None
+                
+                if data and self.db_manager:
+                    try:
+                        print(f"💾 [Flush] Saving pending data...")
+                        self.db_manager.set_settings_batch(data)
+                        print(f"✅ [Flush] Save completed")
+                    except Exception as e:
+                        print(f"❌ [Flush] Save error: {e}")

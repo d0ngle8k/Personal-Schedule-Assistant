@@ -178,13 +178,24 @@ def _parse_explicit_time(s: str) -> tuple[Optional[int], Optional[int], str]:
     # 17:30
     m = re.search(r"\b(\d{1,2}):(\d{1,2})\b", s)
     if m:
-        return int(m.group(1)), int(m.group(2)), re.sub(m.group(0), "", s, 1).strip()
-    # 17h30 | 17h
-    m = re.search(r"\b(\d{1,2})\s*h\s*(\d{1,2})?\b", s)
+           return int(m.group(1)), int(m.group(2)), re.sub(m.group(0), "", s, count=1).strip()
+    
+    # NEW PATTERN: 1h50p | 2h30p (hour + h + minute + p/phút)
+    # Example: "1h50p", "2h30p", "10h15p"
+    # PRIORITY: Check this BEFORE general "17h30 | 17h" pattern
+    m = re.search(r"\b(\d{1,2})\s*h\s*(\d{1,2})\s*p(?:hut|hút)?\b", s)
+    if m:
+        hh = int(m.group(1))
+        mm = int(m.group(2))
+        return hh, mm, re.sub(m.group(0), "", s, count=1).strip()
+    
+    # 17h30 | 17h (but NOT 17h30p - use negative lookahead)
+    # FIXED: Add negative lookahead (?!p) to prevent matching "1h50p" pattern
+    m = re.search(r"\b(\d{1,2})\s*h\s*(\d{1,2})?(?!p)\b", s)
     if m:
         hh = int(m.group(1))
         mm = int(m.group(2) or 0)
-        return hh, mm, re.sub(m.group(0), "", s, 1).strip()
+        return hh, mm, re.sub(m.group(0), "", s, count=1).strip()
     # ENHANCED: Handle "period + number" (reversed order)
     # Example: "chiều 3h" → period="chieu", hour=3
     # Pattern: period_word + number + h/gio
@@ -202,7 +213,7 @@ def _parse_explicit_time(s: str) -> tuple[Optional[int], Optional[int], str]:
     if m:
         hh = int(m.group(1))
         mm = int(m.group(2) or 0)
-        return hh, mm, re.sub(r"\b\d{1,2}\s*(?:giờ|gio)(?:\s*\d{1,2}\s*(?:phút|phut))?\b", "", s, 1, flags=re.IGNORECASE).strip()
+        return hh, mm, re.sub(r"\b\d{1,2}\s*(?:giờ|gio)(?:\s*\d{1,2}\s*(?:phút|phut))?\b", "", s, count=1, flags=re.IGNORECASE).strip()
     
     # ENHANCED: "sau gio" → "6 gio" (number word + gio, after typo normalization)
     # Pattern: NUMBER_WORD + gio (where NUMBER_WORD was already converted to digit above)
@@ -231,11 +242,12 @@ def _parse_explicit_date(base: datetime, s_norm: str) -> tuple[Optional[datetime
         month = int(m.group(2))
         year = int(m.group(3))
         try:
-            dt = datetime(year, month, day, base.hour, base.minute)
-            # VALIDATION: Reject dates in the past (with 1 day tolerance)
-            if dt < base - timedelta(days=1):
-                return None, s_norm  # Return None for past dates
-            return dt, re.sub(m.group(0), "", s_norm, 1).strip()
+            # CRITICAL FIX: Use 00:00 for explicit dates WITHOUT specific time
+            dt = datetime(year, month, day, 0, 0)
+            # VALIDATION: Allow future dates, reject only far past dates (more than 1 year ago)
+            if dt < base - timedelta(days=365):
+                return None, s_norm
+            return dt, re.sub(m.group(0), "", s_norm, count=1).strip()
         except ValueError:
             pass
     
@@ -247,11 +259,12 @@ def _parse_explicit_date(base: datetime, s_norm: str) -> tuple[Optional[datetime
         month = int(m.group(2))
         year = base.year
         try:
-            dt = datetime(year, month, day, base.hour, base.minute)
+            # CRITICAL FIX: Use 00:00 for explicit dates WITHOUT specific time
+            dt = datetime(year, month, day, 0, 0)
             # VALIDATION: Reject dates in the past
             if dt < base - timedelta(days=1):
                 return None, s_norm
-            return dt, re.sub(m.group(0), "", s_norm, 1).strip()
+                return dt, re.sub(m.group(0), "", s_norm, count=1).strip()
         except ValueError:
             pass
     
@@ -262,11 +275,13 @@ def _parse_explicit_date(base: datetime, s_norm: str) -> tuple[Optional[datetime
         month = int(m.group(2))
         year = int(m.group(3)) if m.group(3) else base.year
         try:
-            dt = datetime(year, month, day, base.hour, base.minute)
-            # VALIDATION: Reject dates in the past
-            if dt < base - timedelta(days=1):
+            # CRITICAL FIX: Use 00:00 for explicit dates WITHOUT specific time
+            dt = datetime(year, month, day, 0, 0)
+            # VALIDATION: Allow future dates, reject only far past dates (more than 1 year ago)
+            # This allows scheduling events months or years in advance
+            if dt < base - timedelta(days=365):
                 return None, s_norm
-            return dt, re.sub(m.group(0), "", s_norm, 1).strip()
+            return dt, re.sub(m.group(0), "", s_norm, count=1).strip()
         except ValueError:
             pass
     
@@ -278,15 +293,16 @@ def _parse_explicit_date(base: datetime, s_norm: str) -> tuple[Optional[datetime
         month = base.month
         year = base.year
         try:
-            dt = datetime(year, month, day, base.hour, base.minute)
+            # CRITICAL FIX: Use 00:00 for explicit dates WITHOUT specific time
+            dt = datetime(year, month, day, 0, 0)
             # If date is in the past, use next month
             if dt < base:
                 month += 1
                 if month > 12:
                     month = 1
                     year += 1
-                dt = datetime(year, month, day, base.hour, base.minute)
-            return dt, re.sub(r"ngay\s+\d{1,2}", "", s_norm, 1).strip()
+                dt = datetime(year, month, day, 0, 0)
+                return dt, re.sub(r"ngay\s+\d{1,2}", "", s_norm, count=1).strip()
         except ValueError:
             pass
     
@@ -297,12 +313,13 @@ def _parse_explicit_date(base: datetime, s_norm: str) -> tuple[Optional[datetime
         year = int(m.group(2)) if m.group(2) else base.year
         day = 1  # First day of the month
         try:
-            dt = datetime(year, month, day, base.hour, base.minute)
+            # CRITICAL FIX: Use 00:00 for explicit dates WITHOUT specific time
+            dt = datetime(year, month, day, 0, 0)
             # If date is in the past, use next year
             if dt < base:
                 year += 1
-                dt = datetime(year, month, day, base.hour, base.minute)
-            return dt, re.sub(m.group(0), "", s_norm, 1).strip()
+                dt = datetime(year, month, day, 0, 0)
+                return dt, re.sub(m.group(0), "", s_norm, count=1).strip()
         except ValueError:
             pass
     
@@ -547,7 +564,7 @@ def _parse_common_day(base: datetime, s_raw: str, s_norm: str) -> tuple[datetime
     # 1) Giờ/phút tường minh (not used here)
     # 2) Ngày tường minh
     date_dt, s_norm2 = _parse_explicit_date(base, s_norm)
-    # 3) Khoảng thời lượng tương đối
+    # 3) Khoảng thời gian tương đối
     dur_dt, s_norm3 = _parse_duration(base, s_norm2)
     # 4) Từ khóa tương đối
     rel_dt, rest_norm = _parse_relative_words(base, s_norm3)
@@ -644,13 +661,29 @@ def parse_vietnamese_time_range(time_str: str | None, *, relative_base: Optional
     start_dt = build_dt(start_h, start_m)
     end_dt = build_dt(end_h, end_m) if end_h is not None else None
     
-    # VALIDATION: Prevent creating events in the past
+    # VALIDATION & AUTO-CORRECTION: Prevent creating events in the past
+    # If time is in the past (and no explicit day context), assume user means tomorrow/next occurrence
     # Allow events up to 1 hour in the past (for clock differences/processing time)
     if start_dt:
-        time_threshold = base - timedelta(hours=1)
-        if start_dt < time_threshold:
-            # Event is in the past, return None to indicate invalid
-            return None, None
+        # Normalize both datetimes to naive for comparison (remove timezone info if present)
+        # This prevents "can't compare offset-naive and offset-aware datetimes" error
+        start_dt_compare = start_dt.replace(tzinfo=None) if start_dt.tzinfo else start_dt
+        base_compare = base.replace(tzinfo=None) if base.tzinfo else base
+        time_threshold = base_compare - timedelta(hours=1)
+        
+        if start_dt_compare < time_threshold:
+            # SMART FIX: If no explicit day context (day_dt == base), assume user means next occurrence
+            # Example: At 14:30, "1h50p" (01:50) → 01:50 TOMORROW (not past)
+            # But if day context was explicit (mai, thứ 2), keep as-is (validation already handled in _parse_explicit_date)
+            day_dt_compare = day_dt.replace(tzinfo=None) if day_dt.tzinfo else day_dt
+            if day_dt_compare.date() == base_compare.date():
+                # No explicit day - move to tomorrow
+                start_dt = start_dt + timedelta(days=1)
+                if end_dt:
+                    end_dt = end_dt + timedelta(days=1)
+            else:
+                # Explicit day but still in past - reject
+                return None, None
     
     # Ensure end after start if both present
     if start_dt and end_dt and end_dt <= start_dt:

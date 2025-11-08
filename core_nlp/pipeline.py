@@ -20,35 +20,45 @@ class NLPPipeline:
         # ========== IMPROVED TIME PATTERNS ==========
         # Fix: Prevent matching time patterns adjacent to letters (both upper and lowercase)
         # Use Unicode category \w which includes all Vietnamese letters
+        # CRITICAL: Date patterns MUST come before period words to avoid "toi" (I) being matched as "tối" (evening)
         self.time_patterns = re.compile(
             r"(" 
+            # === PRIORITY 1: EXPLICIT DATE PATTERNS (MUST COME FIRST) ===
+            # Date patterns with year - HIGHEST PRIORITY
+            r"(?:ngày|ngay)\s*\d{1,2}\s*(?:tháng|thang)\s*\d{1,2}\s*(?:năm|nam)\s*\d{4}"  # ngày 20 tháng 11 năm 2025
+            r"|(?:ngày|ngay)?\s*\d{1,2}/\d{1,2}/\d{2,4}"  # 20/10/2025, ngày 20/10/2025
+            # Date patterns without year
+            r"|(?:ngày|ngay)\s*\d{1,2}\s*(?:tháng|thang)\s*\d{1,2}(?!\s*(?:năm|nam))"  # ngày 20 tháng 10 (without năm)
+            r"|(?:ngày|ngay)?\s*\d{1,2}/\d{1,2}(?!/)"  # 20/10, ngày 20/10 (not followed by /)
+            # Specific day without month (assumes current/next month)
+            r"|(?:ngày|ngay)\s+\d{1,2}(?!\s*(?:tháng|thang|/))(?!\w)"  # ngày 15 (without tháng)
+            # Specific month with/without year (assumes 1st of month)
+            r"|(?:tháng|thang)\s+\d{1,2}\s*(?:năm|nam)\s*\d{4}"  # tháng 12 năm 2025
+            r"|(?:tháng|thang)\s+\d{1,2}(?!\s*(?:năm|nam))(?!\w)"  # tháng 12 (without năm)
+            # Year patterns
+            r"|\b(?:năm|nam)\s+\d{4}(?!\w)"  # năm 2026, năm 2027
+            r"|\b(?:năm|nam)\s+(?:sau|toi|tới|nay|này|trước|truoc)(?!\w)"  # năm sau, năm tới, năm nay
+            # === PRIORITY 2: TIME WITH HOURS ===
             # Time with hours: 10h, 10h30, 10:30, 10 giờ 30 phút
             # FIXED: Support h followed by digits (17h30) using (?:h\d{1,2}|:\d{1,2})
             # Negative lookbehind ensures no word character (includes all Vietnamese) before digit
-            r"(?<!\w)\d{1,2}(?:h\d{1,2}|\s*(?:giờ|gio)|:\d{1,2}|h)(?:\s*\d{1,2}(?:p|\s*phút))?\b"
-            # Date patterns - ENHANCED: Full date support with year
-            r"|(?:ngày|ngay)?\s*\d{1,2}/\d{1,2}(?:/\d{2,4})?"  # 20/10, 20/10/2025, ngày 20/10
-            r"|(?:ngày|ngay)\s*\d{1,2}\s*(?:tháng|thang)\s*\d{1,2}(?:\s*(?:năm|nam)\s*\d{4})?"  # ngày 20 tháng 10, ngày 20 tháng 10 năm 2025
-            # Specific day without month (assumes current/next month)
-            r"|(?:ngày|ngay)\s+\d{1,2}(?!\s*(?:tháng|thang|/))(?!\w)"  # ngày 15 (without tháng)
-            # Specific month without day (assumes 1st of month)
-            r"|(?:tháng|thang)\s+\d{1,2}(?:\s*(?:năm|nam)\s*\d{4})?"  # tháng 12, tháng 12 năm 2025
-            # Year patterns
-            r"|\b(?:năm|nam)\s+(?:sau|toi|tới|nay|này|trước|truoc)(?!\w)"  # năm sau, năm tới, năm nay
-            r"|\b(?:năm|nam)\s+\d{4}(?!\w)"  # năm 2026, năm 2027
-            # Relative day markers
-            r"|(?:hôm nay|hom nay|ngày mai|ngay mai|mai)(?!\w)"  # Added negative lookahead
+            r"|(?<!\w)\d{1,2}(?:h\d{1,2}|\s*(?:giờ|gio)|:\d{1,2}|h)(?:\s*\d{1,2}(?:p|\s*phút))?\b"
+            # === PRIORITY 3: RELATIVE DAY MARKERS ===
+            r"|(?:hôm nay|hom nay|ngày mai|ngay mai|mai)(?!\w)"
             r"|(?:ngày mốt|ngay mot|mốt|mot|mai mốt|mai mot|ngày kia|ngay kia)(?!\w)"
-            # Period words (standalone only - with word boundaries)
-            # FIXED: Include "toi" (without diacritics) as standalone period word
-            r"|\b(?:sáng|sang|trưa|trua|chiều|chieu|tối|toi|đêm|dem|khuya)(?=\s|$)"
-            # Special handling for 'toi' without diacritics in relative context (overrides standalone)
-            r"|\btoi\s+(?:nay|mai|qua|hom\s*nay|hom\s*qua|hom\s*kia)(?=\s|$)"
-            # Weekend
-            r"|(?:cuối tuần|cuoi tuan)(?!\w)"
-            # ENHANCEMENT: Relative week/month patterns (tuần sau, tháng sau, etc.)
+            # === PRIORITY 4: RELATIVE WEEK/MONTH PATTERNS ===
             r"|\b(?:tuần|tuan)\s+(?:sau|toi|tới|này|nay|trước|truoc)(?!\w)"  # tuần sau, tuần tới, tuần này, tuần trước
             r"|\b(?:tháng|thang)\s+(?:sau|toi|tới|này|nay|trước|truoc)(?!\w)"  # tháng sau, tháng tới, tháng này, tháng trước
+            # === PRIORITY 5: PERIOD WORDS (LOWEST PRIORITY) ===
+            # Period words (standalone only - with word boundaries)
+            # CRITICAL FIX: "toi" must have stronger constraints to avoid matching "toi" (I/me)
+            # Only match if preceded by time-related context or at start of sentence
+            r"|\b(?:sáng|sang|trưa|trua|chiều|chieu|tối|đêm|dem|khuya)(?=\s|$)"
+            # "toi" only matches in specific time contexts to avoid "toi" (I/me)
+            r"|(?:vào|vao|lúc|luc)\s+(?:toi)(?=\s|$)"  # "vào tối", "lúc tối"
+            r"|\btoi\s+(?:nay|mai|qua|hom\s*nay|hom\s*qua|hom\s*kia)(?=\s|$)"  # "tối nay", "tối mai"
+            # Weekend
+            r"|(?:cuối tuần|cuoi tuan)(?!\w)"
             # Weekday patterns with optional period or number words (including typos with/without diacritics)
             # Pattern 1: weekday + number words (e.g., "t5 támh", "thứ 2 bah", "chu nhat mười haih")
             # Use word boundaries \b to prevent partial matches like "tam" matching "támh"
@@ -245,7 +255,15 @@ class NLPPipeline:
         # Step 2: Extract location
         loc_match = self.location_patterns.search(text)
         if loc_match:
-            results['location'] = loc_match.group(1).strip()
+            location_candidate = loc_match.group(1).strip()
+            
+            # CRITICAL FIX v0.6.3: Enhanced time component filtering
+            location_candidate = self._clean_location_of_time_components(location_candidate)
+            
+            # Only set location if something remains after cleaning
+            if location_candidate:
+                results['location'] = location_candidate
+            
             # Remove location while preserving spaces
             text = text[:loc_match.start()] + ' ' + text[loc_match.end():]
             text = ' '.join(text.split())
@@ -270,57 +288,161 @@ class NLPPipeline:
         # Step 4: HEURISTIC - Extract location without marker
         # If no location found yet, check if event_name contains location-like patterns
         # Pattern: "event_verb location_nouns" (e.g., "hop cong ty ABC", "hoc truong dai hoc")
+        # v0.6.3: Only apply if event has explicit location keywords to avoid false splits
         if not results['location'] and results['event_name']:
-            event_parts = results['event_name'].split()
-            
-            # Common single-word event verbs
-            single_verbs = ['hop', 'hoc', 'lam', 'gap', 'di', 'kham', 'le']
-            
-            # Common two-word event phrases (verb + object/complement)
-            two_word_events = [
-                'lam viec', 'gap khach', 'gap ban', 'gap doi', 
-                'an com', 'an tiec', 'uong cafe', 'uong tra',
-                'tap gym', 'tap yoga', 'chay bo', 'di bo',
-                'xem phim', 'mua sam', 'ban hang',
-                'hop team', 'hop nhom', 'doc sach'
+            # Check if event contains location keywords
+            location_keywords = [
+                'phong', 'phòng', 'cong ty', 'công ty', 'van phong', 'văn phòng',
+                'nha', 'nhà', 'truong', 'trường', 'benh vien', 'bệnh viện',
+                'quan', 'quán', 'san', 'sân', 'cong vien', 'công viên',
+                'be boi', 'bể bơi', 'rap', 'rạp', 'vincom', 'vinmart',
+                'california', 'paris', 'trung nguyen', 'trung nguyên',
+                'linh dam', 'linh đàm', 'thong nhat', 'thống nhất',
+                'bach mai', 'bạch mai', 'cho', 'chợ', 'sieu thi', 'siêu thị'
             ]
             
-            # Common three-word event phrases
-            three_word_events = [
-                'gap doi tac', 'hop ban giam', 'lam bai tap',
-                'doc bao cao', 'viet bao cao'
-            ]
+            has_location_keyword = any(kw in results['event_name'].lower() for kw in location_keywords)
             
-            # If event has 4+ words, try to split event from location
-            if len(event_parts) >= 4:
-                # Check if it's a three-word event phrase
-                three_word_check = ' '.join(event_parts[:3])
-                if three_word_check in three_word_events:
-                    # "gap doi tac van phong ABC" → event="gap doi tac", location="van phong ABC"
-                    results['event_name'] = three_word_check
-                    results['location'] = ' '.join(event_parts[3:])
-                # Check if it's a two-word event phrase
-                elif ' '.join(event_parts[:2]) in two_word_events:
+            # Only split event/location if we have location keywords
+            if has_location_keyword:
+                event_parts = results['event_name'].split()
+            
+                # Common single-word event verbs (both diacritic and non-diacritic)
+                # v0.6.3: Expanded list with more variants
+                single_verbs = [
+                    'hop', 'họp', 'hoc', 'học', 'lam', 'làm', 'gap', 'gặp', 
+                    'di', 'đi', 'kham', 'khám', 'le', 'lễ', 'an', 'ăn',
+                    'uong', 'uống', 'tap', 'tập', 'chay', 'chạy', 'xem',
+                    'mua', 'ban', 'bán', 'doc', 'đọc', 'viet', 'viết',
+                    'nop', 'nộp', 'goi', 'gọi', 'dat', 'đặt', 'dua', 'đưa',
+                    'tham', 'nau', 'nấu', 'don', 'dọn', 'review', 'cafe'
+                ]
+                
+                # Common two-word event phrases (verb + object/complement)
+                # v0.6.3: Added more variants including non-diacritic versions
+                # v0.6.4: Added more common phrases
+                two_word_events = [
+                    'lam viec', 'làm việc', 'gap khach', 'gặp khách', 'gap ban', 'gặp bạn', 
+                    'gap doi', 'gặp đối', 'gap khach hang', 'gặp khách hàng',
+                    'an com', 'ăn cơm', 'an tiec', 'ăn tiệc', 'uong cafe', 'uống cafe', 
+                    'uong tra', 'uống trà', 'tap gym', 'tập gym', 'tap yoga', 'tập yoga', 
+                    'chay bo', 'chạy bộ', 'di bo', 'đi bộ', 'xem phim', 'mua sam', 'mua sắm',
+                    'ban hang', 'bán hàng', 'hop team', 'họp team', 'hop nhom', 'họp nhóm', 
+                    'doc sach', 'đọc sách', 'viet bao', 'viết báo', 'nop bao', 'nộp báo',
+                    'di cong', 'đi công', 'di kham', 'đi khám', 'di cho', 'đi chợ',
+                    'di sieu', 'đi siêu', 'goi dien', 'gọi điện', 'dat lich', 'đặt lịch',
+                    'hoc bai', 'học bài', 'hoc online', 'học online', 'tap the', 'tập thể',
+                    'dua con', 'đưa con', 'tham ba', 'thăm bà', 'di cong vien', 'đi công viên',
+                    # v0.6.4: Add compound phrases
+                    'sinh nhat', 'sinh nhật', 'ky niem', 'kỷ niệm', 'le ky', 'lễ ký',
+                    'goi dien', 'gọi điện'
+                ]
+                
+                # Common three-word event phrases
+                # v0.6.3: Added more variants including non-diacritic versions
+                # v0.6.4: Significantly expanded for complex events
+                three_word_events = [
+                    'gap doi tac', 'gặp đối tác', 'gap khach hang', 'gặp khách hàng',
+                    'hop ban giam', 'họp ban giám', 'lam bai tap', 'làm bài tập',
+                    'doc bao cao', 'đọc báo cáo', 'viet bao cao', 'viết báo cáo',
+                    'nop bao cao', 'nộp báo cáo', 'di kham benh', 'đi khám bệnh',
+                    'di cong tac', 'đi công tác', 'tham gia le', 'tham gia lễ',
+                    'sinh nhat me', 'sinh nhật mẹ', 'ky niem cuoi', 'kỷ niệm cưới',
+                    'hop phu huynh', 'họp phụ huynh', 'di sieu thi', 'đi siêu thị',
+                    'goi dien cho', 'gọi điện cho', 'dat lich nha', 'đặt lịch nha',
+                    'hoc tieng anh', 'học tiếng anh', 'hoc boi loi', 'học bơi lội',
+                    'dua con di', 'đưa con đi', 'tham ba ngoai', 'thăm bà ngoại',
+                    # v0.6.4: Add more complex 3-word events
+                    'le ky ket', 'lễ ký kết', 'di cong vien', 'đi công viên'
+                ]
+                
+                # v0.6.4: NEW - Four+ word event phrases for very complex events
+                # These are extracted FIRST before checking shorter patterns
+                complex_events = [
+                    'le ky ket hop tac', 'lễ ký kết hợp tác',
+                    'le ky ket hop tac chien luoc', 'lễ ký kết hợp tác chiến lược',
+                ]
+                
+                # v0.6.4: Check for very long complex events FIRST (4-15 words)
+                complex_event_found = False
+                if len(event_parts) >= 4:
+                    # Try to match complex multi-word events (up to 15 words for very long formal events)
+                    for length in range(min(15, len(event_parts)), 3, -1):
+                        check_phrase = ' '.join(event_parts[:length])
+                        # Check if it starts with common complex event patterns
+                        if check_phrase.startswith(('le ky ket', 'lễ ký kết', 'hop dong', 'hợp đồng')):
+                            # This is likely a long event name, keep it all
+                            results['event_name'] = self._clean_event_name(check_phrase, results.get('time_str'))
+                            complex_event_found = True
+                            # Check if there's location after
+                            if len(event_parts) > length:
+                                location_candidate = ' '.join(event_parts[length:])
+                                location_candidate = self._clean_location_of_time_components(location_candidate)
+                                if location_candidate:
+                                    results['location'] = location_candidate
+                            break
+                
+                # If event has 4+ words and NOT a complex event, try to split event from location
+                if len(event_parts) >= 4 and not complex_event_found:
+                    # v0.6.4: Special case for "gọi điện cho <person>" - keep person name as part of event
+                    three_word_check = ' '.join(event_parts[:3])
+                    if three_word_check in ['goi dien cho', 'gọi điện cho'] and len(event_parts) == 4:
+                        # "goi dien cho lan" → event="goi dien cho lan" (all 4 words)
+                        results['event_name'] = self._clean_event_name(' '.join(event_parts[:4]), results.get('time_str'))
+                    # Check if it's a three-word event phrase
+                    elif three_word_check in three_word_events:
+                        # "gap doi tac van phong ABC" → event="gap doi tac", location="van phong ABC"
+                        results['event_name'] = self._clean_event_name(three_word_check, results.get('time_str'))
+                        location_candidate = ' '.join(event_parts[3:])
+                        location_candidate = self._clean_location_of_time_components(location_candidate)
+                        if location_candidate:
+                            results['location'] = location_candidate
+                    # Check if it's a two-word event phrase
+                    elif ' '.join(event_parts[:2]) in two_word_events:
+                        two_word_check = ' '.join(event_parts[:2])
+                        results['event_name'] = self._clean_event_name(two_word_check, results.get('time_str'))
+                        location_candidate = ' '.join(event_parts[2:])
+                        location_candidate = self._clean_location_of_time_components(location_candidate)
+                        if location_candidate:
+                            results['location'] = location_candidate
+                    elif event_parts[0] in single_verbs:
+                        # Single-word event
+                        results['event_name'] = self._clean_event_name(event_parts[0], results.get('time_str'))
+                        location_candidate = ' '.join(event_parts[1:])
+                        location_candidate = self._clean_location_of_time_components(location_candidate)
+                        if location_candidate:
+                            results['location'] = location_candidate
+                
+                # If event has exactly 3 words, check three-word events first, then two-word
+                elif len(event_parts) == 3:
+                    three_word_check = ' '.join(event_parts[:3])
                     two_word_check = ' '.join(event_parts[:2])
-                    results['event_name'] = two_word_check
-                    results['location'] = ' '.join(event_parts[2:])
-                elif event_parts[0] in single_verbs:
-                    # Single-word event
-                    results['event_name'] = event_parts[0]
-                    results['location'] = ' '.join(event_parts[1:])
-            
-            # If event has exactly 3 words, check two-word events
-            elif len(event_parts) == 3:
-                two_word_check = ' '.join(event_parts[:2])
-                if two_word_check in two_word_events:
-                    # "an com nha hang" → event="an com", location="nha hang"
-                    results['event_name'] = two_word_check
-                    results['location'] = ' '.join(event_parts[2:])
-                elif event_parts[0] in single_verbs:
-                    # Single-word event: "hop cong ty ABC" → event="hop", location="cong ty ABC"
-                    results['event_name'] = event_parts[0]
-                    results['location'] = ' '.join(event_parts[1:])
-                # Otherwise, keep event as-is (might be complex phrase like "le nha tho")
+                    
+                    # v0.6.4: Check 3-word events FIRST to avoid false splits
+                    # Example: "di sieu thi" should be 1 event, not "di sieu" + location "thi"
+                    if three_word_check in three_word_events:
+                        # Keep all 3 words as event (no location split)
+                        results['event_name'] = self._clean_event_name(three_word_check, results.get('time_str'))
+                    elif two_word_check in two_word_events:
+                        # "an com nha hang" → event="an com", location="nha hang"
+                        results['event_name'] = self._clean_event_name(two_word_check, results.get('time_str'))
+                        location_candidate = ' '.join(event_parts[2:])
+                        location_candidate = self._clean_location_of_time_components(location_candidate)
+                        if location_candidate:
+                            results['location'] = location_candidate
+                    elif event_parts[0] in single_verbs:
+                        # Single-word event: "hop cong ty ABC" → event="hop", location="cong ty ABC"
+                        results['event_name'] = self._clean_event_name(event_parts[0], results.get('time_str'))
+                        location_candidate = ' '.join(event_parts[1:])
+                        location_candidate = self._clean_location_of_time_components(location_candidate)
+                        if location_candidate:
+                            results['location'] = location_candidate
+                    # Otherwise, keep event as-is (might be complex phrase like "le nha tho")
+        
+        # v0.6.4: FINAL cleanup of event_name to remove date patterns and standalone period words
+        # This runs after all heuristic logic to ensure all extractions are cleaned
+        if results.get('event_name'):
+            results['event_name'] = self._clean_event_name(results['event_name'], results.get('time_str'))
         
         return results
     
@@ -332,12 +454,30 @@ class NLPPipeline:
         if not text:
             return ""
         
+        # NEW: Remove common pronoun + verb prefixes (tôi đi, tôi sẽ, mình đi, etc.)
+        # These are filler words that don't add meaning to the event
+        pronoun_verb_patterns = r"\b(?:toi|tôi|minh|mình|chúng\s*tôi|chung\s*toi)\s+(?:di|đi|se|sẽ|can|cần|phai|phải|muon|muốn|den|đến|ve|về)\b"
+        cleaned = re.sub(pronoun_verb_patterns, " ", text, flags=re.IGNORECASE)
+        
+        # v0.6.4: Remove date patterns that leak into event name
+        # Pattern: "6.12", "06-12", "6-12", "12/12", etc.
+        cleaned = re.sub(r'\b\d{1,2}[-./]\d{1,2}\b', '', cleaned)
+        cleaned = re.sub(r'\b\d{1,2}\.\d{1,2}\b', '', cleaned)
+        
+        # v0.6.4: Remove standalone time period words if NOT part of common event phrases
+        # Check if "toi/tối" is standalone (not part of "ăn tối", "về tối", etc.)
+        # Common event phrases with time periods: "ăn sáng", "ăn trưa", "ăn tối", "về tối"
+        event_with_period = r'\b(?:an|ăn|ve|về)\s+(?:sang|sáng|trua|trưa|toi|tối|chieu|chiều)\b'
+        if not re.search(event_with_period, cleaned, re.IGNORECASE):
+            # Remove standalone period words
+            cleaned = re.sub(r'\b(?:toi|tối|sang|sáng|trua|trưa|chieu|chiều)\b', '', cleaned, flags=re.IGNORECASE)
+        
         # First pass: Remove time connectors and relative time words (always remove these)
         time_connectors = r"(?:vào|vao|lúc|luc|vào\s+lúc|vao\s+luc|khoảng|khoang|từ|tu|đến|den|tới|cho\s+đến|cho\s+den|bắt\s+đầu|bat\s+dau|kết\s+thúc|ket\s+thuc)"
         relative_time = r"(?:hôm\s*nay|hom\s*nay|ngày\s*mai|ngay\s*mai|mai|ngày\s*mốt|ngay\s*mot|mốt|mot|hôm\s*qua|hom\s*qua|qua|nay|tuần\s*sau|tuan\s*sau|tuần\s*trước|tuan\s*truoc)"
         timezone_words = r"(?:utc|gmt|múi\s*giờ|mui\s*gio)"
         
-        cleaned = re.sub(fr"\b({time_connectors}|{relative_time}|{timezone_words})\b", " ", text, flags=re.IGNORECASE)
+        cleaned = re.sub(fr"\b({time_connectors}|{relative_time}|{timezone_words})\b", " ", cleaned, flags=re.IGNORECASE)
         
         # Second pass: Remove time-related words like "gio" (giờ) that are part of time expressions
         # This fixes: "sauh gio chieu di cafe" → "di cafe" (not "gio di cafe")
@@ -371,7 +511,10 @@ class NLPPipeline:
         if not ex.get('location'):
             loc_ner, _ = self._extract_location_ner(text_wo_reminder)
             if loc_ner:
-                ex['location'] = loc_ner
+                # CRITICAL FIX v0.6.3: Enhanced time component filtering for NER
+                loc_ner = self._clean_location_of_time_components(loc_ner)
+                if loc_ner:  # Only set if something remains after cleaning
+                    ex['location'] = loc_ner
         # Parse time
         start_dt, end_dt = parse_vietnamese_time_range(ex['time_str'], relative_base=self.relative_base)
         result = {
@@ -429,3 +572,64 @@ class NLPPipeline:
         loc2 = self.reminder_presence_regex.sub(' ', loc)
         loc2 = re.sub(r"\s{2,}", " ", loc2).strip(" ,.-").strip()
         return loc2 or None
+    
+    def _clean_location_of_time_components(self, loc: Optional[str]) -> Optional[str]:
+        """
+        CRITICAL: Remove time-related components from location extraction.
+        Fixes bug where "18:00 thứ 2" → location="00 thứ 2"
+        """
+        if not loc:
+            return loc
+        
+        original = loc
+        
+        # Pattern 1: Remove "X:00 thứ Y" → "00 thứ Y" (e.g., "18:00 thứ 2" → "00 thứ 2")
+        loc = re.sub(r'\b\d{1,2}:00\s+', '', loc, flags=re.IGNORECASE)
+        
+        # Pattern 2: Remove "Xh thứ Y" → "h thứ Y" (e.g., "9h thứ 2" → "h thứ 2")
+        loc = re.sub(r'\b\d{1,2}h\s+', '', loc, flags=re.IGNORECASE)
+        
+        # Pattern 3: Remove standalone time indicators
+        # "thứ 2", "thứ 3", "t2", "t3", etc.
+        time_day_patterns = [
+            r'\b(?:thứ|thu)\s*[2-8]\b',  # thứ 2-8
+            r'\bt[2-8]\b',                # t2-t8
+            r'\bcn\b',                    # cn (chủ nhật)
+        ]
+        for pattern in time_day_patterns:
+            loc = re.sub(pattern, '', loc, flags=re.IGNORECASE)
+        
+        # Pattern 4: Remove "h sáng/chiều/tối/trưa" patterns
+        loc = re.sub(r'\bh\s+(?:sáng|sang|chiều|chieu|tối|toi|trưa|trua)\b', '', loc, flags=re.IGNORECASE)
+        
+        # Pattern 5: Remove "h ngày X" patterns
+        loc = re.sub(r'\bh\s+(?:ngày|ngay)\s+\w+\b', '', loc, flags=re.IGNORECASE)
+        
+        # Pattern 6: Remove standalone "00" from ":00"
+        loc = re.sub(r'\b00\b', '', loc)
+        
+        # Pattern 7: Remove standalone "h" or "giờ"
+        loc = re.sub(r'\b(?:h|giờ|gio)\b', '', loc, flags=re.IGNORECASE)
+        
+        # Pattern 8: Remove year/month/day patterns (already handled but double-check)
+        loc = re.sub(r'\b(?:năm|nam)\s+\d{4}\b', '', loc, flags=re.IGNORECASE)
+        loc = re.sub(r'\b(?:tháng|thang)\s+\d{1,2}\b', '', loc, flags=re.IGNORECASE)
+        loc = re.sub(r'\b(?:ngày|ngay)\s+\d{1,2}\b', '', loc, flags=re.IGNORECASE)
+        
+        # Pattern 9: Remove time range indicators
+        loc = re.sub(r'\b(?:mai|hôm nay|hom nay|ngày mai|ngay mai)\b', '', loc, flags=re.IGNORECASE)
+        loc = re.sub(r'\b(?:sáng|sang|chiều|chieu|tối|toi|trưa|trua)\s+(?:mai|nay)\b', '', loc, flags=re.IGNORECASE)
+        
+        # Pattern 10: Remove "ngày mốt", "ngày kia", "mai mốt"
+        loc = re.sub(r'\b(?:ngày|ngay)\s+(?:mốt|mot|kia)\b', '', loc, flags=re.IGNORECASE)
+        loc = re.sub(r'\b(?:mai)\s+(?:mốt|mot)\b', '', loc, flags=re.IGNORECASE)
+        
+        # Clean up whitespace
+        loc = re.sub(r'\s{2,}', ' ', loc).strip(" ,.-").strip()
+        
+        # If nothing left or only punctuation/numbers, return None
+        if not loc or len(loc) <= 2 or loc.isdigit() or all(c in ' ,.-:' for c in loc):
+            return None
+        
+        # Return cleaned location
+        return loc
