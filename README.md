@@ -2,20 +2,13 @@
 
 
 
-> **AI-powered calendar assistant with advanced Vietnamese NLP processing**
 
-> Extract events, times, locations, and reminders from natural Vietnamese text with 96.4% accuracy
 
-> **Modern AI-powered calendar assistant with natural language processing for Vietnamese**  
-
-[![Version](https://img.shields.io/badge/version-0.6.1-blue.svg)](https://github.com/d0ngle8k/NLP-Processing/releases)
+[![Version](https://img.shields.io/badge/version-2-blue.svg)](https://github.com/d0ngle8k/NLP-Processing/releases)
 
 [![Python](https://img.shields.io/badge/python-3.13+-brightgreen.svg)](https://www.python.org/)> Extract events, times, locations, and reminders from Vietnamese text with PhoBERT hybrid NLP pipeline
 
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
-
-[![Accuracy](https://img.shields.io/badge/accuracy-96.4%25-orange.svg)]()> **Version:** 1.0.4
-
 
 
 ---
