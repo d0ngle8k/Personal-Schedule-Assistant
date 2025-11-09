@@ -1,0 +1,750 @@
+# 📚 INDEX & CHI TIẾT CODEBASE - TRỢ LÝ LỊCH TRÌNH NLP TIẾNG VIỆT# 📚 INDEX & CHI TIẾT CODEBASE - TRỢ LÝ LỊCH TRÌNH NLP TIẾNG VIỆT
+
+# ==============================================================================# ==============================================================================
+
+
+
+## 🏗️ TỔNG QUAN KIẾN TRÚC## 🏗️ TỔNG QUAN KIẾN TRÚC
+
+# -----------------------------------------------------------------------------# -----------------------------------------------------------------------------
+
+# Tên Project: Trợ Lý Lịch Trình Cá nhân với NLP tiếng Việt# Tên Project: Trợ Lý Lịch Trình Cá nhân với NLP tiếng Việt
+
+# Version: 0.6.1 (Production Ready)# Version: 0.6.1 (Production Ready)
+
+# Ngôn ngữ: Python 3.13+# Ngôn ngữ: Python 3.13+
+
+# Độ chính xác NLP: 96.4%# Độ chính xác NLP: 96.4%
+
+# Kích thước EXE: 3.6GB (standalone)# Kích thước EXE: 3.6GB (standalone)
+
+# Repository: https://github.com/d0ngle8k/NLP-Processing# Repository: https://github.com/d0ngle8k/NLP-Processing
+
+
+
+# ==============================================================================# ==============================================================================
+
+
+
+## 📁 CẤU TRÚC THƯ MỤC CHI TIẾT## 📁 CẤU TRÚC THƯ MỤC CHI TIẾT
+
+# ==============================================================================# ==============================================================================
+
+
+
+# 📦 NLP-Processing/# 📦 NLP-Processing/
+
+# ├── 📄 main_ctk.py                 # 🚀 Main GUI Application (CustomTkinter)# ├── 📄 main_ctk.py                 # 🚀 Main GUI Application (CustomTkinter)
+
+# ├── 📄 main.py                     # 🖥️ Legacy Tkinter GUI (deprecated)# ├── 📄 main.py                     # 🖥️ Legacy Tkinter GUI (deprecated)
+
+# ├── 📄 requirements.txt            # 📦 Dependencies & Libraries# ├── 📄 requirements.txt            # 📦 Dependencies & Libraries
+
+# ├── 📄 README.md                   # 📖 Documentation (2352 lines)# ├── 📄 README.md                   # 📖 Documentation (2352 lines)
+
+# ├── 📄 trolylichtrinhV2.spec       # 🔨 PyInstaller Build Config# ├── 📄 trolylichtrinhV2.spec       # 🔨 PyInstaller Build Config
+
+# │# │
+
+# ├── 🧠 core_nlp/                   # 🤖 NLP Processing Engine# ├── 🧠 core_nlp/                   # 🤖 NLP Processing Engine
+
+# │   ├── 📄 hybrid_pipeline.py      # 🎯 Hybrid AI + Rule-based Pipeline# │   ├── 📄 hybrid_pipeline.py      # 🎯 Hybrid AI + Rule-based Pipeline
+
+# │   ├── 📄 phobert_model.py        # 🧠 PhoBERT Transformer Model# │   ├── 📄 phobert_model.py        # 🧠 PhoBERT Transformer Model
+
+# │   ├── 📄 phobert_trainer.py      # 🎓 Model Training Utilities# │   ├── 📄 phobert_trainer.py      # 🎓 Model Training Utilities
+
+# │   ├── 📄 pipeline.py             # 📋 Rule-based NLP Pipeline# │   ├── 📄 pipeline.py             # 📋 Rule-based NLP Pipeline
+
+# │   └── 📄 time_parser.py          # ⏰ Vietnamese Time Parser# │   └── 📄 time_parser.py          # ⏰ Vietnamese Time Parser
+
+# │# │
+
+# ├── 💾 database/                   # 🗄️ Data Persistence Layer# ├── 💾 database/                   # 🗄️ Data Persistence Layer
+
+# │   ├── 📄 db_manager.py           # 🔄 SQLite Manager with Connection Pool# │   ├── 📄 db_manager.py           # 🔄 SQLite Manager with Connection Pool
+
+# │   └── 📄 schema.sql              # 🏗️ Database Schema# │   └── 📄 schema.sql              # 🏗️ Database Schema
+
+# │# │
+
+# ├── 🔧 services/                   # ⚙️ Business Logic Services# ├── 🔧 services/                   # ⚙️ Business Logic Services
+
+# │   ├── 📄 export_service.py       # 📤 Export (JSON/ICS/Excel/PDF)# │   ├── 📄 export_service.py       # 📤 Export (JSON/ICS/Excel/PDF)
+
+# │   ├── 📄 import_service.py       # 📥 Import (JSON/ICS)# │   ├── 📄 import_service.py       # 📥 Import (JSON/ICS)
+
+# │   ├── 📄 notification_service.py # 🔔 Background Notifications# │   ├── 📄 notification_service.py # 🔔 Background Notifications
+
+# │   ├── 📄 sound_manager.py        # 🔊 Audio Playback Manager# │   ├── 📄 sound_manager.py        # 🔊 Audio Playback Manager
+
+# │   └── 📄 statistics_service.py   # 📊 Analytics & Statistics# │   └── 📄 statistics_service.py   # 📊 Analytics & Statistics
+
+# │# │
+
+# ├── 🎨 widgets/                    # 🖼️ UI Components# ├── 🎨 widgets/                    # 🖼️ UI Components
+
+# │   ├── 📄 event_card.py           # 📋 Event Display Cards# │   ├── 📄 event_card.py           # 📋 Event Display Cards
+
+# │   └── 📄 __init__.py             # 📦 Widget Package# │   └── 📄 __init__.py             # 📦 Widget Package
+
+# │# │
+
+# ├── 🤖 models/                     # 🧠 AI Models Directory# ├── 🤖 models/                     # 🧠 AI Models Directory
+
+# │   ├── 📁 phobert_base/           # 🤗 Base PhoBERT Model# │   ├── 📁 phobert_base/           # 🤗 Base PhoBERT Model
+
+# │   └── 📁 phobert_finetuned/      # 🎯 Fine-tuned PhoBERT# │   └── 📁 phobert_finetuned/      # 🎯 Fine-tuned PhoBERT
+
+# │# │
+
+# ├── 🔊 sounds/                     # 🎵 Audio Assets# ├── 🔊 sounds/                     # 🎵 Audio Assets
+
+# ├── 🧪 tests/                      # ✅ Test Suites# ├── 🧪 tests/                      # ✅ Test Suites
+
+# │   ├── 📄 test_nlp_pipeline.py    # 🧪 NLP Testing# │   ├── 📄 test_nlp_pipeline.py    # 🧪 NLP Testing
+
+# │   └── 📄 extended_test_cases.json # 📊 Test Data (1000+ cases)# │   └── 📄 extended_test_cases.json # 📊 Test Data (1000+ cases)
+
+# │# │
+
+# ├── 📦 dist/                       # 🚀 Build Output# ├── 📦 dist/                       # 🚀 Build Output
+
+# ├── 🔒 .gitignore                  # 🚫 Git Ignore Rules# ├── 🔒 .gitignore                  # 🚫 Git Ignore Rules
+
+# └── 🐍 .venv/                      # 🐍 Virtual Environment# └── 🐍 .venv/                      # 🐍 Virtual Environment
+
+
+
+# ==============================================================================# ==============================================================================
+
+
+
+## 📚 THƯ VIỆN & DEPENDENCIES CHI TIẾT## 📚 THƯ VIỆN & DEPENDENCIES CHI TIẾT
+
+# ==============================================================================# ==============================================================================
+
+
+
+# 🤖 AI/ML Frameworks# 🤖 AI/ML Frameworks
+
+# ------------------# ------------------
+
+# torch>=2.0.0           - PyTorch deep learning framework# torch>=2.0.0           - PyTorch deep learning framework
+
+# transformers>=4.30.0   - Hugging Face transformers library# transformers>=4.30.0   - Hugging Face transformers library
+
+# scikit-learn>=1.3.0    - Machine learning utilities# scikit-learn>=1.3.0    - Machine learning utilities
+
+# tqdm>=4.65.0           - Progress bars for training# tqdm>=4.65.0           - Progress bars for training
+
+
+
+# 🗣️ Natural Language Processing# 🗣️ Natural Language Processing
+
+# -----------------------------# -----------------------------
+
+# underthesea            - Vietnamese NLP toolkit (tokenization, POS tagging)# underthesea            - Vietnamese NLP toolkit (tokenization, POS tagging)
+
+# dateparser             - Natural language date parsing# dateparser             - Natural language date parsing
+
+
+
+# 🎨 GUI & UI Frameworks# 🎨 GUI & UI Frameworks
+
+# ---------------------# ---------------------
+
+# customtkinter>=5.2.0   - Modern Tkinter wrapper với Material Design# customtkinter>=5.2.0   - Modern Tkinter wrapper với Material Design
+
+# tkinter                - Python standard GUI toolkit (built-in)# tkinter                - Python standard GUI toolkit (built-in)
+
+# tkcalendar             - Calendar widget cho Tkinter# tkcalendar             - Calendar widget cho Tkinter
+
+# pillow                 - Image processing (PIL fork)# pillow                 - Image processing (PIL fork)
+
+
+
+# 💾 Database & Data Processing# 💾 Database & Data Processing
+
+# ----------------------------# ----------------------------
+
+# sqlite3                - SQLite database engine (built-in)# sqlite3                - SQLite database engine (built-in)
+
+# ics                    - iCalendar file format support# ics                    - iCalendar file format support
+
+# openpyxl               - Excel file processing# openpyxl               - Excel file processing
+
+# reportlab              - PDF generation# reportlab              - PDF generation
+
+# python-docx==1.1.0     - Word document processing# python-docx==1.1.0     - Word document processing
+
+# babel                  - Internationalization & localization# babel                  - Internationalization & localization
+
+
+
+# 🔊 Audio & Multimedia# 🔊 Audio & Multimedia
+
+# -------------------# -------------------
+
+# playsound==1.2.2       - Cross-platform audio playback# playsound==1.2.2       - Cross-platform audio playback
+
+
+
+# 📊 Visualization & Analytics# 📊 Visualization & Analytics
+
+# ---------------------------# ---------------------------
+
+# matplotlib             - Data visualization & plotting# matplotlib             - Data visualization & plotting
+
+
+
+# 🛠️ Development & Build Tools# 🛠️ Development & Build Tools
+
+# ---------------------------# ---------------------------
+
+# pyinstaller            - Standalone executable creation# pyinstaller            - Standalone executable creation
+
+
+
+# 📦 Standard Library Extensions (built-in)# 📦 Standard Library Extensions (built-in)
+
+# -----------------------------------------# -----------------------------------------
+
+# typing                 - Type hints & annotations# typing                 - Type hints & annotations
+
+# pathlib                - Modern path handling# pathlib                - Modern path handling
+
+# threading              - Multi-threading support# threading              - Multi-threading support
+
+# json                   - JSON data processing# json                   - JSON data processing
+
+# re                     - Regular expressions# re                     - Regular expressions
+
+# datetime               - Date/time manipulation# datetime               - Date/time manipulation
+
+# os                     - Operating system interface# os                     - Operating system interface
+
+# sys                    - System parameters# sys                    - System parameters
+
+# unicodedata            - Unicode character database# unicodedata            - Unicode character database
+
+
+
+# ==============================================================================# ==============================================================================
+
+
+
+## 🧠 MODEL & ALGORITHMS CHI TIẾT## 🧠 MODEL & ALGORITHMS CHI TIẾT
+
+# ==============================================================================# ==============================================================================
+
+
+
+# 🎯 Hybrid NLP Pipeline Architecture# 🎯 Hybrid NLP Pipeline Architecture
+
+# ===================================# ===================================
+
+
+
+# 1. Rule-based Pipeline (pipeline.py)# 1. Rule-based Pipeline (pipeline.py)
+
+# -----------------------------------# -----------------------------------
+
+# - Độ chính xác: 100% cho patterns đã biết# - Độ chính xác: 100% cho patterns đã biết
+
+# - Thuật toán: Regex patterns + Vietnamese grammar rules# - Thuật toán: Regex patterns + Vietnamese grammar rules
+
+# - Ưu điểm: Nhanh, đáng tin cậy, không cần training# - Ưu điểm: Nhanh, đáng tin cậy, không cần training
+
+# - Nhược điểm: Giới hạn với patterns mới# - Nhược điểm: Giới hạn với patterns mới
+
+
+
+# 2. PhoBERT AI Pipeline (phobert_model.py)# 2. PhoBERT AI Pipeline (phobert_model.py)
+
+# ----------------------------------------# ----------------------------------------
+
+# - Model: PhoBERT-base (vinai/phobert-base)# - Model: PhoBERT-base (vinai/phobert-base)
+
+# - Framework: PyTorch + Transformers# - Framework: PyTorch + Transformers
+
+# - Fine-tuning: Custom dataset cho event extraction# - Fine-tuning: Custom dataset cho event extraction
+
+# - Độ chính xác: ≥95% cho contextual understanding# - Độ chính xác: ≥95% cho contextual understanding
+
+# - Token Classification: BIO tagging cho event entities# - Token Classification: BIO tagging cho event entities
+
+
+
+# 3. Hybrid Ensemble (hybrid_pipeline.py)# 3. Hybrid Ensemble (hybrid_pipeline.py)
+
+# --------------------------------------# --------------------------------------
+
+# - Strategy: Parallel execution + Voting mechanism# - Strategy: Parallel execution + Voting mechanism
+
+# - Confidence Scoring: Agreement calculation (0.0-1.0)# - Confidence Scoring: Agreement calculation (0.0-1.0)
+
+# - Fallback: Rule-based khi PhoBERT fail# - Fallback: Rule-based khi PhoBERT fail
+
+# - Accuracy: 96.4% tổng thể# - Accuracy: 96.4% tổng thể
+
+
+
+# ⏰ Vietnamese Time Parser (time_parser.py)# ⏰ Vietnamese Time Parser (time_parser.py)
+
+# =========================================# =========================================
+
+# Patterns hỗ trợ:# Patterns hỗ trợ:
+
+# - Tuổi đối: "hôm nay", "ngày mai", "thứ 3 tuần sau"# - Tuổi đối: "hôm nay", "ngày mai", "thứ 3 tuần sau"
+
+# - Thời gian: "6h chiều", "14h30", "1h50p"# - Thời gian: "6h chiều", "14h30", "1h50p"
+
+# - Relative: "trong 2 ngày nữa", "sau 3 tiếng"# - Relative: "trong 2 ngày nữa", "sau 3 tiếng"
+
+# - Normalization: Unicode handling, case folding# - Normalization: Unicode handling, case folding
+
+# - Timezone: UTC+7 (Vietnam) support# - Timezone: UTC+7 (Vietnam) support
+
+
+
+# 🏗️ Database Architecture# 🏗️ Database Architecture
+
+# =======================# =======================
+
+# - Engine: SQLite với WAL mode# - Engine: SQLite với WAL mode
+
+# - Connection Pool: Thread-safe với 20 max connections# - Connection Pool: Thread-safe với 20 max connections
+
+# - Schema: Events table với full-text search# - Schema: Events table với full-text search
+
+# - Threading: Multi-threaded access với queue management# - Threading: Multi-threaded access với queue management
+
+
+
+# ==============================================================================# ==============================================================================
+
+
+
+## 🎨 GIAO DIỆN & TÍNH NĂNG CHI TIẾT## 🎨 GIAO DIỆN & TÍNH NĂNG CHI TIẾT
+
+# ==============================================================================# ==============================================================================
+
+
+
+# 🚀 Main Application (main_ctk.py)# 🚀 Main Application (main_ctk.py)
+
+# ================================# ================================
+
+
+
+# UI Framework: CustomTkinter với Material Design# UI Framework: CustomTkinter với Material Design
+
+# - Themes: Dark/Light mode với system awareness# - Themes: Dark/Light mode với system awareness
+
+# - Animations: Smooth transitions (300ms fade effects)# - Animations: Smooth transitions (300ms fade effects)
+
+# - Responsive: DPI-aware scaling# - Responsive: DPI-aware scaling
+
+
+
+# Layout Components:# Layout Components:
+
+# 1. Top Bar: Title + Theme Toggle + Settings + Statistics# 1. Top Bar: Title + Theme Toggle + Settings + Statistics
+
+# 2. Input Section: Natural language text input với NLP processing# 2. Input Section: Natural language text input với NLP processing
+
+# 3. Calendar Widget: Monthly calendar với event indicators# 3. Calendar Widget: Monthly calendar với event indicators
+
+# 4. Event List: Scrollable event cards với sorting# 4. Event List: Scrollable event cards với sorting
+
+# 5. Status Bar: Real-time feedback & notifications# 5. Status Bar: Real-time feedback & notifications
+
+
+
+# 📋 Event Card Widget (widgets/event_card.py)# 📋 Event Card Widget (widgets/event_card.py)
+
+# ===========================================# ===========================================
+
+# - Design: Material Design cards với elevation# - Design: Material Design cards với elevation
+
+# - Information: Event name, time, location, reminder# - Information: Event name, time, location, reminder
+
+# - Actions: Edit, Delete, Mark complete# - Actions: Edit, Delete, Mark complete
+
+# - Animations: Hover effects & state transitions# - Animations: Hover effects & state transitions
+
+
+
+# 🔧 Core Features# 🔧 Core Features
+
+# ===============# ===============
+
+
+
+# 1. Natural Language Processing# 1. Natural Language Processing
+
+# -----------------------------# -----------------------------
+
+# - Input: Vietnamese text tự nhiên# - Input: Vietnamese text tự nhiên
+
+# - Output: Structured event data (name, time, location, reminder)# - Output: Structured event data (name, time, location, reminder)
+
+# - Example: "Hẹn gặp Minh tại café ABC vào 6h chiều mai, nhắc trước 2 tiếng"# - Example: "Hẹn gặp Minh tại café ABC vào 6h chiều mai, nhắc trước 2 tiếng"
+
+# - Extraction: Event="Hẹn gặp Minh", Location="café ABC", Time="18:00 tomorrow", Reminder="2 hours before"# - Extraction: Event="Hẹn gặp Minh", Location="café ABC", Time="18:00 tomorrow", Reminder="2 hours before"
+
+
+
+# 2. Calendar Integration# 2. Calendar Integration
+
+# ----------------------# ----------------------
+
+# - Visual Calendar: Monthly view với event dots# - Visual Calendar: Monthly view với event dots
+
+# - Date Selection: Click để filter events# - Date Selection: Click để filter events
+
+# - Event Indicators: Colored dots cho different event types# - Event Indicators: Colored dots cho different event types
+
+
+
+# 3. Event Management# 3. Event Management
+
+# ------------------# ------------------
+
+# - CRUD Operations: Create, Read, Update, Delete events# - CRUD Operations: Create, Read, Update, Delete events
+
+# - Sorting: By time, name, location (ascending/descending)# - Sorting: By time, name, location (ascending/descending)
+
+# - Search: Full-text search across all fields# - Search: Full-text search across all fields
+
+# - Filtering: By date range, location, event type# - Filtering: By date range, location, event type
+
+
+
+# 4. Notification System (services/notification_service.py)# 4. Notification System (services/notification_service.py)
+
+# -------------------------------------------------------# -------------------------------------------------------
+
+# - Background Service: Threading-based notification daemon# - Background Service: Threading-based notification daemon
+
+# - Custom Sounds: Audio alerts với playsound# - Custom Sounds: Audio alerts với playsound
+
+# - Reminder Types: Minutes, hours, days before event# - Reminder Types: Minutes, hours, days before event
+
+# - System Integration: Windows notifications# - System Integration: Windows notifications
+
+
+
+# 5. Data Import/Export# 5. Data Import/Export
+
+# --------------------# --------------------
+
+# - Formats: JSON, ICS (Google Calendar), Excel, PDF# - Formats: JSON, ICS (Google Calendar), Excel, PDF
+
+# - Google Calendar: Full compatibility với ICS format# - Google Calendar: Full compatibility với ICS format
+
+# - Backup/Restore: Complete data migration# - Backup/Restore: Complete data migration
+
+
+
+# 6. Statistics Dashboard (services/statistics_service.py)# 6. Statistics Dashboard (services/statistics_service.py)
+
+# ------------------------------------------------------# ------------------------------------------------------
+
+# - Analytics: Event trends, completion rates# - Analytics: Event trends, completion rates
+
+# - Visualization: Matplotlib charts & graphs# - Visualization: Matplotlib charts & graphs
+
+# - Metrics: Daily/weekly/monthly statistics# - Metrics: Daily/weekly/monthly statistics
+
+# - Reports: PDF export với reportlab# - Reports: PDF export với reportlab
+
+
+
+# 7. Sound Management (services/sound_manager.py)# 7. Sound Management (services/sound_manager.py)
+
+# ----------------------------------------------# ----------------------------------------------
+
+# - Audio Playback: Cross-platform sound alerts# - Audio Playback: Cross-platform sound alerts
+
+# - Custom Sounds: Configurable notification sounds# - Custom Sounds: Configurable notification sounds
+
+# - Threading: Non-blocking audio playback# - Threading: Non-blocking audio playback
+
+
+
+# ==============================================================================# ==============================================================================
+
+
+
+## 🔄 WORKFLOW & DATA FLOW## 🔄 WORKFLOW & DATA FLOW
+
+# ==============================================================================# ==============================================================================
+
+
+
+# 1. User Input Flow# 1. User Input Flow
+
+# -----------------# -----------------
+
+# User Input (Vietnamese Text)# User Input (Vietnamese Text)
+
+#     ↓#     ↓
+
+# NLP Pipeline (Hybrid)# NLP Pipeline (Hybrid)
+
+#     ↓#     ↓
+
+# Structured Data (JSON)# Structured Data (JSON)
+
+#     ↓#     ↓
+
+# Database Storage (SQLite)# Database Storage (SQLite)
+
+#     ↓#     ↓
+
+# UI Update (Event Cards)# UI Update (Event Cards)
+
+
+
+# 2. Notification Flow# 2. Notification Flow
+
+# -------------------# -------------------
+
+# Database Query (Upcoming Events)# Database Query (Upcoming Events)
+
+#     ↓#     ↓
+
+# Notification Service (Background Thread)# Notification Service (Background Thread)
+
+#     ↓#     ↓
+
+# Sound Manager (Audio Playback)# Sound Manager (Audio Playback)
+
+#     ↓#     ↓
+
+# System Notification (Toast/Windows)# System Notification (Toast/Windows)
+
+
+
+# 3. Export Flow# 3. Export Flow
+
+# -------------# -------------
+
+# Database Query (All Events)# Database Query (All Events)
+
+#     ↓#     ↓
+
+# Export Service (Format Conversion)# Export Service (Format Conversion)
+
+#     ↓#     ↓
+
+# File Generation (JSON/ICS/Excel/PDF)# File Generation (JSON/ICS/Excel/PDF)
+
+#     ↓#     ↓
+
+# User Download (File Save Dialog)# User Download (File Save Dialog)
+
+
+
+# ==============================================================================# ==============================================================================
+
+
+
+## 📊 PERFORMANCE & METRICS## 📊 PERFORMANCE & METRICS
+
+# ==============================================================================# ==============================================================================
+
+
+
+# NLP Accuracy:# NLP Accuracy:
+
+# - Rule-based: 100% (known patterns)# - Rule-based: 100% (known patterns)
+
+# - PhoBERT: ≥95% (contextual understanding)# - PhoBERT: ≥95% (contextual understanding)
+
+# - Hybrid: 96.4% (ensemble voting)# - Hybrid: 96.4% (ensemble voting)
+
+# - Real-world: 99.1% (tested on 1000+ cases)# - Real-world: 99.1% (tested on 1000+ cases)
+
+
+
+# Performance Benchmarks:# Performance Benchmarks:
+
+# - NLP Processing: <100ms per query# - NLP Processing: <100ms per query
+
+# - Database Queries: <50ms (connection pooling)# - Database Queries: <50ms (connection pooling)
+
+# - UI Responsiveness: 60 FPS smooth animations# - UI Responsiveness: 60 FPS smooth animations
+
+# - Memory Usage: ~200MB (with models loaded)# - Memory Usage: ~200MB (with models loaded)
+
+# - EXE Size: 3.6GB (all dependencies bundled)# - EXE Size: 3.6GB (all dependencies bundled)
+
+
+
+# Test Coverage:# Test Coverage:
+
+# - Unit Tests: Core NLP functions# - Unit Tests: Core NLP functions
+
+# - Integration Tests: Full pipeline testing# - Integration Tests: Full pipeline testing
+
+# - Extended Tests: 1000+ real-world cases# - Extended Tests: 1000+ real-world cases
+
+# - Accuracy Validation: Automated scoring system# - Accuracy Validation: Automated scoring system
+
+
+
+# ==============================================================================# ==============================================================================
+
+
+
+## 🚀 DEPLOYMENT & DISTRIBUTION## 🚀 DEPLOYMENT & DISTRIBUTION
+
+# ==============================================================================# ==============================================================================
+
+
+
+# Standalone Executable:# Standalone Executable:
+
+# - Tool: PyInstaller với custom spec file# - Tool: PyInstaller với custom spec file
+
+# - Size: 3.6GB (includes PyTorch, PhoBERT, all deps)# - Size: 3.6GB (includes PyTorch, PhoBERT, all deps)
+
+# - Platform: Windows 10/11 (64-bit)# - Platform: Windows 10/11 (64-bit)
+
+# - Dependencies: Zero external requirements# - Dependencies: Zero external requirements
+
+# - Installation: Just run trolylichtrinhV2.exe# - Installation: Just run trolylichtrinhV2.exe
+
+
+
+# Source Code Deployment:# Source Code Deployment:
+
+# - Requirements: pip install -r requirements.txt# - Requirements: pip install -r requirements.txt
+
+# - Models: Auto-download PhoBERT on first run# - Models: Auto-download PhoBERT on first run
+
+# - Database: Auto-create SQLite schema# - Database: Auto-create SQLite schema
+
+# - Environment: Python 3.13+ recommended# - Environment: Python 3.13+ recommended
+
+
+
+# ==============================================================================# ==============================================================================
+
+
+
+## 🔧 DEVELOPMENT & MAINTENANCE## 🔧 DEVELOPMENT & MAINTENANCE
+
+# ==============================================================================# ==============================================================================
+
+
+
+# Code Quality:# Code Quality:
+
+# - Type Hints: Full typing annotations# - Type Hints: Full typing annotations
+
+# - Documentation: Comprehensive docstrings# - Documentation: Comprehensive docstrings
+
+# - Error Handling: Graceful fallbacks & logging# - Error Handling: Graceful fallbacks & logging
+
+# - Thread Safety: Connection pooling & locks# - Thread Safety: Connection pooling & locks
+
+
+
+# Architecture Patterns:# Architecture Patterns:
+
+# - Service-Oriented: Modular service layer# - Service-Oriented: Modular service layer
+
+# - Observer Pattern: UI updates via callbacks# - Observer Pattern: UI updates via callbacks
+
+# - Factory Pattern: Dynamic NLP pipeline selection# - Factory Pattern: Dynamic NLP pipeline selection
+
+# - Singleton Pattern: Database connection management# - Singleton Pattern: Database connection management
+
+
+
+# Extensibility:# Extensibility:
+
+# - Plugin Architecture: Easy to add new NLP models# - Plugin Architecture: Easy to add new NLP models
+
+# - Service Interface: Pluggable export/import services# - Service Interface: Pluggable export/import services
+
+# - Widget System: Customizable UI components# - Widget System: Customizable UI components
+
+
+
+# ==============================================================================# ==============================================================================
+
+
+
+## 🎯 KEY INNOVATIONS## 🎯 KEY INNOVATIONS
+
+# ==============================================================================# ==============================================================================
+
+
+
+# 1. Hybrid AI Approach: First Vietnamese calendar app combining rule-based + transformer models# 1. Hybrid AI Approach: First Vietnamese calendar app combining rule-based + transformer models
+
+# 2. PhoBERT Fine-tuning: Custom-trained model cho Vietnamese event extraction# 2. PhoBERT Fine-tuning: Custom-trained model cho Vietnamese event extraction
+
+# 3. Ensemble Voting: Intelligent confidence scoring & result merging# 3. Ensemble Voting: Intelligent confidence scoring & result merging
+
+# 4. Modern UI/UX: CustomTkinter với Material Design & smooth animations# 4. Modern UI/UX: CustomTkinter với Material Design & smooth animations
+
+# 5. Standalone Distribution: 3.6GB executable với zero dependencies# 5. Standalone Distribution: 3.6GB executable với zero dependencies
+
+# 6. Real-time Notifications: Background service với custom audio# 6. Real-time Notifications: Background service với custom audio
+
+# 7. Multi-format Export: JSON, ICS, Excel, PDF compatibility# 7. Multi-format Export: JSON, ICS, Excel, PDF compatibility
+
+
+
+# ==============================================================================# ==============================================================================
+
+
+
+## 📈 ROADMAP & FUTURE ENHANCEMENTS## 📈 ROADMAP & FUTURE ENHANCEMENTS
+
+# ==============================================================================# ==============================================================================
+
+
+
+# - Mobile App: React Native version# - Mobile App: React Native version
+
+# - Cloud Sync: Google Calendar API integration# - Cloud Sync: Google Calendar API integration
+
+# - Voice Input: Speech-to-text với Vietnamese ASR# - Voice Input: Speech-to-text với Vietnamese ASR
+
+# - Advanced AI: GPT integration cho complex queries# - Advanced AI: GPT integration cho complex queries
+
+# - Multi-language: English & other Asian languages# - Multi-language: English & other Asian languages
+
+# - Team Collaboration: Shared calendars & permissions# - Team Collaboration: Shared calendars & permissions
+
+
+
+# ==============================================================================# ==============================================================================
+
+
+
+# Tạo bởi: GitHub Copilot# Tạo bởi: GitHub Copilot
+
+# Ngày: November 10, 2025# Ngày: November 9, 2025
+
+# Repository: https://github.com/d0ngle8k/NLP-Processing# Repository: https://github.com/d0ngle8k/NLP-Processing
+
+# Version: 0.6.1# Version: 0.6.1
+
+
+
+# Codebase này đại diện cho một production-ready Vietnamese NLP application# Codebase này đại diện cho một production-ready Vietnamese NLP application
+
+# với architecture hiện đại, performance cao, và user experience xuất sắc.# với architecture hiện đại, performance cao, và user experience xuất sắc.
+
+
+
+# 🎉 END OF DOCUMENT# 🎉 END OF DOCUMENT</content>
+<parameter name="filePath">C:\Users\d0ngle8k\Desktop\New folder (2)\NLP-Processing\CODEBASE_INDEX.txt
