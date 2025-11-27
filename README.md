@@ -149,7 +149,7 @@ Output:
 
 ✅ "6h chiều mai" → Tomorrow 6:00 PM2. Extract `TroLyLichTrinh_v1.0.4_Improved.exe` (987 MB)│  Rule-based Parser  │  PhoBERT Fine-tuned │
 
-✅ "thứ 3 tuần sau 2h" → Next Wednesday 2:00 PM
+✅ "thứ 3 tuần sau 2h" → Next Tuesday 2:00 PM
 
 ✅ "15/12 lúc 14h30" → December 15, 2:30 PM3. Double-click to run - no installation needed!│  100% edge cases    │  Contextual          │
 
