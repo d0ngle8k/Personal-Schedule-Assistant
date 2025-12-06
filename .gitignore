@@ -13,6 +13,12 @@ venv/
 *.spec
 !build_main_ctk.spec
 
+# Large Models
+models/
+*.pt
+*.bin
+*.h5
+
 # Database file
 /database/*.db
 *.db-shm
@@ -43,15 +49,16 @@ Thumbs.db
 *.docx
 *.pdf
 ~$*.docx
+tests/*_report_*.json
+tests/full_test_results_*.json
+tests/test_report*.json
+tests/extended_test_cases_*.json
+!tests/extended_test_cases.json
 
 # Documentation markdown (keep README.md only)
 DUAL_NOTIFICATION.md
 FEATURES_*.md
 
-# Large model files (too big for GitHub)
-models/phobert_finetuned/model.pt
-models/phobert_base/
-*.pt
 
-# Ignore test cases and test runner outputs
-tests/
+
+

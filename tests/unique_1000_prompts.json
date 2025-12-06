@@ -1,0 +1,4002 @@
+[
+  {
+    "id": "pattern_0001",
+    "input": "làm 6:15"
+  },
+  {
+    "id": "pattern_0002",
+    "input": "viết 13:00"
+  },
+  {
+    "id": "pattern_0003",
+    "input": "làm 8:45"
+  },
+  {
+    "id": "pattern_0004",
+    "input": "bán 7h"
+  },
+  {
+    "id": "pattern_0005",
+    "input": "họp 12:00"
+  },
+  {
+    "id": "pattern_0006",
+    "input": "đi công tác 6:45"
+  },
+  {
+    "id": "pattern_0007",
+    "input": "ngủ 19:00"
+  },
+  {
+    "id": "pattern_0008",
+    "input": "gọi điện 14h"
+  },
+  {
+    "id": "pattern_0009",
+    "input": "ăn 19:15"
+  },
+  {
+    "id": "pattern_0010",
+    "input": "đọc 10:00"
+  },
+  {
+    "id": "pattern_0011",
+    "input": "chạy 9h"
+  },
+  {
+    "id": "pattern_0012",
+    "input": "mua 9:15"
+  },
+  {
+    "id": "pattern_0013",
+    "input": "xem 14h"
+  },
+  {
+    "id": "pattern_0014",
+    "input": "gọi điện 9:30"
+  },
+  {
+    "id": "pattern_0015",
+    "input": "họp 15:45"
+  },
+  {
+    "id": "pattern_0016",
+    "input": "xem 12h"
+  },
+  {
+    "id": "pattern_0017",
+    "input": "gặp 13:15"
+  },
+  {
+    "id": "pattern_0018",
+    "input": "họp 13h"
+  },
+  {
+    "id": "pattern_0019",
+    "input": "mua 14:30"
+  },
+  {
+    "id": "pattern_0020",
+    "input": "xem 11:15"
+  },
+  {
+    "id": "pattern_0021",
+    "input": "xem 12:15"
+  },
+  {
+    "id": "pattern_0022",
+    "input": "họp 11:45"
+  },
+  {
+    "id": "pattern_0023",
+    "input": "viết 11:30"
+  },
+  {
+    "id": "pattern_0024",
+    "input": "mua 14:45"
+  },
+  {
+    "id": "pattern_0025",
+    "input": "viết 16h"
+  },
+  {
+    "id": "pattern_0026",
+    "input": "viết 7:15"
+  },
+  {
+    "id": "pattern_0027",
+    "input": "mua 14h"
+  },
+  {
+    "id": "pattern_0028",
+    "input": "ngủ 16:00"
+  },
+  {
+    "id": "pattern_0029",
+    "input": "đi khám 18:30"
+  },
+  {
+    "id": "pattern_0030",
+    "input": "học 14:00"
+  },
+  {
+    "id": "pattern_0031",
+    "input": "viết 14:45"
+  },
+  {
+    "id": "pattern_0032",
+    "input": "bán 18:15"
+  },
+  {
+    "id": "pattern_0033",
+    "input": "viết 10:45"
+  },
+  {
+    "id": "pattern_0034",
+    "input": "đi khám 8h"
+  },
+  {
+    "id": "pattern_0035",
+    "input": "làm 10:00"
+  },
+  {
+    "id": "pattern_0036",
+    "input": "bán 8:30"
+  },
+  {
+    "id": "pattern_0037",
+    "input": "mua 20:45"
+  },
+  {
+    "id": "pattern_0038",
+    "input": "đọc 6h"
+  },
+  {
+    "id": "pattern_0039",
+    "input": "viết báo cáo 14:15"
+  },
+  {
+    "id": "pattern_0040",
+    "input": "làm 15:30"
+  },
+  {
+    "id": "pattern_0041",
+    "input": "ăn 20h"
+  },
+  {
+    "id": "pattern_0042",
+    "input": "đọc 22:00"
+  },
+  {
+    "id": "pattern_0043",
+    "input": "đi công tác 9:15"
+  },
+  {
+    "id": "pattern_0044",
+    "input": "đi công tác 12:00"
+  },
+  {
+    "id": "pattern_0045",
+    "input": "xem 11:45"
+  },
+  {
+    "id": "pattern_0046",
+    "input": "chạy 21h"
+  },
+  {
+    "id": "pattern_0047",
+    "input": "làm 17:15"
+  },
+  {
+    "id": "pattern_0048",
+    "input": "viết 7:00"
+  },
+  {
+    "id": "pattern_0049",
+    "input": "nộp hồ sơ 8h"
+  },
+  {
+    "id": "pattern_0050",
+    "input": "đi khám 8:45"
+  },
+  {
+    "id": "pattern_0051",
+    "input": "học 10:30"
+  },
+  {
+    "id": "pattern_0052",
+    "input": "viết báo cáo 11:15"
+  },
+  {
+    "id": "pattern_0053",
+    "input": "đi công tác 19:00"
+  },
+  {
+    "id": "pattern_0054",
+    "input": "viết báo cáo 12:15"
+  },
+  {
+    "id": "pattern_0055",
+    "input": "mua 17:30"
+  },
+  {
+    "id": "pattern_0056",
+    "input": "đi công tác 20h"
+  },
+  {
+    "id": "pattern_0057",
+    "input": "viết 13h"
+  },
+  {
+    "id": "pattern_0058",
+    "input": "chạy 6:45"
+  },
+  {
+    "id": "pattern_0059",
+    "input": "viết báo cáo 13:45"
+  },
+  {
+    "id": "pattern_0060",
+    "input": "viết 6h"
+  },
+  {
+    "id": "pattern_0061",
+    "input": "gặp 13h"
+  },
+  {
+    "id": "pattern_0062",
+    "input": "gặp 16h"
+  },
+  {
+    "id": "pattern_0063",
+    "input": "đi công tác 13:15"
+  },
+  {
+    "id": "pattern_0064",
+    "input": "đi khám 12:45"
+  },
+  {
+    "id": "pattern_0065",
+    "input": "học 21:00"
+  },
+  {
+    "id": "pattern_0066",
+    "input": "đi khám 19:00"
+  },
+  {
+    "id": "pattern_0067",
+    "input": "làm 9:30"
+  },
+  {
+    "id": "pattern_0068",
+    "input": "xem 19:30"
+  },
+  {
+    "id": "pattern_0069",
+    "input": "gọi điện 7h"
+  },
+  {
+    "id": "pattern_0070",
+    "input": "gặp 18:15"
+  },
+  {
+    "id": "pattern_0071",
+    "input": "làm 13:00"
+  },
+  {
+    "id": "pattern_0072",
+    "input": "ngủ 20:00"
+  },
+  {
+    "id": "pattern_0073",
+    "input": "bán 11:15"
+  },
+  {
+    "id": "pattern_0074",
+    "input": "gọi điện 13h"
+  },
+  {
+    "id": "pattern_0075",
+    "input": "gọi điện 9h"
+  },
+  {
+    "id": "pattern_0076",
+    "input": "viết báo cáo 6h"
+  },
+  {
+    "id": "pattern_0077",
+    "input": "đi khám 21:00"
+  },
+  {
+    "id": "pattern_0078",
+    "input": "mua 7:00"
+  },
+  {
+    "id": "pattern_0079",
+    "input": "mua 6:30"
+  },
+  {
+    "id": "pattern_0080",
+    "input": "đọc 20:15"
+  },
+  {
+    "id": "pattern_0081",
+    "input": "bán 21:00"
+  },
+  {
+    "id": "pattern_0082",
+    "input": "ngủ 15:00"
+  },
+  {
+    "id": "pattern_0083",
+    "input": "gặp 7:15"
+  },
+  {
+    "id": "pattern_0084",
+    "input": "gặp 7:45"
+  },
+  {
+    "id": "pattern_0085",
+    "input": "đi khám 22:45"
+  },
+  {
+    "id": "pattern_0086",
+    "input": "ăn 7:45"
+  },
+  {
+    "id": "pattern_0087",
+    "input": "họp 11h"
+  },
+  {
+    "id": "pattern_0088",
+    "input": "tham gia 8:00"
+  },
+  {
+    "id": "pattern_0089",
+    "input": "mua 9:45"
+  },
+  {
+    "id": "pattern_0090",
+    "input": "viết 7:45"
+  },
+  {
+    "id": "pattern_0091",
+    "input": "họp 19:45"
+  },
+  {
+    "id": "pattern_0092",
+    "input": "nộp hồ sơ 22:15"
+  },
+  {
+    "id": "pattern_0093",
+    "input": "đọc 12:15"
+  },
+  {
+    "id": "pattern_0094",
+    "input": "viết 14:30"
+  },
+  {
+    "id": "pattern_0095",
+    "input": "học 15:30"
+  },
+  {
+    "id": "pattern_0096",
+    "input": "chạy 8h"
+  },
+  {
+    "id": "pattern_0097",
+    "input": "viết báo cáo 12:45"
+  },
+  {
+    "id": "pattern_0098",
+    "input": "đọc 10:15"
+  },
+  {
+    "id": "pattern_0099",
+    "input": "họp 13:15"
+  },
+  {
+    "id": "pattern_0100",
+    "input": "tập 11:30"
+  },
+  {
+    "id": "pattern_0101",
+    "input": "viết báo cáo 15:45"
+  },
+  {
+    "id": "pattern_0102",
+    "input": "tập 9:00"
+  },
+  {
+    "id": "pattern_0103",
+    "input": "đọc 9h"
+  },
+  {
+    "id": "pattern_0104",
+    "input": "viết báo cáo 10:15"
+  },
+  {
+    "id": "pattern_0105",
+    "input": "tập 12:15"
+  },
+  {
+    "id": "pattern_0106",
+    "input": "ngủ 14:45"
+  },
+  {
+    "id": "pattern_0107",
+    "input": "đi khám 14h"
+  },
+  {
+    "id": "pattern_0108",
+    "input": "họp 19:15"
+  },
+  {
+    "id": "pattern_0109",
+    "input": "gặp 6:15"
+  },
+  {
+    "id": "pattern_0110",
+    "input": "gọi điện 19:45"
+  },
+  {
+    "id": "pattern_0111",
+    "input": "đi 9h"
+  },
+  {
+    "id": "pattern_0112",
+    "input": "học 7:15"
+  },
+  {
+    "id": "pattern_0113",
+    "input": "nộp hồ sơ 10:30"
+  },
+  {
+    "id": "pattern_0114",
+    "input": "xem 7:15"
+  },
+  {
+    "id": "pattern_0115",
+    "input": "ngủ 13h"
+  },
+  {
+    "id": "pattern_0116",
+    "input": "xem 19:45"
+  },
+  {
+    "id": "pattern_0117",
+    "input": "học 13:00"
+  },
+  {
+    "id": "pattern_0118",
+    "input": "ăn 19h"
+  },
+  {
+    "id": "pattern_0119",
+    "input": "ăn 16:30"
+  },
+  {
+    "id": "pattern_0120",
+    "input": "viết 14:00"
+  },
+  {
+    "id": "pattern_0121",
+    "input": "làm 18h"
+  },
+  {
+    "id": "pattern_0122",
+    "input": "đi khám 13:00"
+  },
+  {
+    "id": "pattern_0123",
+    "input": "gọi điện 17:15"
+  },
+  {
+    "id": "pattern_0124",
+    "input": "ngủ 18:15"
+  },
+  {
+    "id": "pattern_0125",
+    "input": "đọc 8:15"
+  },
+  {
+    "id": "pattern_0126",
+    "input": "xem 22:30"
+  },
+  {
+    "id": "pattern_0127",
+    "input": "viết báo cáo 16h"
+  },
+  {
+    "id": "pattern_0128",
+    "input": "làm 14:00"
+  },
+  {
+    "id": "pattern_0129",
+    "input": "nộp hồ sơ 14h"
+  },
+  {
+    "id": "pattern_0130",
+    "input": "làm 19:15"
+  },
+  {
+    "id": "pattern_0131",
+    "input": "chạy 19:45"
+  },
+  {
+    "id": "pattern_0132",
+    "input": "đi công tác 9:30"
+  },
+  {
+    "id": "pattern_0133",
+    "input": "nộp hồ sơ 12:15"
+  },
+  {
+    "id": "pattern_0134",
+    "input": "gặp 19h"
+  },
+  {
+    "id": "pattern_0135",
+    "input": "đi công tác 12:15"
+  },
+  {
+    "id": "pattern_0136",
+    "input": "bán 8:15"
+  },
+  {
+    "id": "pattern_0137",
+    "input": "tham gia 16h"
+  },
+  {
+    "id": "pattern_0138",
+    "input": "tập 22:15"
+  },
+  {
+    "id": "pattern_0139",
+    "input": "bán 16:30"
+  },
+  {
+    "id": "pattern_0140",
+    "input": "tập 10:00"
+  },
+  {
+    "id": "pattern_0141",
+    "input": "bán 18:00"
+  },
+  {
+    "id": "pattern_0142",
+    "input": "tham gia 15:30"
+  },
+  {
+    "id": "pattern_0143",
+    "input": "viết báo cáo 6:15"
+  },
+  {
+    "id": "pattern_0144",
+    "input": "tập 12:30"
+  },
+  {
+    "id": "pattern_0145",
+    "input": "nộp hồ sơ 16:30"
+  },
+  {
+    "id": "pattern_0146",
+    "input": "gọi điện 20:00"
+  },
+  {
+    "id": "pattern_0147",
+    "input": "đi công tác 21:00"
+  },
+  {
+    "id": "pattern_0148",
+    "input": "viết 15:00"
+  },
+  {
+    "id": "pattern_0149",
+    "input": "ngủ 10h"
+  },
+  {
+    "id": "pattern_0150",
+    "input": "gặp 13:30"
+  },
+  {
+    "id": "pattern_0151",
+    "input": "tham gia 8:30"
+  },
+  {
+    "id": "pattern_0152",
+    "input": "bán 12:30"
+  },
+  {
+    "id": "pattern_0153",
+    "input": "đi khám 18:00"
+  },
+  {
+    "id": "pattern_0154",
+    "input": "học 6h"
+  },
+  {
+    "id": "pattern_0155",
+    "input": "bán 13:00"
+  },
+  {
+    "id": "pattern_0156",
+    "input": "viết báo cáo 13h"
+  },
+  {
+    "id": "pattern_0157",
+    "input": "gọi điện 10:30"
+  },
+  {
+    "id": "pattern_0158",
+    "input": "đi công tác 16:30"
+  },
+  {
+    "id": "pattern_0159",
+    "input": "tham gia 22:30"
+  },
+  {
+    "id": "pattern_0160",
+    "input": "viết báo cáo 20:00"
+  },
+  {
+    "id": "pattern_0161",
+    "input": "đi khám 20:15"
+  },
+  {
+    "id": "pattern_0162",
+    "input": "đi khám 13:15"
+  },
+  {
+    "id": "pattern_0163",
+    "input": "gọi điện 8:15"
+  },
+  {
+    "id": "pattern_0164",
+    "input": "viết 14:15"
+  },
+  {
+    "id": "pattern_0165",
+    "input": "chạy 8:00"
+  },
+  {
+    "id": "pattern_0166",
+    "input": "học 13:30"
+  },
+  {
+    "id": "pattern_0167",
+    "input": "học 12h"
+  },
+  {
+    "id": "pattern_0168",
+    "input": "bán 19:15"
+  },
+  {
+    "id": "pattern_0169",
+    "input": "viết báo cáo 20:30"
+  },
+  {
+    "id": "pattern_0170",
+    "input": "gặp 12:30"
+  },
+  {
+    "id": "pattern_0171",
+    "input": "mua 6:45"
+  },
+  {
+    "id": "pattern_0172",
+    "input": "mua 21h"
+  },
+  {
+    "id": "pattern_0173",
+    "input": "xem 15:30"
+  },
+  {
+    "id": "pattern_0174",
+    "input": "bán 13:30"
+  },
+  {
+    "id": "pattern_0175",
+    "input": "đi khám 6:30"
+  },
+  {
+    "id": "pattern_0176",
+    "input": "chạy 18:00"
+  },
+  {
+    "id": "pattern_0177",
+    "input": "gọi điện 10:45"
+  },
+  {
+    "id": "pattern_0178",
+    "input": "viết báo cáo 6:30"
+  },
+  {
+    "id": "pattern_0179",
+    "input": "nộp hồ sơ 6h"
+  },
+  {
+    "id": "pattern_0180",
+    "input": "bán 10:30"
+  },
+  {
+    "id": "pattern_0181",
+    "input": "ăn 7:15"
+  },
+  {
+    "id": "pattern_0182",
+    "input": "mua 16:00"
+  },
+  {
+    "id": "pattern_0183",
+    "input": "gọi điện 16:15"
+  },
+  {
+    "id": "pattern_0184",
+    "input": "đọc 8:30"
+  },
+  {
+    "id": "pattern_0185",
+    "input": "đi 7:15"
+  },
+  {
+    "id": "pattern_0186",
+    "input": "viết 8h"
+  },
+  {
+    "id": "pattern_0187",
+    "input": "đi 13:00"
+  },
+  {
+    "id": "pattern_0188",
+    "input": "đi 10:00"
+  },
+  {
+    "id": "pattern_0189",
+    "input": "học 21h"
+  },
+  {
+    "id": "pattern_0190",
+    "input": "nộp hồ sơ 12:30"
+  },
+  {
+    "id": "pattern_0191",
+    "input": "đọc 17:00"
+  },
+  {
+    "id": "pattern_0192",
+    "input": "tham gia 9:00"
+  },
+  {
+    "id": "pattern_0193",
+    "input": "tập 9:45"
+  },
+  {
+    "id": "pattern_0194",
+    "input": "đi 15:45"
+  },
+  {
+    "id": "pattern_0195",
+    "input": "mua 18:00"
+  },
+  {
+    "id": "pattern_0196",
+    "input": "gặp 17:45"
+  },
+  {
+    "id": "pattern_0197",
+    "input": "bán 17h"
+  },
+  {
+    "id": "pattern_0198",
+    "input": "đi công tác 16h"
+  },
+  {
+    "id": "pattern_0199",
+    "input": "bán 21h"
+  },
+  {
+    "id": "pattern_0200",
+    "input": "bán 17:30"
+  },
+  {
+    "id": "pattern_0201",
+    "input": "học 22:15 hôm qua"
+  },
+  {
+    "id": "pattern_0202",
+    "input": "tham gia trưa"
+  },
+  {
+    "id": "pattern_0203",
+    "input": "gọi điện hôm qua"
+  },
+  {
+    "id": "pattern_0204",
+    "input": "nộp hồ sơ 13h tuần sau"
+  },
+  {
+    "id": "pattern_0205",
+    "input": "đọc 20:45 sáng"
+  },
+  {
+    "id": "pattern_0206",
+    "input": "tham gia 6:30 tối"
+  },
+  {
+    "id": "pattern_0207",
+    "input": "chạy 17:15 ngày mai"
+  },
+  {
+    "id": "pattern_0208",
+    "input": "chạy tuần sau"
+  },
+  {
+    "id": "pattern_0209",
+    "input": "đọc 12h trưa"
+  },
+  {
+    "id": "pattern_0210",
+    "input": "viết 13:30 khuya"
+  },
+  {
+    "id": "pattern_0211",
+    "input": "đi khám sáng"
+  },
+  {
+    "id": "pattern_0212",
+    "input": "họp 13:15 tuần sau"
+  },
+  {
+    "id": "pattern_0213",
+    "input": "nộp hồ sơ 22:15 tháng tới"
+  },
+  {
+    "id": "pattern_0214",
+    "input": "bán 17:30 khuya"
+  },
+  {
+    "id": "pattern_0215",
+    "input": "đọc 9:00 tuần sau"
+  },
+  {
+    "id": "pattern_0216",
+    "input": "chạy sáng mai"
+  },
+  {
+    "id": "pattern_0217",
+    "input": "ăn 21:15 thứ 2"
+  },
+  {
+    "id": "pattern_0218",
+    "input": "nộp hồ sơ 9:00 trưa"
+  },
+  {
+    "id": "pattern_0219",
+    "input": "tập 15h thứ 2"
+  },
+  {
+    "id": "pattern_0220",
+    "input": "viết báo cáo 7:45 ngày mai"
+  },
+  {
+    "id": "pattern_0221",
+    "input": "tập khuya"
+  },
+  {
+    "id": "pattern_0222",
+    "input": "đi khám sáng mai"
+  },
+  {
+    "id": "pattern_0223",
+    "input": "nộp hồ sơ 20:15 tuần sau"
+  },
+  {
+    "id": "pattern_0224",
+    "input": "ăn 21h hôm nay"
+  },
+  {
+    "id": "pattern_0225",
+    "input": "họp 7:00 hôm qua"
+  },
+  {
+    "id": "pattern_0226",
+    "input": "học chiều"
+  },
+  {
+    "id": "pattern_0227",
+    "input": "họp 19:45 thứ 2"
+  },
+  {
+    "id": "pattern_0228",
+    "input": "tham gia 22:30 chiều"
+  },
+  {
+    "id": "pattern_0229",
+    "input": "gọi điện 19:15 sáng"
+  },
+  {
+    "id": "pattern_0230",
+    "input": "nộp hồ sơ 9:00 chiều"
+  },
+  {
+    "id": "pattern_0231",
+    "input": "ngủ tuần sau"
+  },
+  {
+    "id": "pattern_0232",
+    "input": "ăn 8:00 thứ 2"
+  },
+  {
+    "id": "pattern_0233",
+    "input": "đi 21:15 hôm qua"
+  },
+  {
+    "id": "pattern_0234",
+    "input": "gặp 15:30 thứ 2"
+  },
+  {
+    "id": "pattern_0235",
+    "input": "họp 14:45 tối"
+  },
+  {
+    "id": "pattern_0236",
+    "input": "ngủ 13:00 hôm qua"
+  },
+  {
+    "id": "pattern_0237",
+    "input": "đọc 11:15 ngày mai"
+  },
+  {
+    "id": "pattern_0238",
+    "input": "tham gia khuya"
+  },
+  {
+    "id": "pattern_0239",
+    "input": "tập 15:30 sáng"
+  },
+  {
+    "id": "pattern_0240",
+    "input": "đọc 20h trưa"
+  },
+  {
+    "id": "pattern_0241",
+    "input": "tham gia hôm nay"
+  },
+  {
+    "id": "pattern_0242",
+    "input": "chạy 8:00 chiều"
+  },
+  {
+    "id": "pattern_0243",
+    "input": "nộp hồ sơ chiều"
+  },
+  {
+    "id": "pattern_0244",
+    "input": "đọc 11:30 chiều"
+  },
+  {
+    "id": "pattern_0245",
+    "input": "đi công tác 14:00 tối"
+  },
+  {
+    "id": "pattern_0246",
+    "input": "nộp hồ sơ hôm qua"
+  },
+  {
+    "id": "pattern_0247",
+    "input": "đi khám 19:15 sáng mai"
+  },
+  {
+    "id": "pattern_0248",
+    "input": "chạy 11:15 tối"
+  },
+  {
+    "id": "pattern_0249",
+    "input": "bán 18:45 khuya"
+  },
+  {
+    "id": "pattern_0250",
+    "input": "gặp 14:15 sáng"
+  },
+  {
+    "id": "pattern_0251",
+    "input": "làm hôm qua"
+  },
+  {
+    "id": "pattern_0252",
+    "input": "đi tối"
+  },
+  {
+    "id": "pattern_0253",
+    "input": "gọi điện 22:15 hôm qua"
+  },
+  {
+    "id": "pattern_0254",
+    "input": "tham gia sáng"
+  },
+  {
+    "id": "pattern_0255",
+    "input": "gặp 10:15 thứ 2"
+  },
+  {
+    "id": "pattern_0256",
+    "input": "gọi điện 6:45 khuya"
+  },
+  {
+    "id": "pattern_0257",
+    "input": "viết 6:45 khuya"
+  },
+  {
+    "id": "pattern_0258",
+    "input": "bán 9:30 sáng mai"
+  },
+  {
+    "id": "pattern_0259",
+    "input": "làm tối"
+  },
+  {
+    "id": "pattern_0260",
+    "input": "đi khám 14:30 khuya"
+  },
+  {
+    "id": "pattern_0261",
+    "input": "đi khám 10:30 sáng"
+  },
+  {
+    "id": "pattern_0262",
+    "input": "ngủ 10h chiều"
+  },
+  {
+    "id": "pattern_0263",
+    "input": "đọc 22:15 hôm qua"
+  },
+  {
+    "id": "pattern_0264",
+    "input": "đi tuần sau"
+  },
+  {
+    "id": "pattern_0265",
+    "input": "đi khám 21:15 ngày mai"
+  },
+  {
+    "id": "pattern_0266",
+    "input": "chạy trưa"
+  },
+  {
+    "id": "pattern_0267",
+    "input": "mua sáng"
+  },
+  {
+    "id": "pattern_0268",
+    "input": "ngủ 18:00 khuya"
+  },
+  {
+    "id": "pattern_0269",
+    "input": "bán 21:30 hôm nay"
+  },
+  {
+    "id": "pattern_0270",
+    "input": "mua tối"
+  },
+  {
+    "id": "pattern_0271",
+    "input": "học sáng"
+  },
+  {
+    "id": "pattern_0272",
+    "input": "học trưa"
+  },
+  {
+    "id": "pattern_0273",
+    "input": "gọi điện 20h sáng mai"
+  },
+  {
+    "id": "pattern_0274",
+    "input": "học hôm qua"
+  },
+  {
+    "id": "pattern_0275",
+    "input": "học 14:15 sáng mai"
+  },
+  {
+    "id": "pattern_0276",
+    "input": "tham gia 8:15 khuya"
+  },
+  {
+    "id": "pattern_0277",
+    "input": "viết báo cáo hôm qua"
+  },
+  {
+    "id": "pattern_0278",
+    "input": "đi khám 8:00 trưa"
+  },
+  {
+    "id": "pattern_0279",
+    "input": "tập thứ 2"
+  },
+  {
+    "id": "pattern_0280",
+    "input": "bán sáng mai"
+  },
+  {
+    "id": "pattern_0281",
+    "input": "làm 15h sáng"
+  },
+  {
+    "id": "pattern_0282",
+    "input": "gặp tháng tới"
+  },
+  {
+    "id": "pattern_0283",
+    "input": "tập 10:00 tháng tới"
+  },
+  {
+    "id": "pattern_0284",
+    "input": "đi công tác 11:00 hôm qua"
+  },
+  {
+    "id": "pattern_0285",
+    "input": "ăn sáng mai"
+  },
+  {
+    "id": "pattern_0286",
+    "input": "mua chiều"
+  },
+  {
+    "id": "pattern_0287",
+    "input": "đi khám 20:15 chiều"
+  },
+  {
+    "id": "pattern_0288",
+    "input": "gọi điện tuần sau"
+  },
+  {
+    "id": "pattern_0289",
+    "input": "ăn 17:45 sáng mai"
+  },
+  {
+    "id": "pattern_0290",
+    "input": "tập tối"
+  },
+  {
+    "id": "pattern_0291",
+    "input": "đọc sáng"
+  },
+  {
+    "id": "pattern_0292",
+    "input": "ngủ hôm qua"
+  },
+  {
+    "id": "pattern_0293",
+    "input": "làm 17:45 thứ 2"
+  },
+  {
+    "id": "pattern_0294",
+    "input": "tập 18:15 khuya"
+  },
+  {
+    "id": "pattern_0295",
+    "input": "đi chiều"
+  },
+  {
+    "id": "pattern_0296",
+    "input": "gặp chiều"
+  },
+  {
+    "id": "pattern_0297",
+    "input": "xem thứ 2"
+  },
+  {
+    "id": "pattern_0298",
+    "input": "tham gia tuần sau"
+  },
+  {
+    "id": "pattern_0299",
+    "input": "học 7:15 tối"
+  },
+  {
+    "id": "pattern_0300",
+    "input": "gọi điện 10h hôm nay"
+  },
+  {
+    "id": "pattern_0301",
+    "input": "tập tháng tới"
+  },
+  {
+    "id": "pattern_0302",
+    "input": "ăn 17:45 thứ 2"
+  },
+  {
+    "id": "pattern_0303",
+    "input": "đi công tác tuần sau"
+  },
+  {
+    "id": "pattern_0304",
+    "input": "làm sáng"
+  },
+  {
+    "id": "pattern_0305",
+    "input": "học thứ 2"
+  },
+  {
+    "id": "pattern_0306",
+    "input": "mua 18h trưa"
+  },
+  {
+    "id": "pattern_0307",
+    "input": "đọc 17:15 trưa"
+  },
+  {
+    "id": "pattern_0308",
+    "input": "xem sáng mai"
+  },
+  {
+    "id": "pattern_0309",
+    "input": "đi khám hôm nay"
+  },
+  {
+    "id": "pattern_0310",
+    "input": "viết báo cáo tháng tới"
+  },
+  {
+    "id": "pattern_0311",
+    "input": "viết 20:15 tối"
+  },
+  {
+    "id": "pattern_0312",
+    "input": "bán 7:15 sáng mai"
+  },
+  {
+    "id": "pattern_0313",
+    "input": "đi khám 10:30 sáng mai"
+  },
+  {
+    "id": "pattern_0314",
+    "input": "gọi điện tháng tới"
+  },
+  {
+    "id": "pattern_0315",
+    "input": "viết báo cáo 10:30 hôm qua"
+  },
+  {
+    "id": "pattern_0316",
+    "input": "đọc hôm nay"
+  },
+  {
+    "id": "pattern_0317",
+    "input": "ngủ 13:15 sáng"
+  },
+  {
+    "id": "pattern_0318",
+    "input": "làm 17h tối"
+  },
+  {
+    "id": "pattern_0319",
+    "input": "mua 9:30 tuần sau"
+  },
+  {
+    "id": "pattern_0320",
+    "input": "họp 6h tối"
+  },
+  {
+    "id": "pattern_0321",
+    "input": "chạy thứ 2"
+  },
+  {
+    "id": "pattern_0322",
+    "input": "nộp hồ sơ 12:45 thứ 2"
+  },
+  {
+    "id": "pattern_0323",
+    "input": "ngủ 10:45 thứ 2"
+  },
+  {
+    "id": "pattern_0324",
+    "input": "học 11h ngày mai"
+  },
+  {
+    "id": "pattern_0325",
+    "input": "đi 13:45 ngày mai"
+  },
+  {
+    "id": "pattern_0326",
+    "input": "chạy 7:00 hôm nay"
+  },
+  {
+    "id": "pattern_0327",
+    "input": "bán 8:30 trưa"
+  },
+  {
+    "id": "pattern_0328",
+    "input": "gọi điện 9:30 tháng tới"
+  },
+  {
+    "id": "pattern_0329",
+    "input": "đi công tác thứ 2"
+  },
+  {
+    "id": "pattern_0330",
+    "input": "gặp khuya"
+  },
+  {
+    "id": "pattern_0331",
+    "input": "đi công tác 6h tuần sau"
+  },
+  {
+    "id": "pattern_0332",
+    "input": "đi khám 9:30 hôm qua"
+  },
+  {
+    "id": "pattern_0333",
+    "input": "gọi điện sáng mai"
+  },
+  {
+    "id": "pattern_0334",
+    "input": "chạy 10:15 chiều"
+  },
+  {
+    "id": "pattern_0335",
+    "input": "tham gia 16:30 tối"
+  },
+  {
+    "id": "pattern_0336",
+    "input": "tham gia 22:45 trưa"
+  },
+  {
+    "id": "pattern_0337",
+    "input": "viết báo cáo khuya"
+  },
+  {
+    "id": "pattern_0338",
+    "input": "bán sáng"
+  },
+  {
+    "id": "pattern_0339",
+    "input": "bán tháng tới"
+  },
+  {
+    "id": "pattern_0340",
+    "input": "mua hôm qua"
+  },
+  {
+    "id": "pattern_0341",
+    "input": "chạy 14:15 hôm qua"
+  },
+  {
+    "id": "pattern_0342",
+    "input": "học tối"
+  },
+  {
+    "id": "pattern_0343",
+    "input": "họp sáng mai"
+  },
+  {
+    "id": "pattern_0344",
+    "input": "họp 17:00 hôm qua"
+  },
+  {
+    "id": "pattern_0345",
+    "input": "viết báo cáo 16h hôm nay"
+  },
+  {
+    "id": "pattern_0346",
+    "input": "bán 15:45 khuya"
+  },
+  {
+    "id": "pattern_0347",
+    "input": "tập 22:00 tháng tới"
+  },
+  {
+    "id": "pattern_0348",
+    "input": "học 9:15 tối"
+  },
+  {
+    "id": "pattern_0349",
+    "input": "viết báo cáo 14:45 tháng tới"
+  },
+  {
+    "id": "pattern_0350",
+    "input": "viết hôm qua"
+  },
+  {
+    "id": "pattern_0351",
+    "input": "tham gia chiều"
+  },
+  {
+    "id": "pattern_0352",
+    "input": "viết báo cáo hôm nay"
+  },
+  {
+    "id": "pattern_0353",
+    "input": "đọc 15:15 hôm nay"
+  },
+  {
+    "id": "pattern_0354",
+    "input": "xem 10:45 hôm nay"
+  },
+  {
+    "id": "pattern_0355",
+    "input": "mua 6h sáng mai"
+  },
+  {
+    "id": "pattern_0356",
+    "input": "đi công tác 20:15 thứ 2"
+  },
+  {
+    "id": "pattern_0357",
+    "input": "ăn 16:45 tháng tới"
+  },
+  {
+    "id": "pattern_0358",
+    "input": "tham gia sáng mai"
+  },
+  {
+    "id": "pattern_0359",
+    "input": "học ngày mai"
+  },
+  {
+    "id": "pattern_0360",
+    "input": "gặp 20:30 tối"
+  },
+  {
+    "id": "pattern_0361",
+    "input": "đi khám 14:00 chiều"
+  },
+  {
+    "id": "pattern_0362",
+    "input": "đi công tác 9:15 sáng mai"
+  },
+  {
+    "id": "pattern_0363",
+    "input": "nộp hồ sơ 15h sáng"
+  },
+  {
+    "id": "pattern_0364",
+    "input": "gặp 12:00 hôm nay"
+  },
+  {
+    "id": "pattern_0365",
+    "input": "đọc 6:30 tuần sau"
+  },
+  {
+    "id": "pattern_0366",
+    "input": "bán 13:45 ngày mai"
+  },
+  {
+    "id": "pattern_0367",
+    "input": "viết báo cáo tối"
+  },
+  {
+    "id": "pattern_0368",
+    "input": "họp hôm qua"
+  },
+  {
+    "id": "pattern_0369",
+    "input": "gặp 8:15 hôm qua"
+  },
+  {
+    "id": "pattern_0370",
+    "input": "nộp hồ sơ 19:15 hôm qua"
+  },
+  {
+    "id": "pattern_0371",
+    "input": "làm 16:00 hôm qua"
+  },
+  {
+    "id": "pattern_0372",
+    "input": "xem 9:00 sáng mai"
+  },
+  {
+    "id": "pattern_0373",
+    "input": "bán 8:30 chiều"
+  },
+  {
+    "id": "pattern_0374",
+    "input": "tập 16:00 khuya"
+  },
+  {
+    "id": "pattern_0375",
+    "input": "họp trưa"
+  },
+  {
+    "id": "pattern_0376",
+    "input": "đi công tác 17:15 trưa"
+  },
+  {
+    "id": "pattern_0377",
+    "input": "học 14:00 thứ 2"
+  },
+  {
+    "id": "pattern_0378",
+    "input": "ăn 8:00 chiều"
+  },
+  {
+    "id": "pattern_0379",
+    "input": "nộp hồ sơ sáng"
+  },
+  {
+    "id": "pattern_0380",
+    "input": "nộp hồ sơ tối"
+  },
+  {
+    "id": "pattern_0381",
+    "input": "tham gia tháng tới"
+  },
+  {
+    "id": "pattern_0382",
+    "input": "chạy 21:30 ngày mai"
+  },
+  {
+    "id": "pattern_0383",
+    "input": "tập 17:45 tuần sau"
+  },
+  {
+    "id": "pattern_0384",
+    "input": "họp 7h tuần sau"
+  },
+  {
+    "id": "pattern_0385",
+    "input": "xem 8:45 tuần sau"
+  },
+  {
+    "id": "pattern_0386",
+    "input": "tham gia 7:30 trưa"
+  },
+  {
+    "id": "pattern_0387",
+    "input": "nộp hồ sơ 21:45 tối"
+  },
+  {
+    "id": "pattern_0388",
+    "input": "học 16h hôm nay"
+  },
+  {
+    "id": "pattern_0389",
+    "input": "đi công tác 13:30 tối"
+  },
+  {
+    "id": "pattern_0390",
+    "input": "gọi điện 11:15 trưa"
+  },
+  {
+    "id": "pattern_0391",
+    "input": "xem 16:45 tuần sau"
+  },
+  {
+    "id": "pattern_0392",
+    "input": "gặp tối"
+  },
+  {
+    "id": "pattern_0393",
+    "input": "họp 18:15 tháng tới"
+  },
+  {
+    "id": "pattern_0394",
+    "input": "đọc khuya"
+  },
+  {
+    "id": "pattern_0395",
+    "input": "tham gia 10:15 ngày mai"
+  },
+  {
+    "id": "pattern_0396",
+    "input": "mua 8:15 ngày mai"
+  },
+  {
+    "id": "pattern_0397",
+    "input": "chạy ngày mai"
+  },
+  {
+    "id": "pattern_0398",
+    "input": "đi công tác sáng mai"
+  },
+  {
+    "id": "pattern_0399",
+    "input": "bán 17:15 trưa"
+  },
+  {
+    "id": "pattern_0400",
+    "input": "ăn 21:00 thứ 2"
+  },
+  {
+    "id": "pattern_0401",
+    "input": "viết bạn 10h tại nhà hàng"
+  },
+  {
+    "id": "pattern_0402",
+    "input": "làm cuộc họp 22h tại phòng họp"
+  },
+  {
+    "id": "pattern_0403",
+    "input": "chạy buổi thuyết trình 10:45 tại siêu thị"
+  },
+  {
+    "id": "pattern_0404",
+    "input": "học bạn 11:45 tại khuôn viên trường"
+  },
+  {
+    "id": "pattern_0405",
+    "input": "ăn dự án 7:30 tại quán cafe"
+  },
+  {
+    "id": "pattern_0406",
+    "input": "viết dự án 15:30 tại bệnh viện"
+  },
+  {
+    "id": "pattern_0407",
+    "input": "viết báo cáo gia đình 15:30 tại hội trường"
+  },
+  {
+    "id": "pattern_0408",
+    "input": "ngủ báo cáo 20:30 tại khuôn viên trường"
+  },
+  {
+    "id": "pattern_0409",
+    "input": "tập bài tập 22:45 tại siêu thị"
+  },
+  {
+    "id": "pattern_0410",
+    "input": "ăn gia đình 10:15 tại văn phòng"
+  },
+  {
+    "id": "pattern_0411",
+    "input": "đi khám báo cáo 9:45 tại hội trường"
+  },
+  {
+    "id": "pattern_0412",
+    "input": "làm khách 8:00 tại nhà hàng"
+  },
+  {
+    "id": "pattern_0413",
+    "input": "gọi điện cuộc họp 10:30 tại phòng 302"
+  },
+  {
+    "id": "pattern_0414",
+    "input": "viết dự án 17h tại siêu thị"
+  },
+  {
+    "id": "pattern_0415",
+    "input": "gặp bài tập 22:15 tại bệnh viện"
+  },
+  {
+    "id": "pattern_0416",
+    "input": "mua đối tác 17:00 tại văn phòng"
+  },
+  {
+    "id": "pattern_0417",
+    "input": "chạy đối tác 16:00 tại trường học"
+  },
+  {
+    "id": "pattern_0418",
+    "input": "gặp khách 21:00 tại khuôn viên trường"
+  },
+  {
+    "id": "pattern_0419",
+    "input": "đi khám dự án 6h tại văn phòng"
+  },
+  {
+    "id": "pattern_0420",
+    "input": "đọc gia đình 10:45 tại tầng 5"
+  },
+  {
+    "id": "pattern_0421",
+    "input": "tham gia cuộc họp 19h tại khuôn viên trường"
+  },
+  {
+    "id": "pattern_0422",
+    "input": "tập gia đình 15h tại văn phòng"
+  },
+  {
+    "id": "pattern_0423",
+    "input": "viết bài tập 20h tại phòng 302"
+  },
+  {
+    "id": "pattern_0424",
+    "input": "đi khám buổi thuyết trình 6:45 tại nhà riêng"
+  },
+  {
+    "id": "pattern_0425",
+    "input": "viết bạn 15:30 tại văn phòng"
+  },
+  {
+    "id": "pattern_0426",
+    "input": "tham gia báo cáo 13:45 tại siêu thị"
+  },
+  {
+    "id": "pattern_0427",
+    "input": "ăn đối tác 22:15 tại phòng 302"
+  },
+  {
+    "id": "pattern_0428",
+    "input": "đi công tác cuộc họp 22:45 tại sân bay"
+  },
+  {
+    "id": "pattern_0429",
+    "input": "đi bài tập 21h tại phòng họp"
+  },
+  {
+    "id": "pattern_0430",
+    "input": "mua báo cáo 14h tại quán cafe"
+  },
+  {
+    "id": "pattern_0431",
+    "input": "họp báo cáo 13h tại khuôn viên trường"
+  },
+  {
+    "id": "pattern_0432",
+    "input": "nộp hồ sơ báo cáo 10h tại quán cafe"
+  },
+  {
+    "id": "pattern_0433",
+    "input": "viết báo cáo báo cáo 11:30 tại tầng 5"
+  },
+  {
+    "id": "pattern_0434",
+    "input": "đi khám bạn 10h tại tầng 5"
+  },
+  {
+    "id": "pattern_0435",
+    "input": "gọi điện sếp 15:00 tại văn phòng"
+  },
+  {
+    "id": "pattern_0436",
+    "input": "ngủ sếp 16:15 tại sân bay"
+  },
+  {
+    "id": "pattern_0437",
+    "input": "mua cuộc họp 21:15 tại văn phòng"
+  },
+  {
+    "id": "pattern_0438",
+    "input": "ngủ khách 17h tại hội trường"
+  },
+  {
+    "id": "pattern_0439",
+    "input": "chạy khách 9:15 tại siêu thị"
+  },
+  {
+    "id": "pattern_0440",
+    "input": "mua dự án 18:15 tại trường học"
+  },
+  {
+    "id": "pattern_0441",
+    "input": "đi khám dự án 17:45 tại nhà hàng"
+  },
+  {
+    "id": "pattern_0442",
+    "input": "họp bài tập 8:30 tại nhà riêng"
+  },
+  {
+    "id": "pattern_0443",
+    "input": "ăn cuộc họp 15:15 tại phòng 302"
+  },
+  {
+    "id": "pattern_0444",
+    "input": "họp báo cáo 15:15 tại công viên"
+  },
+  {
+    "id": "pattern_0445",
+    "input": "tham gia bài tập 11:30 tại quán cafe"
+  },
+  {
+    "id": "pattern_0446",
+    "input": "gọi điện sếp 17:45 tại siêu thị"
+  },
+  {
+    "id": "pattern_0447",
+    "input": "đọc sếp 8:30 tại quán cafe"
+  },
+  {
+    "id": "pattern_0448",
+    "input": "đi công tác bạn 6:00 tại hội trường"
+  },
+  {
+    "id": "pattern_0449",
+    "input": "tham gia dự án 7:00 tại phòng 302"
+  },
+  {
+    "id": "pattern_0450",
+    "input": "viết báo cáo 17:30 tại nhà riêng"
+  },
+  {
+    "id": "pattern_0451",
+    "input": "gặp buổi thuyết trình 10:30 tại quán cafe"
+  },
+  {
+    "id": "pattern_0452",
+    "input": "xem dự án 8:45 tại trường học"
+  },
+  {
+    "id": "pattern_0453",
+    "input": "đi công tác báo cáo 18:15 tại phòng họp"
+  },
+  {
+    "id": "pattern_0454",
+    "input": "đọc gia đình 9h tại tầng 5"
+  },
+  {
+    "id": "pattern_0455",
+    "input": "ăn dự án 22:30 tại sân bay"
+  },
+  {
+    "id": "pattern_0456",
+    "input": "làm khách 14:30 tại bệnh viện"
+  },
+  {
+    "id": "pattern_0457",
+    "input": "tham gia khách 21:00 tại phòng 302"
+  },
+  {
+    "id": "pattern_0458",
+    "input": "học đối tác 20:00 tại tầng 5"
+  },
+  {
+    "id": "pattern_0459",
+    "input": "gọi điện đối tác 16:15 tại tầng 5"
+  },
+  {
+    "id": "pattern_0460",
+    "input": "họp cuộc họp 15:15 tại hội trường"
+  },
+  {
+    "id": "pattern_0461",
+    "input": "ăn bạn 17:45 tại bệnh viện"
+  },
+  {
+    "id": "pattern_0462",
+    "input": "làm gia đình 10:00 tại khuôn viên trường"
+  },
+  {
+    "id": "pattern_0463",
+    "input": "đi khám sếp 17:45 tại nhà riêng"
+  },
+  {
+    "id": "pattern_0464",
+    "input": "xem dự án 10:45 tại phòng 302"
+  },
+  {
+    "id": "pattern_0465",
+    "input": "họp khách 18:30 tại sân bay"
+  },
+  {
+    "id": "pattern_0466",
+    "input": "bán bài tập 8:00 tại quán cafe"
+  },
+  {
+    "id": "pattern_0467",
+    "input": "họp dự án 20:45 tại quán cafe"
+  },
+  {
+    "id": "pattern_0468",
+    "input": "học cuộc họp 11:00 tại siêu thị"
+  },
+  {
+    "id": "pattern_0469",
+    "input": "đi công tác sếp 9:45 tại trường học"
+  },
+  {
+    "id": "pattern_0470",
+    "input": "tập bạn 11:15 tại tầng 5"
+  },
+  {
+    "id": "pattern_0471",
+    "input": "viết báo cáo 22:15 tại hội trường"
+  },
+  {
+    "id": "pattern_0472",
+    "input": "họp khách 12:45 tại nhà hàng"
+  },
+  {
+    "id": "pattern_0473",
+    "input": "học khách 8:45 tại phòng họp"
+  },
+  {
+    "id": "pattern_0474",
+    "input": "ăn buổi thuyết trình 10:00 tại phòng họp"
+  },
+  {
+    "id": "pattern_0475",
+    "input": "tham gia buổi thuyết trình 16:45 tại văn phòng"
+  },
+  {
+    "id": "pattern_0476",
+    "input": "đi đối tác 7:45 tại nhà hàng"
+  },
+  {
+    "id": "pattern_0477",
+    "input": "ngủ buổi thuyết trình 19:45 tại phòng họp"
+  },
+  {
+    "id": "pattern_0478",
+    "input": "đi dự án 15:15 tại công viên"
+  },
+  {
+    "id": "pattern_0479",
+    "input": "viết bài tập 15:30 tại phòng 302"
+  },
+  {
+    "id": "pattern_0480",
+    "input": "gặp bạn 20:30 tại công viên"
+  },
+  {
+    "id": "pattern_0481",
+    "input": "gọi điện gia đình 16:45 tại trường học"
+  },
+  {
+    "id": "pattern_0482",
+    "input": "chạy báo cáo 17:30 tại trường học"
+  },
+  {
+    "id": "pattern_0483",
+    "input": "xem cuộc họp 9:15 tại bệnh viện"
+  },
+  {
+    "id": "pattern_0484",
+    "input": "gọi điện đối tác 14:30 tại bệnh viện"
+  },
+  {
+    "id": "pattern_0485",
+    "input": "học đối tác 7:15 tại siêu thị"
+  },
+  {
+    "id": "pattern_0486",
+    "input": "tham gia bài tập 13:00 tại hội trường"
+  },
+  {
+    "id": "pattern_0487",
+    "input": "chạy buổi thuyết trình 16:00 tại khuôn viên trường"
+  },
+  {
+    "id": "pattern_0488",
+    "input": "ăn dự án 22:30 tại công viên"
+  },
+  {
+    "id": "pattern_0489",
+    "input": "tập dự án 6h tại siêu thị"
+  },
+  {
+    "id": "pattern_0490",
+    "input": "đi công tác dự án 13:00 tại nhà riêng"
+  },
+  {
+    "id": "pattern_0491",
+    "input": "xem sếp 7:15 tại công viên"
+  },
+  {
+    "id": "pattern_0492",
+    "input": "tham gia dự án 15:45 tại văn phòng"
+  },
+  {
+    "id": "pattern_0493",
+    "input": "làm bài tập 10:15 tại tầng 5"
+  },
+  {
+    "id": "pattern_0494",
+    "input": "xem bài tập 17h tại siêu thị"
+  },
+  {
+    "id": "pattern_0495",
+    "input": "gặp buổi thuyết trình 12:15 tại sân bay"
+  },
+  {
+    "id": "pattern_0496",
+    "input": "tập đối tác 18:45 tại công viên"
+  },
+  {
+    "id": "pattern_0497",
+    "input": "viết báo cáo khách 9:00 tại phòng 302"
+  },
+  {
+    "id": "pattern_0498",
+    "input": "mua báo cáo 16:45 tại quán cafe"
+  },
+  {
+    "id": "pattern_0499",
+    "input": "học gia đình 22:30 tại sân bay"
+  },
+  {
+    "id": "pattern_0500",
+    "input": "gặp sếp 7:00 tại tầng 5"
+  },
+  {
+    "id": "pattern_0501",
+    "input": "chạy dự án 22:30 tại trường học"
+  },
+  {
+    "id": "pattern_0502",
+    "input": "tham gia cuộc họp 10:15 tại nhà riêng"
+  },
+  {
+    "id": "pattern_0503",
+    "input": "chạy bạn 18:45 tại tầng 5"
+  },
+  {
+    "id": "pattern_0504",
+    "input": "tập buổi thuyết trình 16:45 tại hội trường"
+  },
+  {
+    "id": "pattern_0505",
+    "input": "đi công tác cuộc họp 21:45 tại nhà hàng"
+  },
+  {
+    "id": "pattern_0506",
+    "input": "đi khám sếp 17:15 tại phòng họp"
+  },
+  {
+    "id": "pattern_0507",
+    "input": "làm bài tập 15h tại nhà riêng"
+  },
+  {
+    "id": "pattern_0508",
+    "input": "đi khám khách 13h tại nhà riêng"
+  },
+  {
+    "id": "pattern_0509",
+    "input": "đi khám bạn 22:45 tại khuôn viên trường"
+  },
+  {
+    "id": "pattern_0510",
+    "input": "mua bạn 13h tại nhà riêng"
+  },
+  {
+    "id": "pattern_0511",
+    "input": "làm gia đình 6:30 tại quán cafe"
+  },
+  {
+    "id": "pattern_0512",
+    "input": "bán bạn 19:00 tại siêu thị"
+  },
+  {
+    "id": "pattern_0513",
+    "input": "đi công tác buổi thuyết trình 21h tại tầng 5"
+  },
+  {
+    "id": "pattern_0514",
+    "input": "học cuộc họp 12:45 tại quán cafe"
+  },
+  {
+    "id": "pattern_0515",
+    "input": "đi khám cuộc họp 18:15 tại trường học"
+  },
+  {
+    "id": "pattern_0516",
+    "input": "gọi điện cuộc họp 16:45 tại quán cafe"
+  },
+  {
+    "id": "pattern_0517",
+    "input": "đọc buổi thuyết trình 21:00 tại bệnh viện"
+  },
+  {
+    "id": "pattern_0518",
+    "input": "đọc cuộc họp 15:00 tại nhà hàng"
+  },
+  {
+    "id": "pattern_0519",
+    "input": "tập gia đình 21:15 tại công viên"
+  },
+  {
+    "id": "pattern_0520",
+    "input": "xem cuộc họp 14:15 tại phòng 302"
+  },
+  {
+    "id": "pattern_0521",
+    "input": "nộp hồ sơ cuộc họp 18:30 tại hội trường"
+  },
+  {
+    "id": "pattern_0522",
+    "input": "xem bạn 15h tại nhà hàng"
+  },
+  {
+    "id": "pattern_0523",
+    "input": "họp báo cáo 20:15 tại tầng 5"
+  },
+  {
+    "id": "pattern_0524",
+    "input": "đi khám gia đình 12:45 tại nhà hàng"
+  },
+  {
+    "id": "pattern_0525",
+    "input": "viết báo cáo khách 10h tại nhà riêng"
+  },
+  {
+    "id": "pattern_0526",
+    "input": "nộp hồ sơ gia đình 13h tại phòng họp"
+  },
+  {
+    "id": "pattern_0527",
+    "input": "đi công tác gia đình 13h tại phòng 302"
+  },
+  {
+    "id": "pattern_0528",
+    "input": "bán báo cáo 21h tại phòng họp"
+  },
+  {
+    "id": "pattern_0529",
+    "input": "học sếp 11:30 tại phòng họp"
+  },
+  {
+    "id": "pattern_0530",
+    "input": "đi khám dự án 12:15 tại quán cafe"
+  },
+  {
+    "id": "pattern_0531",
+    "input": "tập sếp 8:45 tại bệnh viện"
+  },
+  {
+    "id": "pattern_0532",
+    "input": "viết báo cáo sếp 11:30 tại hội trường"
+  },
+  {
+    "id": "pattern_0533",
+    "input": "ăn sếp 18:30 tại trường học"
+  },
+  {
+    "id": "pattern_0534",
+    "input": "tập sếp 6:15 tại nhà riêng"
+  },
+  {
+    "id": "pattern_0535",
+    "input": "tham gia đối tác 16:15 tại công viên"
+  },
+  {
+    "id": "pattern_0536",
+    "input": "viết báo cáo cuộc họp 21:00 tại hội trường"
+  },
+  {
+    "id": "pattern_0537",
+    "input": "đi công tác dự án 14:00 tại khuôn viên trường"
+  },
+  {
+    "id": "pattern_0538",
+    "input": "làm báo cáo 11:30 tại phòng họp"
+  },
+  {
+    "id": "pattern_0539",
+    "input": "đọc bạn 6:15 tại khuôn viên trường"
+  },
+  {
+    "id": "pattern_0540",
+    "input": "tập buổi thuyết trình 12:00 tại nhà riêng"
+  },
+  {
+    "id": "pattern_0541",
+    "input": "mua bài tập 22:15 tại phòng 302"
+  },
+  {
+    "id": "pattern_0542",
+    "input": "mua đối tác 11:00 tại công viên"
+  },
+  {
+    "id": "pattern_0543",
+    "input": "chạy gia đình 6:15 tại siêu thị"
+  },
+  {
+    "id": "pattern_0544",
+    "input": "viết dự án 14:15 tại nhà hàng"
+  },
+  {
+    "id": "pattern_0545",
+    "input": "nộp hồ sơ buổi thuyết trình 6:15 tại phòng họp"
+  },
+  {
+    "id": "pattern_0546",
+    "input": "xem gia đình 7h tại công viên"
+  },
+  {
+    "id": "pattern_0547",
+    "input": "tập bạn 18:45 tại tầng 5"
+  },
+  {
+    "id": "pattern_0548",
+    "input": "tập đối tác 15:15 tại nhà riêng"
+  },
+  {
+    "id": "pattern_0549",
+    "input": "viết gia đình 10:30 tại trường học"
+  },
+  {
+    "id": "pattern_0550",
+    "input": "gọi điện buổi thuyết trình 17:30 tại tầng 5"
+  },
+  {
+    "id": "pattern_0551",
+    "input": "viết báo cáo dự án 12:00 tại phòng họp"
+  },
+  {
+    "id": "pattern_0552",
+    "input": "tham gia đối tác 22:30 tại sân bay"
+  },
+  {
+    "id": "pattern_0553",
+    "input": "xem đối tác 9h tại hội trường"
+  },
+  {
+    "id": "pattern_0554",
+    "input": "viết báo cáo cuộc họp 12:45 tại sân bay"
+  },
+  {
+    "id": "pattern_0555",
+    "input": "học bạn 16:45 tại công viên"
+  },
+  {
+    "id": "pattern_0556",
+    "input": "làm gia đình 21h tại sân bay"
+  },
+  {
+    "id": "pattern_0557",
+    "input": "gọi điện sếp 20:00 tại sân bay"
+  },
+  {
+    "id": "pattern_0558",
+    "input": "bán dự án 7:45 tại công viên"
+  },
+  {
+    "id": "pattern_0559",
+    "input": "tập sếp 18:15 tại hội trường"
+  },
+  {
+    "id": "pattern_0560",
+    "input": "đi gia đình 8h tại siêu thị"
+  },
+  {
+    "id": "pattern_0561",
+    "input": "xem đối tác 7h tại công viên"
+  },
+  {
+    "id": "pattern_0562",
+    "input": "gặp khách 19:00 tại khuôn viên trường"
+  },
+  {
+    "id": "pattern_0563",
+    "input": "học bài tập 17:30 tại công viên"
+  },
+  {
+    "id": "pattern_0564",
+    "input": "mua bài tập 8:45 tại trường học"
+  },
+  {
+    "id": "pattern_0565",
+    "input": "xem đối tác 11:45 tại siêu thị"
+  },
+  {
+    "id": "pattern_0566",
+    "input": "đi công tác bạn 13h tại khuôn viên trường"
+  },
+  {
+    "id": "pattern_0567",
+    "input": "đi khách 20:45 tại siêu thị"
+  },
+  {
+    "id": "pattern_0568",
+    "input": "viết báo cáo bài tập 13:00 tại công viên"
+  },
+  {
+    "id": "pattern_0569",
+    "input": "xem bạn 14:00 tại tầng 5"
+  },
+  {
+    "id": "pattern_0570",
+    "input": "làm sếp 19:45 tại khuôn viên trường"
+  },
+  {
+    "id": "pattern_0571",
+    "input": "đi gia đình 12h tại phòng 302"
+  },
+  {
+    "id": "pattern_0572",
+    "input": "tham gia sếp 20:45 tại phòng họp"
+  },
+  {
+    "id": "pattern_0573",
+    "input": "gặp gia đình 7:30 tại công viên"
+  },
+  {
+    "id": "pattern_0574",
+    "input": "viết cuộc họp 12h tại trường học"
+  },
+  {
+    "id": "pattern_0575",
+    "input": "đi công tác khách 13:45 tại quán cafe"
+  },
+  {
+    "id": "pattern_0576",
+    "input": "nộp hồ sơ buổi thuyết trình 16:00 tại nhà hàng"
+  },
+  {
+    "id": "pattern_0577",
+    "input": "học cuộc họp 13:30 tại nhà hàng"
+  },
+  {
+    "id": "pattern_0578",
+    "input": "đọc sếp 11:30 tại sân bay"
+  },
+  {
+    "id": "pattern_0579",
+    "input": "đi khám sếp 17:30 tại khuôn viên trường"
+  },
+  {
+    "id": "pattern_0580",
+    "input": "đi công tác báo cáo 19:30 tại trường học"
+  },
+  {
+    "id": "pattern_0581",
+    "input": "tập bài tập 11:45 tại công viên"
+  },
+  {
+    "id": "pattern_0582",
+    "input": "viết gia đình 15:00 tại khuôn viên trường"
+  },
+  {
+    "id": "pattern_0583",
+    "input": "gọi điện sếp 19:30 tại sân bay"
+  },
+  {
+    "id": "pattern_0584",
+    "input": "đi công tác bạn 18:00 tại nhà hàng"
+  },
+  {
+    "id": "pattern_0585",
+    "input": "ngủ báo cáo 8:30 tại hội trường"
+  },
+  {
+    "id": "pattern_0586",
+    "input": "xem đối tác 12h tại nhà hàng"
+  },
+  {
+    "id": "pattern_0587",
+    "input": "mua buổi thuyết trình 7h tại bệnh viện"
+  },
+  {
+    "id": "pattern_0588",
+    "input": "nộp hồ sơ cuộc họp 12:30 tại bệnh viện"
+  },
+  {
+    "id": "pattern_0589",
+    "input": "chạy khách 6:00 tại bệnh viện"
+  },
+  {
+    "id": "pattern_0590",
+    "input": "làm dự án 13:45 tại tầng 5"
+  },
+  {
+    "id": "pattern_0591",
+    "input": "ngủ bài tập 13:45 tại quán cafe"
+  },
+  {
+    "id": "pattern_0592",
+    "input": "tập bài tập 20:45 tại phòng họp"
+  },
+  {
+    "id": "pattern_0593",
+    "input": "xem khách 14:15 tại sân bay"
+  },
+  {
+    "id": "pattern_0594",
+    "input": "đi khám dự án 9:30 tại khuôn viên trường"
+  },
+  {
+    "id": "pattern_0595",
+    "input": "chạy gia đình 17:15 tại siêu thị"
+  },
+  {
+    "id": "pattern_0596",
+    "input": "gặp buổi thuyết trình 13:00 tại văn phòng"
+  },
+  {
+    "id": "pattern_0597",
+    "input": "đọc cuộc họp 19:15 tại trường học"
+  },
+  {
+    "id": "pattern_0598",
+    "input": "ngủ báo cáo 13:30 tại nhà riêng"
+  },
+  {
+    "id": "pattern_0599",
+    "input": "viết dự án 16:15 tại khuôn viên trường"
+  },
+  {
+    "id": "pattern_0600",
+    "input": "đi khám dự án 20:00 tại tầng 5"
+  },
+  {
+    "id": "pattern_0601",
+    "input": "xem bạn 10:45 tại công viên"
+  },
+  {
+    "id": "pattern_0602",
+    "input": "ăn cuộc họp 7:45 tại văn phòng"
+  },
+  {
+    "id": "pattern_0603",
+    "input": "họp sếp 6:30 tại trường học"
+  },
+  {
+    "id": "pattern_0604",
+    "input": "viết đối tác 10h tại bệnh viện"
+  },
+  {
+    "id": "pattern_0605",
+    "input": "đi công tác dự án 17h tại nhà riêng"
+  },
+  {
+    "id": "pattern_0606",
+    "input": "tham gia dự án 21h tại văn phòng"
+  },
+  {
+    "id": "pattern_0607",
+    "input": "viết báo cáo cuộc họp 19h tại văn phòng"
+  },
+  {
+    "id": "pattern_0608",
+    "input": "đi công tác khách 15h tại sân bay"
+  },
+  {
+    "id": "pattern_0609",
+    "input": "bán bạn 9h tại sân bay"
+  },
+  {
+    "id": "pattern_0610",
+    "input": "học gia đình 12:45 tại sân bay"
+  },
+  {
+    "id": "pattern_0611",
+    "input": "đọc báo cáo 14:30 tại phòng 302"
+  },
+  {
+    "id": "pattern_0612",
+    "input": "xem bài tập 20:45 tại bệnh viện"
+  },
+  {
+    "id": "pattern_0613",
+    "input": "viết khách 8h tại phòng 302"
+  },
+  {
+    "id": "pattern_0614",
+    "input": "mua bài tập 18:45 tại công viên"
+  },
+  {
+    "id": "pattern_0615",
+    "input": "gặp sếp 11h tại công viên"
+  },
+  {
+    "id": "pattern_0616",
+    "input": "bán báo cáo 9:45 tại văn phòng"
+  },
+  {
+    "id": "pattern_0617",
+    "input": "viết gia đình 21:15 tại văn phòng"
+  },
+  {
+    "id": "pattern_0618",
+    "input": "họp khách 7:00 tại hội trường"
+  },
+  {
+    "id": "pattern_0619",
+    "input": "chạy sếp 12:45 tại trường học"
+  },
+  {
+    "id": "pattern_0620",
+    "input": "mua đối tác 15:00 tại nhà riêng"
+  },
+  {
+    "id": "pattern_0621",
+    "input": "viết buổi thuyết trình 18:45 tại quán cafe"
+  },
+  {
+    "id": "pattern_0622",
+    "input": "mua bạn 8:45 tại tầng 5"
+  },
+  {
+    "id": "pattern_0623",
+    "input": "xem sếp 9:30 tại bệnh viện"
+  },
+  {
+    "id": "pattern_0624",
+    "input": "họp báo cáo 18:15 tại văn phòng"
+  },
+  {
+    "id": "pattern_0625",
+    "input": "đọc dự án 21:00 tại quán cafe"
+  },
+  {
+    "id": "pattern_0626",
+    "input": "viết báo cáo bài tập 19:00 tại phòng họp"
+  },
+  {
+    "id": "pattern_0627",
+    "input": "nộp hồ sơ bài tập 8:45 tại nhà hàng"
+  },
+  {
+    "id": "pattern_0628",
+    "input": "viết đối tác 8:15 tại trường học"
+  },
+  {
+    "id": "pattern_0629",
+    "input": "mua bạn 18:15 tại quán cafe"
+  },
+  {
+    "id": "pattern_0630",
+    "input": "làm đối tác 6:15 tại công viên"
+  },
+  {
+    "id": "pattern_0631",
+    "input": "xem khách 9:00 tại phòng 302"
+  },
+  {
+    "id": "pattern_0632",
+    "input": "ăn bài tập 20:45 tại sân bay"
+  },
+  {
+    "id": "pattern_0633",
+    "input": "đi công tác bài tập 9h tại phòng 302"
+  },
+  {
+    "id": "pattern_0634",
+    "input": "xem cuộc họp 8:45 tại nhà riêng"
+  },
+  {
+    "id": "pattern_0635",
+    "input": "chạy bài tập 6:15 tại siêu thị"
+  },
+  {
+    "id": "pattern_0636",
+    "input": "mua đối tác 13:45 tại sân bay"
+  },
+  {
+    "id": "pattern_0637",
+    "input": "ăn bài tập 11:00 tại nhà hàng"
+  },
+  {
+    "id": "pattern_0638",
+    "input": "tập khách 21:00 tại phòng 302"
+  },
+  {
+    "id": "pattern_0639",
+    "input": "ăn bài tập 14:30 tại nhà hàng"
+  },
+  {
+    "id": "pattern_0640",
+    "input": "đi khám đối tác 17:15 tại bệnh viện"
+  },
+  {
+    "id": "pattern_0641",
+    "input": "đi khám buổi thuyết trình 12:30 tại phòng 302"
+  },
+  {
+    "id": "pattern_0642",
+    "input": "học khách 6:30 tại quán cafe"
+  },
+  {
+    "id": "pattern_0643",
+    "input": "tham gia bài tập 16:30 tại quán cafe"
+  },
+  {
+    "id": "pattern_0644",
+    "input": "bán buổi thuyết trình 10:15 tại quán cafe"
+  },
+  {
+    "id": "pattern_0645",
+    "input": "tham gia gia đình 21:15 tại trường học"
+  },
+  {
+    "id": "pattern_0646",
+    "input": "mua báo cáo 15:30 tại nhà riêng"
+  },
+  {
+    "id": "pattern_0647",
+    "input": "viết báo cáo 18:15 tại hội trường"
+  },
+  {
+    "id": "pattern_0648",
+    "input": "mua báo cáo 9:45 tại bệnh viện"
+  },
+  {
+    "id": "pattern_0649",
+    "input": "nộp hồ sơ cuộc họp 11:45 tại văn phòng"
+  },
+  {
+    "id": "pattern_0650",
+    "input": "gọi điện gia đình 20:15 tại hội trường"
+  },
+  {
+    "id": "pattern_0651",
+    "input": "họp tại hội trường"
+  },
+  {
+    "id": "pattern_0652",
+    "input": "bán tại phòng họp"
+  },
+  {
+    "id": "pattern_0653",
+    "input": "đi khám tại trường học"
+  },
+  {
+    "id": "pattern_0654",
+    "input": "tập tại bệnh viện"
+  },
+  {
+    "id": "pattern_0655",
+    "input": "đọc tại phòng họp"
+  },
+  {
+    "id": "pattern_0656",
+    "input": "học tại tầng 5"
+  },
+  {
+    "id": "pattern_0657",
+    "input": "bán tại khuôn viên trường"
+  },
+  {
+    "id": "pattern_0658",
+    "input": "mua tại phòng 302"
+  },
+  {
+    "id": "pattern_0659",
+    "input": "gọi điện tại nhà riêng"
+  },
+  {
+    "id": "pattern_0660",
+    "input": "đi khám tại nhà riêng"
+  },
+  {
+    "id": "pattern_0661",
+    "input": "mua tại sân bay"
+  },
+  {
+    "id": "pattern_0662",
+    "input": "đi công tác tại hội trường"
+  },
+  {
+    "id": "pattern_0663",
+    "input": "bán tại sân bay"
+  },
+  {
+    "id": "pattern_0664",
+    "input": "gặp tại khuôn viên trường"
+  },
+  {
+    "id": "pattern_0665",
+    "input": "xem tại tầng 5"
+  },
+  {
+    "id": "pattern_0666",
+    "input": "viết báo cáo tại nhà riêng"
+  },
+  {
+    "id": "pattern_0667",
+    "input": "họp tại phòng 302"
+  },
+  {
+    "id": "pattern_0668",
+    "input": "viết tại phòng họp"
+  },
+  {
+    "id": "pattern_0669",
+    "input": "xem tại trường học"
+  },
+  {
+    "id": "pattern_0670",
+    "input": "tham gia tại văn phòng"
+  },
+  {
+    "id": "pattern_0671",
+    "input": "nộp hồ sơ tại phòng họp"
+  },
+  {
+    "id": "pattern_0672",
+    "input": "mua tại khuôn viên trường"
+  },
+  {
+    "id": "pattern_0673",
+    "input": "chạy tại khuôn viên trường"
+  },
+  {
+    "id": "pattern_0674",
+    "input": "bán tại phòng 302"
+  },
+  {
+    "id": "pattern_0675",
+    "input": "đi tại phòng 302"
+  },
+  {
+    "id": "pattern_0676",
+    "input": "đọc tại bệnh viện"
+  },
+  {
+    "id": "pattern_0677",
+    "input": "đi công tác tại tầng 5"
+  },
+  {
+    "id": "pattern_0678",
+    "input": "đi công tác tại sân bay"
+  },
+  {
+    "id": "pattern_0679",
+    "input": "nộp hồ sơ tại tầng 5"
+  },
+  {
+    "id": "pattern_0680",
+    "input": "nộp hồ sơ tại bệnh viện"
+  },
+  {
+    "id": "pattern_0681",
+    "input": "gọi điện tại quán cafe"
+  },
+  {
+    "id": "pattern_0682",
+    "input": "mua tại công viên"
+  },
+  {
+    "id": "pattern_0683",
+    "input": "đi công tác tại trường học"
+  },
+  {
+    "id": "pattern_0684",
+    "input": "xem tại văn phòng"
+  },
+  {
+    "id": "pattern_0685",
+    "input": "đi khám tại phòng 302"
+  },
+  {
+    "id": "pattern_0686",
+    "input": "tập tại siêu thị"
+  },
+  {
+    "id": "pattern_0687",
+    "input": "học tại quán cafe"
+  },
+  {
+    "id": "pattern_0688",
+    "input": "tập tại quán cafe"
+  },
+  {
+    "id": "pattern_0689",
+    "input": "gọi điện tại khuôn viên trường"
+  },
+  {
+    "id": "pattern_0690",
+    "input": "ngủ tại sân bay"
+  },
+  {
+    "id": "pattern_0691",
+    "input": "đi khám tại quán cafe"
+  },
+  {
+    "id": "pattern_0692",
+    "input": "gọi điện tại tầng 5"
+  },
+  {
+    "id": "pattern_0693",
+    "input": "họp tại nhà hàng"
+  },
+  {
+    "id": "pattern_0694",
+    "input": "làm tại văn phòng"
+  },
+  {
+    "id": "pattern_0695",
+    "input": "chạy tại phòng họp"
+  },
+  {
+    "id": "pattern_0696",
+    "input": "làm tại phòng họp"
+  },
+  {
+    "id": "pattern_0697",
+    "input": "ăn tại tầng 5"
+  },
+  {
+    "id": "pattern_0698",
+    "input": "viết tại sân bay"
+  },
+  {
+    "id": "pattern_0699",
+    "input": "ăn tại sân bay"
+  },
+  {
+    "id": "pattern_0700",
+    "input": "ăn tại quán cafe"
+  },
+  {
+    "id": "pattern_0701",
+    "input": "viết báo cáo tại siêu thị"
+  },
+  {
+    "id": "pattern_0702",
+    "input": "gọi điện tại bệnh viện"
+  },
+  {
+    "id": "pattern_0703",
+    "input": "mua tại phòng họp"
+  },
+  {
+    "id": "pattern_0704",
+    "input": "ăn tại trường học"
+  },
+  {
+    "id": "pattern_0705",
+    "input": "bán tại siêu thị"
+  },
+  {
+    "id": "pattern_0706",
+    "input": "đi tại tầng 5"
+  },
+  {
+    "id": "pattern_0707",
+    "input": "tham gia tại bệnh viện"
+  },
+  {
+    "id": "pattern_0708",
+    "input": "ngủ tại bệnh viện"
+  },
+  {
+    "id": "pattern_0709",
+    "input": "đọc tại khuôn viên trường"
+  },
+  {
+    "id": "pattern_0710",
+    "input": "họp tại nhà riêng"
+  },
+  {
+    "id": "pattern_0711",
+    "input": "làm tại khuôn viên trường"
+  },
+  {
+    "id": "pattern_0712",
+    "input": "viết báo cáo tại trường học"
+  },
+  {
+    "id": "pattern_0713",
+    "input": "xem tại quán cafe"
+  },
+  {
+    "id": "pattern_0714",
+    "input": "ngủ tại công viên"
+  },
+  {
+    "id": "pattern_0715",
+    "input": "làm tại nhà hàng"
+  },
+  {
+    "id": "pattern_0716",
+    "input": "đi khám tại sân bay"
+  },
+  {
+    "id": "pattern_0717",
+    "input": "chạy tại nhà riêng"
+  },
+  {
+    "id": "pattern_0718",
+    "input": "mua tại nhà riêng"
+  },
+  {
+    "id": "pattern_0719",
+    "input": "làm tại quán cafe"
+  },
+  {
+    "id": "pattern_0720",
+    "input": "xem tại hội trường"
+  },
+  {
+    "id": "pattern_0721",
+    "input": "ăn tại hội trường"
+  },
+  {
+    "id": "pattern_0722",
+    "input": "tập tại nhà riêng"
+  },
+  {
+    "id": "pattern_0723",
+    "input": "nộp hồ sơ tại phòng 302"
+  },
+  {
+    "id": "pattern_0724",
+    "input": "làm tại bệnh viện"
+  },
+  {
+    "id": "pattern_0725",
+    "input": "tập tại phòng 302"
+  },
+  {
+    "id": "pattern_0726",
+    "input": "ăn 17:00 nhắc"
+  },
+  {
+    "id": "pattern_0727",
+    "input": "bán 10:45 notify 30m"
+  },
+  {
+    "id": "pattern_0728",
+    "input": "ăn 21:45 nhắc tôi 60 phút trước"
+  },
+  {
+    "id": "pattern_0729",
+    "input": "ăn 21:15 nhắc tôi 10 phút trước"
+  },
+  {
+    "id": "pattern_0730",
+    "input": "chạy 20:45 nhắc tôi trước 15p"
+  },
+  {
+    "id": "pattern_0731",
+    "input": "đi 21:00 nhắc tôi 30 phút trước"
+  },
+  {
+    "id": "pattern_0732",
+    "input": "viết báo cáo 22:30 notify 30m"
+  },
+  {
+    "id": "pattern_0733",
+    "input": "bán 20:30 nhắc tôi 5 phút trước"
+  },
+  {
+    "id": "pattern_0734",
+    "input": "nộp hồ sơ 6:00 nhắc trước 5 giờ"
+  },
+  {
+    "id": "pattern_0735",
+    "input": "đọc 13:45 nhắc trước 10 giờ"
+  },
+  {
+    "id": "pattern_0736",
+    "input": "gọi điện 21:45 nhắc"
+  },
+  {
+    "id": "pattern_0737",
+    "input": "nộp hồ sơ 9:15 nhắc"
+  },
+  {
+    "id": "pattern_0738",
+    "input": "viết báo cáo 7:30 nhắc"
+  },
+  {
+    "id": "pattern_0739",
+    "input": "bán 9:00 nhắc trước 5 giờ"
+  },
+  {
+    "id": "pattern_0740",
+    "input": "gọi điện 14:15 nhắc tôi trước 30p"
+  },
+  {
+    "id": "pattern_0741",
+    "input": "làm 13:00 nhắc"
+  },
+  {
+    "id": "pattern_0742",
+    "input": "tham gia 19:00 nhắc"
+  },
+  {
+    "id": "pattern_0743",
+    "input": "ngủ 12h nhắc"
+  },
+  {
+    "id": "pattern_0744",
+    "input": "viết báo cáo 14:45 nhắc"
+  },
+  {
+    "id": "pattern_0745",
+    "input": "chạy 15:15 nhắc"
+  },
+  {
+    "id": "pattern_0746",
+    "input": "đi công tác 9:00 notify 5m"
+  },
+  {
+    "id": "pattern_0747",
+    "input": "đọc 10:00 nhắc tôi 10 phút trước"
+  },
+  {
+    "id": "pattern_0748",
+    "input": "chạy 13:30 notify 10m"
+  },
+  {
+    "id": "pattern_0749",
+    "input": "nộp hồ sơ 14:30 notify 30m"
+  },
+  {
+    "id": "pattern_0750",
+    "input": "họp 8:30 nhắc"
+  },
+  {
+    "id": "pattern_0751",
+    "input": "xem 20:30 nhắc trước 60 giờ"
+  },
+  {
+    "id": "pattern_0752",
+    "input": "đi 8:30 nhắc trước 5 giờ"
+  },
+  {
+    "id": "pattern_0753",
+    "input": "viết báo cáo 18:00 notify 10m"
+  },
+  {
+    "id": "pattern_0754",
+    "input": "đi khám 14:15 nhắc trước 15 giờ"
+  },
+  {
+    "id": "pattern_0755",
+    "input": "viết báo cáo 10:45 notify 15m"
+  },
+  {
+    "id": "pattern_0756",
+    "input": "gặp 7h notify 5m"
+  },
+  {
+    "id": "pattern_0757",
+    "input": "làm 11:30 notify 5m"
+  },
+  {
+    "id": "pattern_0758",
+    "input": "bán 12:00 nhắc trước 10 giờ"
+  },
+  {
+    "id": "pattern_0759",
+    "input": "đọc 8:15 nhắc trước 5 giờ"
+  },
+  {
+    "id": "pattern_0760",
+    "input": "xem 11h notify 15m"
+  },
+  {
+    "id": "pattern_0761",
+    "input": "viết 19h nhắc tôi trước 5p"
+  },
+  {
+    "id": "pattern_0762",
+    "input": "ngủ 21h nhắc tôi 60 phút trước"
+  },
+  {
+    "id": "pattern_0763",
+    "input": "viết 22:30 nhắc tôi trước 5p"
+  },
+  {
+    "id": "pattern_0764",
+    "input": "chạy 9:30 nhắc tôi 30 phút trước"
+  },
+  {
+    "id": "pattern_0765",
+    "input": "họp 13:30 nhắc tôi trước 5p"
+  },
+  {
+    "id": "pattern_0766",
+    "input": "làm 16:15 nhắc trước 10 giờ"
+  },
+  {
+    "id": "pattern_0767",
+    "input": "mua 10:00 nhắc tôi trước 60p"
+  },
+  {
+    "id": "pattern_0768",
+    "input": "nộp hồ sơ 6:45 nhắc tôi 30 phút trước"
+  },
+  {
+    "id": "pattern_0769",
+    "input": "xem 12:00 notify 60m"
+  },
+  {
+    "id": "pattern_0770",
+    "input": "gọi điện 12h nhắc tôi trước 10p"
+  },
+  {
+    "id": "pattern_0771",
+    "input": "làm 18:15 notify 15m"
+  },
+  {
+    "id": "pattern_0772",
+    "input": "học 13:15 nhắc tôi trước 10p"
+  },
+  {
+    "id": "pattern_0773",
+    "input": "viết báo cáo 15h nhắc trước 10 giờ"
+  },
+  {
+    "id": "pattern_0774",
+    "input": "đi công tác 22:00 notify 15m"
+  },
+  {
+    "id": "pattern_0775",
+    "input": "gặp 13:30 notify 5m"
+  },
+  {
+    "id": "pattern_0776",
+    "input": "viết 21:45 nhắc tôi trước 60p"
+  },
+  {
+    "id": "pattern_0777",
+    "input": "đi 17:15 nhắc tôi 30 phút trước"
+  },
+  {
+    "id": "pattern_0778",
+    "input": "nộp hồ sơ 19:15 nhắc"
+  },
+  {
+    "id": "pattern_0779",
+    "input": "đi khám 8h nhắc"
+  },
+  {
+    "id": "pattern_0780",
+    "input": "đi 14:00 nhắc tôi trước 5p"
+  },
+  {
+    "id": "pattern_0781",
+    "input": "mua 22:15 nhắc"
+  },
+  {
+    "id": "pattern_0782",
+    "input": "bán 18h nhắc"
+  },
+  {
+    "id": "pattern_0783",
+    "input": "tham gia 10:15 nhắc tôi trước 15p"
+  },
+  {
+    "id": "pattern_0784",
+    "input": "họp 22:00 nhắc tôi 60 phút trước"
+  },
+  {
+    "id": "pattern_0785",
+    "input": "chạy 18:45 nhắc tôi trước 15p"
+  },
+  {
+    "id": "pattern_0786",
+    "input": "bán 13h nhắc tôi 5 phút trước"
+  },
+  {
+    "id": "pattern_0787",
+    "input": "bán 9:30 nhắc"
+  },
+  {
+    "id": "pattern_0788",
+    "input": "gặp 15:00 nhắc tôi trước 5p"
+  },
+  {
+    "id": "pattern_0789",
+    "input": "học 6:00 notify 15m"
+  },
+  {
+    "id": "pattern_0790",
+    "input": "đi công tác 22:15 nhắc tôi 15 phút trước"
+  },
+  {
+    "id": "pattern_0791",
+    "input": "học 14h nhắc tôi trước 15p"
+  },
+  {
+    "id": "pattern_0792",
+    "input": "bán 14:45 nhắc tôi trước 15p"
+  },
+  {
+    "id": "pattern_0793",
+    "input": "nộp hồ sơ 8:30 notify 60m"
+  },
+  {
+    "id": "pattern_0794",
+    "input": "xem 7:30 nhắc"
+  },
+  {
+    "id": "pattern_0795",
+    "input": "xem 11:15 nhắc tôi trước 60p"
+  },
+  {
+    "id": "pattern_0796",
+    "input": "làm 13:45 nhắc tôi trước 5p"
+  },
+  {
+    "id": "pattern_0797",
+    "input": "đi 13h notify 15m"
+  },
+  {
+    "id": "pattern_0798",
+    "input": "bán 13:15 nhắc tôi 30 phút trước"
+  },
+  {
+    "id": "pattern_0799",
+    "input": "chạy 14h nhắc"
+  },
+  {
+    "id": "pattern_0800",
+    "input": "làm 22h nhắc tôi 10 phút trước"
+  },
+  {
+    "id": "pattern_0801",
+    "input": "báo cáo tối ở tại hội trường"
+  },
+  {
+    "id": "pattern_0802",
+    "input": "khách sáng ở tại văn phòng"
+  },
+  {
+    "id": "pattern_0803",
+    "input": "ngủ tháng tới tại phòng bệnh viện"
+  },
+  {
+    "id": "pattern_0804",
+    "input": "xem 21:00 tại trường học"
+  },
+  {
+    "id": "pattern_0805",
+    "input": "buổi thuyết trình trưa tại quán phòng họp"
+  },
+  {
+    "id": "pattern_0806",
+    "input": "cuộc họp hôm qua tại quán siêu thị"
+  },
+  {
+    "id": "pattern_0807",
+    "input": "gia đình 15h tại phòng siêu thị"
+  },
+  {
+    "id": "pattern_0808",
+    "input": "gặp 10:15 tại văn phòng hội trường"
+  },
+  {
+    "id": "pattern_0809",
+    "input": "bán 17:30 ở sân bay"
+  },
+  {
+    "id": "pattern_0810",
+    "input": "sếp 18h tại quán siêu thị"
+  },
+  {
+    "id": "pattern_0811",
+    "input": "học chiều tại phòng khuôn viên trường"
+  },
+  {
+    "id": "pattern_0812",
+    "input": "bạn 16:15 ở phòng 302"
+  },
+  {
+    "id": "pattern_0813",
+    "input": "học sáng ở tại công viên"
+  },
+  {
+    "id": "pattern_0814",
+    "input": "bán 9:45 ở tại công viên"
+  },
+  {
+    "id": "pattern_0815",
+    "input": "gọi điện sáng mai tại quán nhà hàng"
+  },
+  {
+    "id": "pattern_0816",
+    "input": "bạn 7:00 ở tầng 5"
+  },
+  {
+    "id": "pattern_0817",
+    "input": "xem sáng ở nhà hàng"
+  },
+  {
+    "id": "pattern_0818",
+    "input": "đi tháng tới tại bệnh viện"
+  },
+  {
+    "id": "pattern_0819",
+    "input": "gọi điện 9:00 ở hội trường"
+  },
+  {
+    "id": "pattern_0820",
+    "input": "học tháng tới tại phòng họp"
+  },
+  {
+    "id": "pattern_0821",
+    "input": "nộp hồ sơ 14h tại phòng phòng họp"
+  },
+  {
+    "id": "pattern_0822",
+    "input": "báo cáo 10h tại công viên"
+  },
+  {
+    "id": "pattern_0823",
+    "input": "ăn tối tại phòng phòng họp"
+  },
+  {
+    "id": "pattern_0824",
+    "input": "ăn trưa ở công viên"
+  },
+  {
+    "id": "pattern_0825",
+    "input": "gặp thứ 2 tại công viên"
+  },
+  {
+    "id": "pattern_0826",
+    "input": "họp 14:30 tại văn phòng phòng họp"
+  },
+  {
+    "id": "pattern_0827",
+    "input": "viết thứ 2 tại phòng khuôn viên trường"
+  },
+  {
+    "id": "pattern_0828",
+    "input": "xem 22:15 ở tại văn phòng"
+  },
+  {
+    "id": "pattern_0829",
+    "input": "tham gia chiều ở tại sân bay"
+  },
+  {
+    "id": "pattern_0830",
+    "input": "khách sáng mai ở tại bệnh viện"
+  },
+  {
+    "id": "pattern_0831",
+    "input": "viết báo cáo khuya ở quán cafe"
+  },
+  {
+    "id": "pattern_0832",
+    "input": "ăn hôm qua ở tại tầng 5"
+  },
+  {
+    "id": "pattern_0833",
+    "input": "buổi thuyết trình 6:15 ở nhà riêng"
+  },
+  {
+    "id": "pattern_0834",
+    "input": "bài tập chiều tại văn phòng"
+  },
+  {
+    "id": "pattern_0835",
+    "input": "gặp hôm nay tại công viên"
+  },
+  {
+    "id": "pattern_0836",
+    "input": "chạy 12:00 ở tại khuôn viên trường"
+  },
+  {
+    "id": "pattern_0837",
+    "input": "gặp 6:00 tại khuôn viên trường"
+  },
+  {
+    "id": "pattern_0838",
+    "input": "dự án ngày mai tại phòng phòng họp"
+  },
+  {
+    "id": "pattern_0839",
+    "input": "nộp hồ sơ 9:15 tại quán trường học"
+  },
+  {
+    "id": "pattern_0840",
+    "input": "bán tháng tới tại văn phòng tầng 5"
+  },
+  {
+    "id": "pattern_0841",
+    "input": "báo cáo 17:00 ở tại siêu thị"
+  },
+  {
+    "id": "pattern_0842",
+    "input": "gia đình 15:00 tại văn phòng tầng 5"
+  },
+  {
+    "id": "pattern_0843",
+    "input": "mua ngày mai tại quán bệnh viện"
+  },
+  {
+    "id": "pattern_0844",
+    "input": "nộp hồ sơ ngày mai ở phòng 302"
+  },
+  {
+    "id": "pattern_0845",
+    "input": "xem hôm qua tại quán phòng họp"
+  },
+  {
+    "id": "pattern_0846",
+    "input": "gia đình 16:30 tại quán bệnh viện"
+  },
+  {
+    "id": "pattern_0847",
+    "input": "họp 17:15 tại phòng văn phòng"
+  },
+  {
+    "id": "pattern_0848",
+    "input": "gọi điện tối tại văn phòng quán cafe"
+  },
+  {
+    "id": "pattern_0849",
+    "input": "mua tháng tới ở bệnh viện"
+  },
+  {
+    "id": "pattern_0850",
+    "input": "gọi điện chiều tại nhà hàng"
+  },
+  {
+    "id": "pattern_0851",
+    "input": "họp sáng mai tại văn phòng phòng 302"
+  },
+  {
+    "id": "pattern_0852",
+    "input": "cuộc họp khuya tại tầng 5"
+  },
+  {
+    "id": "pattern_0853",
+    "input": "bán 11:45 ở tại phòng 302"
+  },
+  {
+    "id": "pattern_0854",
+    "input": "ngủ tháng tới ở tại sân bay"
+  },
+  {
+    "id": "pattern_0855",
+    "input": "đối tác 15:15 tại văn phòng siêu thị"
+  },
+  {
+    "id": "pattern_0856",
+    "input": "viết báo cáo 21:00 tại siêu thị"
+  },
+  {
+    "id": "pattern_0857",
+    "input": "tập 21:00 tại quán trường học"
+  },
+  {
+    "id": "pattern_0858",
+    "input": "tập sáng tại phòng công viên"
+  },
+  {
+    "id": "pattern_0859",
+    "input": "cuộc họp 14h tại phòng quán cafe"
+  },
+  {
+    "id": "pattern_0860",
+    "input": "xem sáng ở tại công viên"
+  },
+  {
+    "id": "pattern_0861",
+    "input": "viết sáng mai tại phòng họp"
+  },
+  {
+    "id": "pattern_0862",
+    "input": "họp hôm qua tại văn phòng bệnh viện"
+  },
+  {
+    "id": "pattern_0863",
+    "input": "gặp tuần sau tại phòng hội trường"
+  },
+  {
+    "id": "pattern_0864",
+    "input": "nộp hồ sơ chiều tại quán hội trường"
+  },
+  {
+    "id": "pattern_0865",
+    "input": "gặp hôm qua tại văn phòng phòng họp"
+  },
+  {
+    "id": "pattern_0866",
+    "input": "học 9:30 ở khuôn viên trường"
+  },
+  {
+    "id": "pattern_0867",
+    "input": "học sáng tại quán bệnh viện"
+  },
+  {
+    "id": "pattern_0868",
+    "input": "học sáng tại phòng sân bay"
+  },
+  {
+    "id": "pattern_0869",
+    "input": "viết báo cáo 16:15 tại quán khuôn viên trường"
+  },
+  {
+    "id": "pattern_0870",
+    "input": "tham gia 22:30 tại văn phòng trường học"
+  },
+  {
+    "id": "pattern_0871",
+    "input": "nộp hồ sơ 9h ở tại khuôn viên trường"
+  },
+  {
+    "id": "pattern_0872",
+    "input": "dự án thứ 2 tại văn phòng công viên"
+  },
+  {
+    "id": "pattern_0873",
+    "input": "tham gia trưa tại văn phòng trường học"
+  },
+  {
+    "id": "pattern_0874",
+    "input": "tham gia ngày mai tại bệnh viện"
+  },
+  {
+    "id": "pattern_0875",
+    "input": "gia đình chiều ở tại hội trường"
+  },
+  {
+    "id": "pattern_0876",
+    "input": "tập 14:30 ở tại trường học"
+  },
+  {
+    "id": "pattern_0877",
+    "input": "gia đình chiều tại quán nhà riêng"
+  },
+  {
+    "id": "pattern_0878",
+    "input": "họp trưa tại phòng tầng 5"
+  },
+  {
+    "id": "pattern_0879",
+    "input": "khách 22:15 ở tại phòng 302"
+  },
+  {
+    "id": "pattern_0880",
+    "input": "bạn hôm qua tại nhà riêng"
+  },
+  {
+    "id": "pattern_0881",
+    "input": "ăn 12:00 tại công viên"
+  },
+  {
+    "id": "pattern_0882",
+    "input": "buổi thuyết trình chiều tại phòng sân bay"
+  },
+  {
+    "id": "pattern_0883",
+    "input": "sếp trưa tại phòng nhà riêng"
+  },
+  {
+    "id": "pattern_0884",
+    "input": "ăn khuya ở tại trường học"
+  },
+  {
+    "id": "pattern_0885",
+    "input": "gia đình 8:15 tại văn phòng trường học"
+  },
+  {
+    "id": "pattern_0886",
+    "input": "khách 12:00 tại quán nhà hàng"
+  },
+  {
+    "id": "pattern_0887",
+    "input": "bán 22h ở phòng họp"
+  },
+  {
+    "id": "pattern_0888",
+    "input": "tham gia chiều tại quán tầng 5"
+  },
+  {
+    "id": "pattern_0889",
+    "input": "sếp tối ở tại công viên"
+  },
+  {
+    "id": "pattern_0890",
+    "input": "ngủ hôm qua tại văn phòng siêu thị"
+  },
+  {
+    "id": "pattern_0891",
+    "input": "làm tuần sau tại văn phòng nhà riêng"
+  },
+  {
+    "id": "pattern_0892",
+    "input": "tập tối tại quán nhà hàng"
+  },
+  {
+    "id": "pattern_0893",
+    "input": "chạy 14:15 ở sân bay"
+  },
+  {
+    "id": "pattern_0894",
+    "input": "cuộc họp tối ở phòng họp"
+  },
+  {
+    "id": "pattern_0895",
+    "input": "gia đình chiều tại phòng siêu thị"
+  },
+  {
+    "id": "pattern_0896",
+    "input": "gia đình 7:45 tại quán quán cafe"
+  },
+  {
+    "id": "pattern_0897",
+    "input": "bạn tối ở tại sân bay"
+  },
+  {
+    "id": "pattern_0898",
+    "input": "dự án 11:45 ở công viên"
+  },
+  {
+    "id": "pattern_0899",
+    "input": "gia đình trưa tại phòng họp"
+  },
+  {
+    "id": "pattern_0900",
+    "input": "viết chiều ở tại quán cafe"
+  },
+  {
+    "id": "pattern_0901",
+    "input": "gặp"
+  },
+  {
+    "id": "pattern_0902",
+    "input": "viết"
+  },
+  {
+    "id": "pattern_0903",
+    "input": "ăn"
+  },
+  {
+    "id": "pattern_0904",
+    "input": "xem"
+  },
+  {
+    "id": "pattern_0905",
+    "input": "đi"
+  },
+  {
+    "id": "pattern_0906",
+    "input": "học"
+  },
+  {
+    "id": "pattern_0907",
+    "input": "ab"
+  },
+  {
+    "id": "pattern_0908",
+    "input": "g"
+  },
+  {
+    "id": "pattern_0909",
+    "input": "đ"
+  },
+  {
+    "id": "pattern_0910",
+    "input": "nộp hồ sơ ngày 10 tháng 8"
+  },
+  {
+    "id": "pattern_0911",
+    "input": "làm ngày 16 tháng 1"
+  },
+  {
+    "id": "pattern_0912",
+    "input": "nộp hồ sơ ngày 19 tháng 10"
+  },
+  {
+    "id": "pattern_0913",
+    "input": "họp ngày 16 tháng 4"
+  },
+  {
+    "id": "pattern_0914",
+    "input": "đi công tác ngày 4 tháng 11"
+  },
+  {
+    "id": "pattern_0915",
+    "input": "mua ngày 17 tháng 5"
+  },
+  {
+    "id": "pattern_0916",
+    "input": "bán ngày 2 tháng 3"
+  },
+  {
+    "id": "pattern_0917",
+    "input": "học ngày 7 tháng 6"
+  },
+  {
+    "id": "pattern_0918",
+    "input": "bán ngày 19 tháng 8"
+  },
+  {
+    "id": "pattern_0919",
+    "input": "học ngày 11 tháng 12"
+  },
+  {
+    "id": "pattern_0920",
+    "input": "ăn ngày 25 tháng 2"
+  },
+  {
+    "id": "pattern_0921",
+    "input": "đi khám ngày 11 tháng 11"
+  },
+  {
+    "id": "pattern_0922",
+    "input": "ăn ngày 11 tháng 11"
+  },
+  {
+    "id": "pattern_0923",
+    "input": "gặp ngày 1 tháng 8"
+  },
+  {
+    "id": "pattern_0924",
+    "input": "đọc ngày 7 tháng 3"
+  },
+  {
+    "id": "pattern_0925",
+    "input": "nộp hồ sơ ngày 25 tháng 3"
+  },
+  {
+    "id": "pattern_0926",
+    "input": "đi khám ngày 26 tháng 2"
+  },
+  {
+    "id": "pattern_0927",
+    "input": "học ngày 20 tháng 7"
+  },
+  {
+    "id": "pattern_0928",
+    "input": "bán ngày 13 tháng 7"
+  },
+  {
+    "id": "pattern_0929",
+    "input": "đi khám ngày 13 tháng 1"
+  },
+  {
+    "id": "pattern_0930",
+    "input": "gặp ngày 18 tháng 4"
+  },
+  {
+    "id": "pattern_0931",
+    "input": "xem ngày 1 tháng 6"
+  },
+  {
+    "id": "pattern_0932",
+    "input": "đi công tác ngày 7 tháng 1"
+  },
+  {
+    "id": "pattern_0933",
+    "input": "đi ngày 21 tháng 12"
+  },
+  {
+    "id": "pattern_0934",
+    "input": "viết ngày 8 tháng 12"
+  },
+  {
+    "id": "pattern_0935",
+    "input": "xem ngày 10 tháng 3"
+  },
+  {
+    "id": "pattern_0936",
+    "input": "làm ngày 13 tháng 9"
+  },
+  {
+    "id": "pattern_0937",
+    "input": "nộp hồ sơ ngày 10 tháng 3"
+  },
+  {
+    "id": "pattern_0938",
+    "input": "họp ngày 27 tháng 1"
+  },
+  {
+    "id": "pattern_0939",
+    "input": "tập ngày 10 tháng 8"
+  },
+  {
+    "id": "pattern_0940",
+    "input": "đi công tác ngày 20 tháng 9"
+  },
+  {
+    "id": "pattern_0941",
+    "input": "chạy ngày 14 tháng 11"
+  },
+  {
+    "id": "pattern_0942",
+    "input": "học ngày 11 tháng 8"
+  },
+  {
+    "id": "pattern_0943",
+    "input": "xem ngày 25 tháng 4"
+  },
+  {
+    "id": "pattern_0944",
+    "input": "ăn ngày 26 tháng 7"
+  },
+  {
+    "id": "pattern_0945",
+    "input": "đi ngày 8 tháng 4"
+  },
+  {
+    "id": "pattern_0946",
+    "input": "học ngày 7 tháng 12"
+  },
+  {
+    "id": "pattern_0947",
+    "input": "đi ngày 19 tháng 9"
+  },
+  {
+    "id": "pattern_0948",
+    "input": "ăn ngày 4 tháng 6"
+  },
+  {
+    "id": "pattern_0949",
+    "input": "gặp ngày 13 tháng 11"
+  },
+  {
+    "id": "pattern_0950",
+    "input": "đọc ngày 25 tháng 9"
+  },
+  {
+    "id": "pattern_0951",
+    "input": "tham gia ngày 2 tháng 10"
+  },
+  {
+    "id": "pattern_0952",
+    "input": "gặp ngày 22 tháng 2"
+  },
+  {
+    "id": "pattern_0953",
+    "input": "đi ngày 2 tháng 12"
+  },
+  {
+    "id": "pattern_0954",
+    "input": "làm ngày 14 tháng 8"
+  },
+  {
+    "id": "pattern_0955",
+    "input": "mua ngày 4 tháng 9"
+  },
+  {
+    "id": "pattern_0956",
+    "input": "đọc ngày 16 tháng 12"
+  },
+  {
+    "id": "pattern_0957",
+    "input": "đi ngày 10 tháng 7"
+  },
+  {
+    "id": "pattern_0958",
+    "input": "làm ngày 22 tháng 9"
+  },
+  {
+    "id": "pattern_0959",
+    "input": "đọc ngày 20 tháng 10"
+  },
+  {
+    "id": "pattern_0960",
+    "input": "học ngày 14 tháng 2"
+  },
+  {
+    "id": "pattern_0961",
+    "input": "hẹn 2 tiếng"
+  },
+  {
+    "id": "pattern_0962",
+    "input": "kéo dài 3 ngày"
+  },
+  {
+    "id": "pattern_0963",
+    "input": "trong 30 phút"
+  },
+  {
+    "id": "pattern_0964",
+    "input": "sau 2 giờ"
+  },
+  {
+    "id": "pattern_0965",
+    "input": "sau 15 phút"
+  },
+  {
+    "id": "pattern_0966",
+    "input": "cuối tuần tới"
+  },
+  {
+    "id": "pattern_0967",
+    "input": "cuối tuần này"
+  },
+  {
+    "id": "pattern_0968",
+    "input": "đầu tháng sau"
+  },
+  {
+    "id": "pattern_0969",
+    "input": "cuối tháng này"
+  },
+  {
+    "id": "pattern_0970",
+    "input": "tham gia 9:45 tại phòng 302"
+  },
+  {
+    "id": "pattern_0971",
+    "input": "đi công tác gia đình tháng tới ở tầng 5"
+  },
+  {
+    "id": "pattern_0972",
+    "input": "ngủ tháng tới nhắc tôi trước 5p tại bệnh viện"
+  },
+  {
+    "id": "pattern_0973",
+    "input": "học trưa nhắc tôi 10 phút trước tại phòng 302"
+  },
+  {
+    "id": "pattern_0974",
+    "input": "gọi điện sếp sáng mai ở hội trường"
+  },
+  {
+    "id": "pattern_0975",
+    "input": "làm hôm nay nhắc trước 10 giờ tại văn phòng"
+  },
+  {
+    "id": "pattern_0976",
+    "input": "đọc 16:15 tại hội trường"
+  },
+  {
+    "id": "pattern_0977",
+    "input": "đọc khuya nhắc tôi 5 phút trước tại hội trường"
+  },
+  {
+    "id": "pattern_0978",
+    "input": "ăn đối tác vào 21h tại nhà riêng"
+  },
+  {
+    "id": "pattern_0979",
+    "input": "tham gia sếp tối ở hội trường"
+  },
+  {
+    "id": "pattern_0980",
+    "input": "gặp tuần sau nhắc tại phòng họp"
+  },
+  {
+    "id": "pattern_0981",
+    "input": "viết 9:45 tại sân bay"
+  },
+  {
+    "id": "pattern_0982",
+    "input": "học chiều nhắc tại văn phòng"
+  },
+  {
+    "id": "pattern_0983",
+    "input": "họp 16h trưa ở bệnh viện"
+  },
+  {
+    "id": "pattern_0984",
+    "input": "mua 20:45 tại phòng 302"
+  },
+  {
+    "id": "pattern_0985",
+    "input": "gọi điện sáng mai notify 10m tại công viên"
+  },
+  {
+    "id": "pattern_0986",
+    "input": "viết báo cáo 15:15 tại khuôn viên trường"
+  },
+  {
+    "id": "pattern_0987",
+    "input": "viết dự án vào 21h tại sân bay"
+  },
+  {
+    "id": "pattern_0988",
+    "input": "đi 15h trưa ở hội trường"
+  },
+  {
+    "id": "pattern_0989",
+    "input": "học sáng mai nhắc tôi trước 10p tại nhà hàng"
+  },
+  {
+    "id": "pattern_0990",
+    "input": "ngủ sáng mai nhắc tại khuôn viên trường"
+  },
+  {
+    "id": "pattern_0991",
+    "input": "nộp hồ sơ ngày mai nhắc tại công viên"
+  },
+  {
+    "id": "pattern_0992",
+    "input": "đi công tác khuya nhắc tôi trước 10p tại nhà riêng"
+  },
+  {
+    "id": "pattern_0993",
+    "input": "chạy 13:30 tại siêu thị"
+  },
+  {
+    "id": "pattern_0994",
+    "input": "học hôm qua nhắc tại nhà riêng"
+  },
+  {
+    "id": "pattern_0995",
+    "input": "ngủ 15h trưa ở tầng 5"
+  },
+  {
+    "id": "pattern_0996",
+    "input": "viết báo cáo 17:45 tại phòng 302"
+  },
+  {
+    "id": "pattern_0997",
+    "input": "tập 9:00 tại sân bay"
+  },
+  {
+    "id": "pattern_0998",
+    "input": "ngủ khách vào 14h tại nhà hàng"
+  },
+  {
+    "id": "pattern_0999",
+    "input": "viết báo cáo 20h khuya ở hội trường"
+  },
+  {
+    "id": "pattern_1000",
+    "input": "viết báo cáo 15h tối ở sân bay"
+  }
+]
