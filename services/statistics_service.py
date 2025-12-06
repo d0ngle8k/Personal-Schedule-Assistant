@@ -285,7 +285,10 @@ class StatisticsService:
         """Create weekday distribution bar chart"""
         if not MATPLOTLIB_AVAILABLE:
             raise ImportError("matplotlib is required for chart generation")
-        fig, ax = plt.subplots(figsize=(8, 5))
+        
+        # Use Figure directly instead of pyplot to avoid GUI conflicts
+        fig = Figure(figsize=(8, 5), dpi=100)
+        ax = fig.add_subplot(111)
         
         weekdays = ['T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'CN']
         counts = stats['by_weekday']
@@ -308,14 +311,16 @@ class StatisticsService:
                    f'{int(height)}',
                    ha='center', va='bottom', fontsize=10)
         
-        plt.tight_layout()
+        fig.tight_layout()
         return fig
     
     def create_hourly_chart(self, stats: Dict) -> Optional[Any]:
         """Create hourly distribution chart"""
         if not MATPLOTLIB_AVAILABLE:
             raise ImportError("matplotlib is required for chart generation")
-        fig, ax = plt.subplots(figsize=(10, 5))
+        
+        fig = Figure(figsize=(10, 5), dpi=100)
+        ax = fig.add_subplot(111)
         
         hours = list(range(24))
         counts = stats['by_hour']
@@ -332,14 +337,16 @@ class StatisticsService:
         ax.set_xticks(range(0, 24, 2))
         ax.grid(axis='y', alpha=0.3)
         
-        plt.tight_layout()
+        fig.tight_layout()
         return fig
     
     def create_location_chart(self, stats: Dict) -> Optional[Any]:
         """Create top locations bar chart"""
         if not MATPLOTLIB_AVAILABLE:
             raise ImportError("matplotlib is required for chart generation")
-        fig, ax = plt.subplots(figsize=(8, 6))
+        
+        fig = Figure(figsize=(8, 6), dpi=100)
+        ax = fig.add_subplot(111)
         
         top_locs = stats['top_locations'][:5]  # Top 5
         if not top_locs:
@@ -365,14 +372,16 @@ class StatisticsService:
                        f' {int(width)}',
                        ha='left', va='center', fontsize=10)
         
-        plt.tight_layout()
+        fig.tight_layout()
         return fig
     
     def create_event_type_pie_chart(self, stats: Dict) -> Optional[Any]:
         """Create event type pie chart"""
         if not MATPLOTLIB_AVAILABLE:
             raise ImportError("matplotlib is required for chart generation")
-        fig, ax = plt.subplots(figsize=(8, 8))
+        
+        fig = Figure(figsize=(8, 8), dpi=100)
+        ax = fig.add_subplot(111)
         
         # Filter out zero counts
         data = {k: v for k, v in stats['counts'].items() if v > 0}
@@ -404,14 +413,16 @@ class StatisticsService:
             
             ax.set_title('Phân loại sự kiện theo nội dung', fontsize=14, fontweight='bold')
         
-        plt.tight_layout()
+        fig.tight_layout()
         return fig
     
     def create_trend_chart(self, stats: Dict) -> Optional[Any]:
         """Create trend line chart"""
         if not MATPLOTLIB_AVAILABLE:
             raise ImportError("matplotlib is required for chart generation")
-        fig, ax = plt.subplots(figsize=(8, 5))
+        
+        fig = Figure(figsize=(8, 5), dpi=100)
+        ax = fig.add_subplot(111)
         
         weeks = ['Tuần 1', 'Tuần 2', 'Tuần 3', 'Tuần 4']
         counts = stats['weekly_counts']
@@ -430,7 +441,7 @@ class StatisticsService:
         for i, count in enumerate(counts):
             ax.text(i, count, f' {count}', ha='left', va='bottom', fontsize=10)
         
-        plt.tight_layout()
+        fig.tight_layout()
         return fig
     
     # ==================== EXPORT FUNCTIONS ====================

@@ -4,13 +4,44 @@ Modern UI with Material Design, Dark/Light mode, Event Cards
 
 Migrated from Tkinter to CustomTkinter for better UX
 Author: d0ngle8k
-Version: 2.0.1
-Release: Production Build - Lazy Loading + Startup Optimization
+Version: 2.0.2
+Release: Production Build - Enhanced Statistics + Export Features
 """
 
 from __future__ import annotations
 import sys
+import os
 from pathlib import Path
+
+# --- Auto-detect Virtual Environment (Senior Dev Fix) ---
+# If running from source and modules are missing, try to add .venv to path
+if not getattr(sys, 'frozen', False):
+    try:
+        import matplotlib
+        import openpyxl
+    except ImportError:
+        # Look for .venv in parent directories
+        current_dir = Path(__file__).parent
+        possible_venvs = [
+            current_dir / ".venv",
+            current_dir.parent / ".venv",
+            current_dir / "venv",
+            current_dir.parent / "venv"
+        ]
+        
+        for venv_path in possible_venvs:
+            if venv_path.exists():
+                # Add site-packages to sys.path
+                if sys.platform == "win32":
+                    site_packages = venv_path / "Lib" / "site-packages"
+                else:
+                    site_packages = venv_path / "lib" / f"python{sys.version_info.major}.{sys.version_info.minor}" / "site-packages"
+                
+                if site_packages.exists():
+                    print(f"⚡ Auto-injecting venv packages from: {site_packages}")
+                    sys.path.insert(0, str(site_packages))
+                    break
+# --------------------------------------------------------
 
 # --- PyInstaller _MEIPASS Hack cho underthesea ---
 if getattr(sys, 'frozen', False) and hasattr(sys, '_MEIPASS'):
@@ -1538,6 +1569,13 @@ class Application(ctk.CTk):
     
     def handle_show_statistics(self):
         """Show statistics dialog with charts and analytics"""
+        # Check if main window still exists
+        try:
+            if not self.winfo_exists():
+                return
+        except Exception:
+            return
+
         from services.statistics_service import StatisticsService
         
         # Create statistics service
@@ -1547,15 +1585,22 @@ class Application(ctk.CTk):
         try:
             stats = stats_service.get_comprehensive_stats()
         except Exception as e:
-            messagebox.showerror("Lỗi", f"Không thể tải thống kê: {e}")
+            try:
+                messagebox.showerror("Lỗi", f"Không thể tải thống kê: {e}")
+            except Exception:
+                pass
             return
         
         # Create dialog
-        stats_dialog = ctk.CTkToplevel(self)
-        stats_dialog.title("📊 Báo cáo và biểu đồ")
-        stats_dialog.geometry("900x700")
-        stats_dialog.transient(self)
-        stats_dialog.grab_set()
+        try:
+            stats_dialog = ctk.CTkToplevel(self)
+            stats_dialog.title("📊 Báo cáo và biểu đồ")
+            stats_dialog.geometry("900x700")
+            stats_dialog.transient(self)
+            stats_dialog.grab_set()
+        except Exception as e:
+            print(f"Error creating statistics dialog: {e}")
+            return
         
         # Title bar
         title_bar = ctk.CTkFrame(
@@ -1668,6 +1713,22 @@ class Application(ctk.CTk):
         def show_chart(chart_type):
             """Show selected chart in a new window"""
             try:
+                # Lazy import matplotlib backend (Senior Dev Pattern)
+                try:
+                    from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+                except ImportError:
+                    messagebox.showerror(
+                        "Lỗi", 
+                        "Cần cài matplotlib để xem biểu đồ.\n\n"
+                        "Hướng dẫn:\n"
+                        "1. Mở terminal trong thư mục dự án\n"
+                        "2. Chạy: .venv\\Scripts\\pip.exe install matplotlib\n\n"
+                        "Hoặc chạy ứng dụng bằng:\n"
+                        ".venv\\Scripts\\python.exe main.py"
+                    )
+                    return
+                
+                # Generate chart
                 if chart_type == "weekday":
                     fig = stats_service.create_weekday_chart(stats['time'])
                     title = "Phân bố sự kiện theo ngày trong tuần"
@@ -1687,7 +1748,7 @@ class Application(ctk.CTk):
                     return
                 
                 if fig is None:
-                    messagebox.showwarning("Cảnh báo", "Không thể tạo biểu đồ. Vui lòng cài matplotlib:\npip install matplotlib")
+                    messagebox.showwarning("Cảnh báo", "Không có dữ liệu để tạo biểu đồ")
                     return
                 
                 # Create chart window
@@ -1697,8 +1758,6 @@ class Application(ctk.CTk):
                 chart_window.transient(stats_dialog)
                 
                 # Embed matplotlib figure
-                from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
-                import matplotlib.pyplot as plt
                 canvas = FigureCanvasTkAgg(fig, master=chart_window)
                 canvas.draw()
                 canvas.get_tk_widget().pack(fill='both', expand=True, padx=10, pady=10)
@@ -1707,15 +1766,16 @@ class Application(ctk.CTk):
                 ctk.CTkButton(
                     chart_window,
                     text="Đóng",
-                    command=lambda: (chart_window.destroy(), plt.close(fig)),
+                    command=chart_window.destroy,
                     width=100,
                     height=35
                 ).pack(pady=10)
                 
-            except ImportError:
-                messagebox.showerror("Lỗi", "Cần cài matplotlib để xem biểu đồ:\npip install matplotlib")
             except Exception as e:
-                messagebox.showerror("Lỗi", f"Không thể tạo biểu đồ: {e}")
+                import traceback
+                error_detail = traceback.format_exc()
+                print(f"Chart Error Details:\n{error_detail}")
+                messagebox.showerror("Lỗi", f"Không thể tạo biểu đồ:\n{str(e)[:200]}")
         
         for text, chart_type in chart_buttons:
             ctk.CTkButton(
@@ -1771,6 +1831,21 @@ class Application(ctk.CTk):
     
     def _export_stats_excel(self, stats_service, stats):
         """Export statistics to Excel"""
+        # Pre-check openpyxl availability
+        try:
+            import openpyxl
+        except ImportError:
+            messagebox.showerror(
+                "Lỗi",
+                "Cần cài openpyxl để xuất Excel.\n\n"
+                "Hướng dẫn:\n"
+                "1. Mở terminal trong thư mục dự án\n"
+                "2. Chạy: .venv\\Scripts\\pip.exe install openpyxl\n\n"
+                "Hoặc chạy ứng dụng bằng:\n"
+                ".venv\\Scripts\\python.exe main.py"
+            )
+            return
+        
         filepath = filedialog.asksaveasfilename(
             title="Lưu file Excel",
             defaultextension=".xlsx",
@@ -1784,13 +1859,29 @@ class Application(ctk.CTk):
         try:
             stats_service.export_to_excel(filepath, stats)
             messagebox.showinfo("Xuất Excel", f"✅ Đã xuất file thành công:\n{filepath}")
-        except ImportError:
-            messagebox.showerror("Lỗi", "Cần cài openpyxl để xuất Excel:\npip install openpyxl")
         except Exception as e:
-            messagebox.showerror("Lỗi", f"Xuất Excel thất bại: {e}")
+            import traceback
+            error_detail = traceback.format_exc()
+            print(f"Excel Export Error Details:\n{error_detail}")
+            messagebox.showerror("Lỗi", f"Xuất Excel thất bại:\n{str(e)[:200]}")
     
     def _export_stats_pdf(self, stats_service, stats):
         """Export statistics to PDF"""
+        # Pre-check reportlab availability
+        try:
+            import reportlab
+        except ImportError:
+            messagebox.showerror(
+                "Lỗi",
+                "Cần cài reportlab để xuất PDF.\n\n"
+                "Hướng dẫn:\n"
+                "1. Mở terminal trong thư mục dự án\n"
+                "2. Chạy: .venv\\Scripts\\pip.exe install reportlab\n\n"
+                "Hoặc chạy ứng dụng bằng:\n"
+                ".venv\\Scripts\\python.exe main.py"
+            )
+            return
+        
         filepath = filedialog.asksaveasfilename(
             title="Lưu file PDF",
             defaultextension=".pdf",
@@ -1804,10 +1895,11 @@ class Application(ctk.CTk):
         try:
             stats_service.export_to_pdf(filepath, stats)
             messagebox.showinfo("Xuất PDF", f"✅ Đã xuất file thành công:\n{filepath}")
-        except ImportError:
-            messagebox.showerror("Lỗi", "Cần cài reportlab để xuất PDF:\npip install reportlab")
         except Exception as e:
-            messagebox.showerror("Lỗi", f"Xuất PDF thất bại: {e}")
+            import traceback
+            error_detail = traceback.format_exc()
+            print(f"PDF Export Error Details:\n{error_detail}")
+            messagebox.showerror("Lỗi", f"Xuất PDF thất bại:\n{str(e)[:200]}")
     
     def handle_export_json(self):
         """Export to JSON with file dialog"""
